@@ -48,7 +48,13 @@ const DailyTime = () => {
                                 <Tile className='abnormal'>
                                     <div className='top'>
                                         <div className='title'>Late/Early/Absent</div>
-                                        <Link to='/' className='link'>View all</Link>
+                                        <Link to='/' className='link'>View deduction</Link>
+                                    </div>
+                                    <div className='bottom'>
+                                        <Tabs defaultSelectedIndex={0} selectedIndex={0} aria-label='summary tab'>
+                                            <Tab label='month'>1</Tab>
+                                            <Tab label='year'>2</Tab>
+                                        </Tabs>
                                     </div>
                                 </Tile>
                             </div>
