@@ -1,0 +1,50 @@
+@use '@carbon/grid';
+
+.deduction {
+
+    .name {
+        @include carbon--type-style('productive-heading-05');
+        color: var(--cds-text-01,#161616);
+        margin-bottom: 3rem;
+        padding: 3rem 0;
+    }
+
+    .menu {
+        margin-bottom: 5rem;
+        padding: 3rem 0;
+    }
+
+    .composer {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        row-gap: 16px;
+
+        img {
+            height: 32px;
+            width: fit-content;
+        }
+
+        .middle {
+            margin-bottom: 16px;
+            .intro {
+                @include carbon--type-style('body-short-01');
+                color: var(--cds-text-02,#525252);
+            }
+            .title {
+                @include carbon--type-style('productive-heading-03');
+                color: var(--cds-text-01,#161616);
+            }
+        }
+
+        .button {
+            padding: 0 8px;
+            text-align: center;
+            width: fit-content
+        }
+    }
+}
+// Emit the flex-grid styles
+@include grid.flex-grid();
