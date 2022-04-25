@@ -16,10 +16,10 @@ import {
 } from 'carbon-components-react';
 
 import {
-    Switcher,
-    Notification,
-    UserAvatar,
-    Logout
+    Switcher20,
+    Notification20,
+    UserAvatar20,
+    Logout20
 } from '@carbon/icons-react';
 
 const UI = () => {
@@ -52,16 +52,16 @@ const UI = () => {
             </HeaderNavigation>
             <HeaderGlobalBar>
                 <HeaderGlobalAction aria-label="Notifications">
-                    <Notification size={20} />
+                    <Notification20 />
                 </HeaderGlobalAction>
                 <HeaderGlobalAction aria-label="User Avatar">
-                    <UserAvatar size={20} onClick={onClickAvatar} />
+                    <UserAvatar20 onClick={onClickAvatar} />
                 </HeaderGlobalAction>
                 <HeaderGlobalAction aria-label="App Switcher">
-                    <Switcher size={20} />
+                    <Switcher20 />
                 </HeaderGlobalAction>
                 <HeaderGlobalAction aria-label="Log out">
-                    <Logout size={20} />
+                    <Logout20 />
                 </HeaderGlobalAction>
             </HeaderGlobalBar>
             <SideNav
