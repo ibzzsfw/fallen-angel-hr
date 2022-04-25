@@ -52,7 +52,7 @@ const Deduction = () => {
                     </div>
                 </div>
                 <div class="cds--col-lg-7" >
-                    <div className='cds--offset-lg-9 cds--col-lg-9 cds--offset-md-4 cds--col-md-4'>
+                    <div className='cds--offset-lg-10 cds--col-lg-8 cds--offset-md-4 cds--col-md-4'>
                         <Tile style={{ height: '90vh', backgroundColor: 'green' }} />
                     </div>
                 </div>
