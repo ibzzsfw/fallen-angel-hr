@@ -41,9 +41,9 @@ const UI = () => {
             </HeaderName>
             <HeaderNavigation aria-label="FallenAngel [Human Resources]">
                 <HeaderMenuItem element={Link} to='/dailytime'>Daily Time</HeaderMenuItem>
-                <HeaderMenuItem href="#">Deduction</HeaderMenuItem>
-                <HeaderMenuItem href="#">Leave</HeaderMenuItem>
-                <HeaderMenuItem href="#">Payment</HeaderMenuItem>
+                <HeaderMenuItem element={Link} to='/deduction'>Deduction</HeaderMenuItem>
+                <HeaderMenuItem element={Link} to='/dailytime'>Leave</HeaderMenuItem>
+                <HeaderMenuItem element={Link} to='/dailytime'>Payment</HeaderMenuItem>
                 <HeaderMenu aria-label="Link 4" menuLinkName="Link 4">
                     <HeaderMenuItem href="#">Sub-link 1</HeaderMenuItem>
                     <HeaderMenuItem href="#">Sub-link 2</HeaderMenuItem>
