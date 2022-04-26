@@ -9,93 +9,102 @@
 
     .summary {
         margin-top: $spacing-09;
-        width: 1008px;
-        height: 439.91px;
-        display: grid;
-        grid-auto-columns: 1fr;
-        grid-template-columns: 1fr 2fr;
-        grid-template-rows: 1fr 1fr 1fr;
-        gap: 8px 24px;
-        grid-template-areas:
-            "datetime right"
-            "in right"
-            "out right";
-        justify-content: space-around;
-        align-content: center;
-        justify-items: center;
-        align-items: center;
+        // width: 1008px;
+        height: 540px;
+        // display: grid;
+        // grid-auto-columns: 1fr;
+        // grid-template-columns: 1fr 2fr;
+        // grid-template-rows: 1fr 1fr 1fr;
+        // gap: 8px 24px;
+        // grid-template-areas:
+        //     "datetime right"
+        //     "in right"
+        //     "out right";
+        // justify-content: space-around;
+        // align-content: center;
+        // justify-items: center;
+        // align-items: center;
 
-        .datetime {
-            grid-area: datetime;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
+        .left {
 
-            .date {
-                font: 28px/36px 'IBM Plex Sans', 'sans-serif';
-                font-weight: 400;
-            }
+            height: 540px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            row-gap: 8px;
+            margin-bottom: 3rem;
 
-            .time {
-                font: 44px/64px 'IBM Plex Sans';
-                font-weight: 600;
-            }
-        }
-
-        .in {
-            grid-area: in;
-            ;
-        }
-
-        .out {
-            grid-area: out;
-        }
-
-        .clock {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            padding: 24px;
-            background: linear-gradient(269.84deg, rgba(51, 177, 255, .08) .41%, rgba(51, 177, 255, .07) .42%, rgba(51, 177, 255, .02) 78.2%);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            &__title {
-                @include carbon--type-style('productive-heading-03');
-            }
-
-            .bottom {
+            .datetime {
+                // grid-area: datetime;
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
+                flex-direction: column;
+                width: 100%;
+
+                .date {
+                    font: 28px/36px 'IBM Plex Sans', 'sans-serif';
+                    font-weight: 400;
+                }
 
                 .time {
-                    @include carbon--type-style('productive-heading-05');
-                    text-align: end;
-                }
-
-                .logo {
-                    height: 75%;
+                    font: 44px/64px 'IBM Plex Sans';
+                    font-weight: 600;
                 }
             }
 
-            .phd {
-                z-index: -1;
-                top: 0;
-                left: 0;
+            // .in {
+            //     grid-area: in;
+            //     ;
+            // }
+
+            // .out {
+            //     grid-area: out;
+            // }
+
+            .clock {
+                position: relative;
                 width: 100%;
-                height: 100%;
-                position: absolute;
-                background-color: var(--cds-ui-01, #f4f4f4);
-            }
+                padding: 24px;
+                background: linear-gradient(269.84deg, rgba(51, 177, 255, .08) .41%, rgba(51, 177, 255, .07) .42%, rgba(51, 177, 255, .02) 78.2%);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
 
+                &__title {
+                    @include carbon--type-style('productive-heading-03');
+                }
+
+                .bottom {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .time {
+                        @include carbon--type-style('productive-heading-05');
+                        text-align: end;
+                    }
+
+                    .logo {
+                        height: 75%;
+                    }
+                }
+
+                .phd {
+                    z-index: -1;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background-color: var(--cds-ui-01, #f4f4f4);
+                }
+
+            }
         }
 
         .right {
-            grid-area: right;
+            // grid-area: right;
             width: 100%;
-            height: 100%;
+            height: 540px;
             display: flex;
             flex-direction: column;
 
