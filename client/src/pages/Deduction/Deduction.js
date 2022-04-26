@@ -13,9 +13,9 @@ const Deduction = () => {
                             </div>
                         </div>
                         <div className='cds--row menu'>
-                            <div className='cds--col-lg-4'>
+                            <div className='cds--col'>
                                 <div className='composer'>
-                                    <img src='https://quantum-computing.ibm.com/_nuxt/img/composer-light.6799b22.svg' />
+                                    <img alt='composer logo' src='https://quantum-computing.ibm.com/_nuxt/img/composer-light.6799b22.svg' />
                                     <div className='middle'>
                                         <div className='intro'>Graphically build circuits with</div>
                                         <div className='title'>IBM Quantum Composer</div>
