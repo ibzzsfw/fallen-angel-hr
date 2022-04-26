@@ -29,7 +29,7 @@ const UI = () => {
     const onClickAvatar = useCallback(() => navigate('/profile', { replace: true }), [navigate]);
 
     return (
-        <Header aria-label="IBM Platform Name">
+        <Header aria-label="FallenAngel Platform">
             <SkipToContent />
             <HeaderMenuButton
                 aria-label="Open menu"
@@ -43,7 +43,7 @@ const UI = () => {
                 <HeaderMenuItem element={Link} to='/dailytime'>Daily Time</HeaderMenuItem>
                 <HeaderMenuItem element={Link} to='/deduction'>Deduction</HeaderMenuItem>
                 <HeaderMenuItem element={Link} to='/dailytime'>Leave</HeaderMenuItem>
-                <HeaderMenuItem element={Link} to='/dailytime'>Payment</HeaderMenuItem>
+                <HeaderMenuItem href="#">Payment</HeaderMenuItem>
                 <HeaderMenu aria-label="Link 4" menuLinkName="Link 4">
                     <HeaderMenuItem href="#">Sub-link 1</HeaderMenuItem>
                     <HeaderMenuItem href="#">Sub-link 2</HeaderMenuItem>
@@ -70,9 +70,10 @@ const UI = () => {
                 isPersistent={false}>
                 <SideNavItems>
                     <HeaderSideNavItems>
-                        <HeaderMenuItem href="#">Link 1</HeaderMenuItem>
-                        <HeaderMenuItem href="#">Link 2</HeaderMenuItem>
-                        <HeaderMenuItem href="#">Link 3</HeaderMenuItem>
+                        <HeaderMenuItem element={Link} to='/dailytime'>Daily Time</HeaderMenuItem>
+                        <HeaderMenuItem element={Link} to='/deduction'>Deduction</HeaderMenuItem>
+                        <HeaderMenuItem element={Link} to='/dailytime'>Leave</HeaderMenuItem>
+                        <HeaderMenuItem href="#">Payment</HeaderMenuItem>
                         <HeaderMenu aria-label="Link 4" menuLinkName="Link 4">
                             <HeaderMenuItem href="#">Sub-link 1</HeaderMenuItem>
                             <HeaderMenuItem href="#">Sub-link 2</HeaderMenuItem>

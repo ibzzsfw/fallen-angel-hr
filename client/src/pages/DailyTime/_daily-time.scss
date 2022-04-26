@@ -10,7 +10,7 @@
     .summary {
         margin-top: $spacing-09;
         // width: 1008px;
-        height: 540px;
+        height: 510px;
         // display: grid;
         // grid-auto-columns: 1fr;
         // grid-template-columns: 1fr 2fr;
@@ -27,7 +27,7 @@
 
         .left {
 
-            height: 540px;
+            height: 510px;
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: 1fr 1fr 1fr;
@@ -104,7 +104,7 @@
         .right {
             // grid-area: right;
             width: 100%;
-            height: 540px;
+            height: 510px;
             display: flex;
             flex-direction: column;
 

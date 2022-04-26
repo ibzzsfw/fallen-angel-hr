@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Button,
     Tabs,
     Tab,
     Tile
@@ -35,6 +34,19 @@ const DailyTime = () => {
         },
     };
 
+    const clockElement = (title, time) => {
+
+        return (
+            <Tile className='clock'>
+                <div className='clock__title'>{title}</div>
+                <div className='bottom'>
+                    <div className='time'>{time}</div>
+                    <Time32 className='logo' />
+                </div>
+            </Tile>
+        );
+    }
+
     return (
         <div className="cds--grid cds--grid--full-width dailytime">
             <div className="cds--row dailytime__banner">
@@ -60,22 +72,10 @@ const DailyTime = () => {
                                                 clock.getSeconds().toString().padStart(2, '0')
                                             }</div>
                                         </div>
-                                        <Tile className='clock in'>
-                                            <div className='clock__title'>Clock-in</div>
-                                            <div className='bottom'>
-                                                <div className='time'>08:34:30</div>
-                                                <Time32 className='logo' />
-                                            </div>
-                                        </Tile>
-                                        <Tile className='clock out'>
-                                            <div className='clock__title'>Clock-out</div>
-                                            <div className='bottom'>
-                                                <div className='time'>16:12:51</div>
-                                                <Time32 className='logo' />
-                                            </div>
-                                        </Tile>
+                                        {clockElement('Clock-in', '08:34:30')}
+                                        {clockElement('Clock-out', '16:12:51')}
                                     </div>
-                                    <Tile className='cds--col cds--col-max-4 cds--col-md-8 cds--col-sm-4 right'>
+                                    <Tile className='cds--col cds--col-max-5 cds--col-md-8 cds--col-sm-4 right'>
                                         <div className='top'>
                                             <div className='wrap'>
                                                 <WarningOther32 />
@@ -83,7 +83,7 @@ const DailyTime = () => {
                                             </div>
                                             <Link to='/deduction' className='link'>View deduction</Link>
                                         </div>
-                                        <Tabs defaultSelectedIndex={0} selectedIndex={0} aria-label='summary tab'>
+                                        <Tabs aria-label='summary tab'>
                                             <Tab label='month'>1</Tab>
                                             <Tab label='year'>2</Tab>
                                         </Tabs>
