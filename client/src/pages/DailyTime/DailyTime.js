@@ -49,7 +49,7 @@ const DailyTime = () => {
                         <Tab {...props.tab} label="Summary">
                             <div className="cds--grid cds--grid--full-width summary">
                                 <div className='cds--row'>
-                                    <div className='cds--col-max-4 cds--col-xlg-8 cds--col-lg-8 cds--col-md-8 cds--col-sm-4 left'>
+                                    <div className='cds--col cds--col-max-4 cds--col-md-8 cds--col-sm-4 left'>
                                         <div className="datetime">
                                             <div className='date'>{`${dayNames[clock.getDay()]}, ${monthNames[clock.getMonth()]} ${clock.getDate()}, ${clock.getFullYear()}`}</div>
                                             <div className='time'>{
@@ -75,7 +75,7 @@ const DailyTime = () => {
                                             </div>
                                         </Tile>
                                     </div>
-                                    <Tile className='cds--col-max-4 cds--col-xlg-8 cds--col-lg-8 cds--col-md-8 cds--col-sm-4 right'>
+                                    <Tile className='cds--col cds--col-max-4 cds--col-md-8 cds--col-sm-4 right'>
                                         <div className='top'>
                                             <div className='wrap'>
                                                 <WarningOther32 />
