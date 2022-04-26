@@ -10,12 +10,10 @@
         @include carbon--type-style('productive-heading-05');
         color: var(--cds-text-01,#161616);
         margin-bottom: 3rem;
-        padding: 3rem 0;
     }
 
     .menu {
-        margin-bottom: 5rem;
-        padding: 3rem 0;
+        margin-bottom: 3rem;
     }
 
     .composer {
@@ -48,6 +46,11 @@
             text-align: center;
             width: fit-content
         }
+    }
+
+    .tiles {
+
+        margin-bottom: 3rem;
     }
 }
 // Emit the flex-grid styles

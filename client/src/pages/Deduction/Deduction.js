@@ -4,9 +4,9 @@ import { Tile, Button } from 'carbon-components-react';
 const Deduction = () => {
 
     return (
-        <div className='cds--grid cds--grid--full-width deduction'>
+        <div className='cds--grid cds--grid--full-width deduction' style={{maxWidth: '1920px'}}>
             <div className='cds--row' >
-                <div className='cds--col-lg-9' >
+                <div className='cds--col-max-10 cds--col-xlg-16' >
                     <div className='cds--row name'>
                         <div className='cds--col-lg-16'>
                             <h1>Welcome, suppakorn rakna</h1>
@@ -23,18 +23,18 @@ const Deduction = () => {
                                 <Button className='button'>Launch Composer</Button>
                             </div>
                         </div>
-                        <div className='cds--col-lg-4'>
+                        <div className='cds--col'>
                             <Tile style={{ backgroundColor: 'green' }} />
                         </div>
-                        <div className='cds--col-lg-4'>
+                        <div className='cds--col'>
                             <Tile style={{ backgroundColor: 'blue' }} />
                         </div>
-                        <div className='cds--col-lg-4'>
+                        <div className='cds--col'>
                             <Tile style={{ backgroundColor: 'yellow' }} />
                         </div>
                     </div>
-                    <div className='cds--row'>
-                        <div className='cds--col-lg-8'>
+                    <div className='cds--row tiles'>
+                        <div className='cds--col left'>
                             <div className='cds--row'>
                                 <div className='cds--col-lg-16'>
                                     <Tile style={{ backgroundColor: 'orange' }} />
@@ -46,15 +46,13 @@ const Deduction = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='cds--col-lg-8'>
-                            <Tile style={{ backgroundColor: 'pink' }} />
+                        <div className='cds--col right'>
+                            <Tile style={{ backgroundColor: 'pink', height: '100%' }} />
                         </div>
                     </div>
                 </div>
-                <div class="cds--col-lg-7" >
-                    <div className='cds--offset-lg-9 cds--col-lg-8 cds--offset-md-4 cds--col-md-4'>
-                        <Tile style={{ height: '90vh', backgroundColor: 'green' }} />
-                    </div>
+                <div className="cds--col-max-6 ds--col-xlg-16" >
+                    <Tile style={{ height: '90vh', backgroundColor: 'green' }} />
                 </div>
             </div>
         </div>
