@@ -1,6 +1,6 @@
-* {
-    box-sizing: border-box
-}
+// * {
+//     box-sizing: border-box
+// }
 
 @import 'carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss';
 @import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
@@ -11,3 +11,5 @@
 @import './pages/Profile/profile.scss';
 @import './pages/DailyTime/daily-time.scss';
 @import './pages/Deduction/deduction.scss';
+@import './pages/DailyTime/summary.scss';
+@import './pages/DailyTime/log.scss';
