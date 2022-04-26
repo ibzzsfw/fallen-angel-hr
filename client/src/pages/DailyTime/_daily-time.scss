@@ -2,56 +2,186 @@
 @import './overrides.scss';
 
 .dailytime {
-  .summary {
-    width: 100%;
-    height: 100%;
-  }
+    height: 100vh;
+    background-image: url(https://quantum-computing.ibm.com/_nuxt/img/bg-vector-pattern-dark.6fce647.svg);
+    background-repeat: no-repeat;
+    background-position: -120px 80px;
+
+    .summary {
+        margin-top: $spacing-09;
+        // width: 1008px;
+        height: 510px;
+        // display: grid;
+        // grid-auto-columns: 1fr;
+        // grid-template-columns: 1fr 2fr;
+        // grid-template-rows: 1fr 1fr 1fr;
+        // gap: 8px 24px;
+        // grid-template-areas:
+        //     "datetime right"
+        //     "in right"
+        //     "out right";
+        // justify-content: space-around;
+        // align-content: center;
+        // justify-items: center;
+        // align-items: center;
+
+        .left {
+
+            height: 510px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            row-gap: 8px;
+            margin-bottom: 3rem;
+
+            .datetime {
+                // grid-area: datetime;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                .date {
+                    font: 28px/36px 'IBM Plex Sans', 'sans-serif';
+                    font-weight: 400;
+                }
+
+                .time {
+                    font: 44px/64px 'IBM Plex Sans';
+                    font-weight: 600;
+                }
+            }
+
+            // .in {
+            //     grid-area: in;
+            //     ;
+            // }
+
+            // .out {
+            //     grid-area: out;
+            // }
+
+            .clock {
+                position: relative;
+                width: 100%;
+                padding: 24px;
+                background: linear-gradient(269.84deg, rgba(51, 177, 255, .08) .41%, rgba(51, 177, 255, .07) .42%, rgba(51, 177, 255, .02) 78.2%);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                &__title {
+                    @include carbon--type-style('productive-heading-03');
+                }
+
+                .bottom {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .time {
+                        @include carbon--type-style('productive-heading-05');
+                        text-align: end;
+                    }
+
+                    .logo {
+                        height: 75%;
+                    }
+                }
+
+                .phd {
+                    z-index: -1;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background-color: var(--cds-ui-01, #f4f4f4);
+                }
+
+            }
+        }
+
+        .right {
+            // grid-area: right;
+            width: 100%;
+            height: 510px;
+            display: flex;
+            flex-direction: column;
+
+            .top {
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 66px;
+                padding: 1.5rem;
+
+                .wrap {
+
+                    display: flex;
+                    align-items: center;
+
+                    column-gap: 0.5rem;
+
+                    .title {
+                        @include carbon--type-style('productive-heading-01');
+                    }
+                }
+
+                .link {
+                    text-decoration: none;
+                    cursor: pointer;
+                    color: var(--cds-link-01, #0f62fe);
+                    transition: color 70ms cubic-bezier(.2, 0, .38, .9);
+                }
+            }
+        }
+    }
 }
 
 .dailytime__illo {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 .dailytime__banner {
-  padding-top: $spacing-05;
-  padding-bottom: $spacing-07 * 4;
-  @include dailytime-background;
+    padding-top: $spacing-05;
+    padding-bottom: $spacing-07 * 2;
+    @include dailytime-background;
 }
 
 .dailytime__heading {
-  @include carbon--type-style('productive-heading-05');
+    @include carbon--type-style('productive-heading-05');
 }
 
 .dailytime__r2 {
-  margin-top: rem(-40px);
+    margin-top: rem(-40px);
 }
 
 .dailytime__tab-content {
-  padding-top: $spacing-10;
-  padding-bottom: $spacing-10;
+    padding-top: $spacing-10;
+    padding-bottom: $spacing-10;
 }
 
 .dailytime__subheading {
-  @include carbon--type-style('productive-heading-03');
-  @include carbon--font-weight('semibold');
+    @include carbon--type-style('productive-heading-03');
+    @include carbon--font-weight('semibold');
 }
 
 .dailytime__p {
-  @include carbon--type-style('productive-heading-03');
-  margin-top: $spacing-06;
-  margin-bottom: $spacing-08;
+    @include carbon--type-style('productive-heading-03');
+    margin-top: $spacing-06;
 
-  @include carbon--breakpoint-between((320px + 1), md) {
-    max-width: 75%;
-  }
+    @include carbon--breakpoint-between((320px + 1), md) {
+        max-width: 75%;
+    }
 }
 
 .dailytime__r3 {
-  padding-top: $spacing-09;
-  padding-bottom: $spacing-09;
-  @include dailytime-background;
+    padding-top: $spacing-09;
+    padding-bottom: $spacing-09;
+    @include dailytime-background;
 }
 
 .dailytime__label {
-  @include carbon--type-style('heading-01');
+    @include carbon--type-style('heading-01');
 }

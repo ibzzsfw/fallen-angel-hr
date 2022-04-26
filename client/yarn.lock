@@ -1062,10 +1062,17 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
-"@carbon/icon-helpers@^10.10.0":
-  "integrity" "sha512-QlYdeL97klhqahsayK6uEDPtr7imU4bdaudWPVZojg+7Uio3WNzb5iUNLkWA5zRLvP4xgcjSpbdDX2sT3CgL2A=="
-  "resolved" "https://registry.npmjs.org/@carbon/icon-helpers/-/icon-helpers-10.29.0.tgz"
-  "version" "10.29.0"
+"@carbon/grid@^11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@carbon/grid/-/grid-11.1.0.tgz#6ffec0466c09f91fbfeca45de237e8e8dc2d5fba"
+  integrity sha512-AS78yH03bEqBysxRQ/zujAJTE69NLBsNezDiECUFf+VAS6hJQi0LSDxuuo6HOKQpLqUANj4d6eZdcnrIuw/Z5A==
+  dependencies:
+    "@carbon/layout" "^11.1.0"
+
+"@carbon/icon-helpers@^10.10.0", "@carbon/icon-helpers@^10.28.0", "@carbon/icon-helpers@^10.29.0":
+  version "10.29.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.29.0.tgz#686bc5a337bec6d8fb482655f4564f3376452a35"
+  integrity sha512-QlYdeL97klhqahsayK6uEDPtr7imU4bdaudWPVZojg+7Uio3WNzb5iUNLkWA5zRLvP4xgcjSpbdDX2sT3CgL2A==
 
 "@carbon/icons-react@^10.22.0", "@carbon/icons-react@10.22.0":
   "integrity" "sha512-7fWi6Kg2mJggNpFZaVBdhq7IwSb8Vn4vPSVZED0Y9H4gnZmBxN1JrajAsKKwuvSZlRPaWSJExB3tgznJD9cSGg=="
@@ -1073,7 +1080,35 @@
   "version" "10.22.0"
   dependencies:
     "@carbon/icon-helpers" "^10.10.0"
-    "prop-types" "^15.7.2"
+    prop-types "^15.7.2"
+
+"@carbon/icons-react@^10.22.0":
+  version "10.49.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-react/-/icons-react-10.49.0.tgz#178f62fe2f5b343fa2d2034fb14203b01d44b894"
+  integrity sha512-Lzz0A/DfR0fBye0pyxA/7+EPr1e0GeA5qYlxoOwOVJrp/L2vFuKPOe7QLBHkNgKly/BAdqN9Uo1IHKbp6Zljeg==
+  dependencies:
+    "@carbon/icon-helpers" "^10.28.0"
+    "@carbon/telemetry" "0.1.0"
+    prop-types "^15.7.2"
+
+"@carbon/layout@^11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@carbon/layout/-/layout-11.1.0.tgz#7a2072495761b1c59ebfde4271166397d18ba2f5"
+  integrity sha512-aryW3p8nr4xjPtr8uN5oheV9ymtVf6SCYgSkDhCPFSIK8UZt1SCUMobaMVRi3stKTm/7B9WzC27T9nKGz336aA==
+
+"@carbon/pictograms-react@^11.26.2":
+  version "11.26.2"
+  resolved "https://registry.yarnpkg.com/@carbon/pictograms-react/-/pictograms-react-11.26.2.tgz#e5d6f469c01c507543d1d90736c28a2d7cfff29a"
+  integrity sha512-c09HgoJAW52j59um3luS1JaSXZC1tC5c5TBcnvGaLjH0LZ5e3jgRvGqF+LyJ3nAxpX9vzJaHGYv5Fh6vhX+sHg==
+  dependencies:
+    "@carbon/icon-helpers" "^10.29.0"
+    "@carbon/telemetry" "0.1.0"
+    prop-types "^15.7.2"
+
+"@carbon/telemetry@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@carbon/telemetry/-/telemetry-0.1.0.tgz#57b331cd5a855b4abbf55457456da8211624d879"
+  integrity sha512-kNWt0bkgPwGW0i5h7HFuljbKRXPvIhsKbB+1tEURAYLXoJg9iJLF1eGvWN5iVoFCS2zje4GR3OGOsvvKVe7Hlg==
 
 "@csstools/normalize.css@*":
   "integrity" "sha512-M0qqxAcwCsIVfpFQSlGN5XjXWu8l5JDZN+fPt1LeW5SZexQTgnaEvgXAY+CeygRw0EeppWHi12JxESWiWrB0Sg=="
