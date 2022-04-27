@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     DataTable,
@@ -17,97 +17,24 @@ import {
     TableContainer,
     Pagination,
 } from 'carbon-components-react';
+import { rows, headers } from './LogData';
 
 const Log = () => {
 
-    const rows = [
-        {
-            attached_groups: 'Kevin’s VM Groups',
-            id: 'a',
-            name: 'Load Balancer 3',
-            port: 3000,
-            protocol: 'HTTP',
-            rule: 'Round robin',
-            status: <Link disabled>Disabled</Link>
-        },
-        {
-            attached_groups: 'Maureen’s VM Groups',
-            id: 'b',
-            name: 'Load Balancer 1',
-            port: 443,
-            protocol: 'HTTP',
-            rule: 'Round robin',
-            status: <Link>Starting</Link>
-        },
-        {
-            attached_groups: 'Andrew’s VM Groups',
-            id: 'c',
-            name: 'Load Balancer 2',
-            port: 80,
-            protocol: 'HTTP',
-            rule: 'DNS delegation',
-            status: <Link>Active</Link>
-        },
-        {
-            attached_groups: 'Marc’s VM Groups',
-            id: 'd',
-            name: 'Load Balancer 6',
-            port: 3000,
-            protocol: 'HTTP',
-            rule: 'Round robin',
-            status: <Link disabled>Disabled</Link>
-        },
-        {
-            attached_groups: 'Mel’s VM Groups',
-            id: 'e',
-            name: 'Load Balancer 4',
-            port: 443,
-            protocol: 'HTTP',
-            rule: 'Round robin',
-            status: <Link>Starting</Link>
-        },
-        {
-            attached_groups: 'Ronja’s VM Groups',
-            id: 'f',
-            name: 'Load Balancer 5',
-            port: 80,
-            protocol: 'HTTP',
-            rule: 'DNS delegation',
-            status: <Link>Active</Link>
-        }
-    ];
-    const headers = [
-        {
-            header: 'Name',
-            key: 'name'
-        },
-        {
-            header: 'Protocol',
-            key: 'protocol'
-        },
-        {
-            header: 'Port',
-            key: 'port'
-        },
-        {
-            header: 'Rule',
-            key: 'rule'
-        },
-        {
-            header: 'Attached groups',
-            key: 'attached_groups'
-        },
-        {
-            header: 'Status',
-            key: 'status'
-        }
-    ];
+    const [totalItems, setTotalItems] = useState(rows.length);
+    const [firstRowIndex, setFirstRowIndex] = useState(0);
+    const [currentPageSize, setCurrentPageSize] = useState(10);
+
+    useEffect(() => setTotalItems(rows.length), [rows]);
 
     return (
         <div className="cds--grid cds--grid--full-width log">
-            <div className="cds--row" style={{ marginTop: '$spacing-09' }}>
+            <div className="cds--row">
                 <div className="cds--col">
-                    <DataTable rows={rows} headers={headers}>
+                    <DataTable
+                        rows={rows.slice(firstRowIndex, firstRowIndex + currentPageSize)}
+                        headers={headers}
+                        isSortable={true}>
                         {({
                             rows,
                             headers,
@@ -120,15 +47,15 @@ const Log = () => {
                                 <TableToolbar>
                                     <TableToolbarContent>
                                         {/* pass in `onInputChange` change here to make filtering work */}
-                                        <TableToolbarSearch onChange={onInputChange} />
+                                        <TableToolbarSearch onChange={onInputChange} placeholder={'Search something'} />
                                         <TableToolbarMenu>
-                                            <TableToolbarAction onClick={console.log('Action 1 Click')}>
+                                            <TableToolbarAction >
                                                 Action 1
                                             </TableToolbarAction>
-                                            <TableToolbarAction onClick={console.log('Action 2 Click')}>
+                                            <TableToolbarAction >
                                                 Action 2
                                             </TableToolbarAction>
-                                            <TableToolbarAction onClick={console.log('Action 3 Click')}>
+                                            <TableToolbarAction >
                                                 Action 3
                                             </TableToolbarAction>
                                         </TableToolbarMenu>
@@ -139,7 +66,7 @@ const Log = () => {
                                     <TableHead>
                                         <TableRow>
                                             {headers.map((header) => (
-                                                <TableHeader key={header.key} {...getHeaderProps({ header, isSortable: true })}>
+                                                <TableHeader key={header.key} {...getHeaderProps({ header })}>
                                                     {header.header}
                                                 </TableHeader>
                                             ))}
@@ -153,27 +80,43 @@ const Log = () => {
                                                 ))}
                                             </TableRow>
                                         ))}
+                                        {
+                                            totalItems === 0
+                                                ? <TableRow>
+                                                    <TableCell>
+                                                        <div className="empty-state">
+                                                            <img src='https://quantum-computing.ibm.com/_nuxt/img/magnify.483b9f4.svg' alt='magnify' />
+                                                            <div className="title">No records found</div>
+                                                            <div className="description">Try adjusting your search or filter options to find what you are looking for.</div>
+                                                        </div>
+                                                    </TableCell>
+                                                    <TableCell />
+                                                    <TableCell />
+                                                    <TableCell />
+                                                    <TableCell />
+                                                    <TableCell />
+                                                </TableRow>
+                                                : <></>
+                                        }
                                     </TableBody>
                                 </Table>
                             </TableContainer>
                         )}
                     </DataTable>
                     <Pagination
+                        totalItems={totalItems}
                         backwardText="Previous page"
                         forwardText="Next page"
                         itemsPerPageText="Items per page:"
-                        onChange={function noRefCheck() { }}
-                        page={1}
-                        pageSize={10}
-                        pageSizes={[
-                            10,
-                            20,
-                            30,
-                            40,
-                            50
-                        ]}
+                        pageSize={currentPageSize}
+                        pageSizes={[5, 10, 15, 25]}
                         size="md"
-                        totalItems={103}
+                        onChange={({ page, pageSize }) => {
+                            if (pageSize !== currentPageSize) {
+                                setCurrentPageSize(pageSize);
+                            }
+                            setFirstRowIndex(pageSize * (page - 1));
+                        }}
                     />
                 </div>
             </div>
