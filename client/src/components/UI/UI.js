@@ -42,7 +42,7 @@ const UI = () => {
                     onClick={() => setIsSideNavExpanded(!isSideNavExpanded)}
                     isActive={isSideNavExpanded}
                 />
-                <HeaderName element={Link} to='/' prefix="FallenAngel">
+                <HeaderName element={Link} to='/profile' prefix="FallenAngel">
                     [Human Resources]
                 </HeaderName>
                 <HeaderNavigation aria-label="FallenAngel [Human Resources]">
@@ -93,7 +93,6 @@ const UI = () => {
                 <HeaderName element={Link} to='/' prefix="Welcome to FallenAngel">
                     Human Resources
                 </HeaderName>
-                <HeaderNavigation aria-label="Welcome to FallenAngel [Human Resources]" />
             </Header>
     );
 }
