@@ -1,0 +1,51 @@
+.profile__banner {
+    background-color: #f4f4f4;
+    padding: $spacing-05;
+
+    .profile__header {
+        @include carbon--type-style('productive-heading-05');
+    }
+
+    .profile__p {
+        @include carbon--type-style('productive-heading-03');
+        margin-top: $spacing-05;
+    }
+}
+
+.profile__content {
+
+    .left {
+        margin-top: $spacing-09;
+        background-color: #f4f4f4;
+        /* height: 650px;
+        width: 430px; */
+
+        image {
+        width: 260px;
+        clip-path: circle();
+        }
+
+        .info__row {
+            padding-top: $spacing-12 * 3;
+            padding-left: $spacing-05;
+            padding-right: $spacing-05;
+            display: flex;
+            flex-direction: column;
+            row-gap: $spacing-05;
+        }
+    }
+
+    .mid {
+        margin-top: $spacing-09;
+        margin-left: 48px;
+        background-color: #f4f4f4;
+    }
+    
+    .right {
+        margin-top: $spacing-09;
+        margin-left: 48px;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+    }
+}
