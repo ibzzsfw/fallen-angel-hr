@@ -1062,6 +1062,11 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@carbon/colors@^11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-11.1.0.tgz#8f3f1d0c06781298668af0e54155d5754e8f08f6"
+  integrity sha512-06VIETXyOgZRNkrZBG+scq5r2souu1klJntSvKaiuDCCgWa3zvMEx0PSGmlnQbj8fCMJlUYx6fUHq6WD9h84pQ==
+
 "@carbon/grid@^11.1.0":
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/@carbon/grid/-/grid-11.1.0.tgz#6ffec0466c09f91fbfeca45de237e8e8dc2d5fba"

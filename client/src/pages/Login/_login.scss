@@ -1,26 +1,32 @@
 .login {
-
+    position: relative;
+    z-index: 1;
     width: 100%;
-    height: calc(100vh - 3rem);
-    background-image: url('https://cloud.ibm.com/login/static/cache/2710b-1194401830/img/login_background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 
     img {
         width: 56px;
     }
 
     .header-wrapper {
-
         display: flex;
         flex-direction: column;
         padding-top: 142px;
+        white-space: nowrap;
 
         .title {
             margin-top: 24px;
             color: #f4f4f4;
             font-size: 2rem;
+
+            .span {
+                font-weight: 600;
+            }
+
+            @media (max-width: 672px) {
+                span {
+                    display: none;
+                }
+            }
         }
 
         .help {
@@ -43,10 +49,16 @@
 
     .form {
         margin-top: 56px;
+        position: relative;
 
         .button {
 
             margin-top: 16px;
+            padding-left: 1rem;
+        }
+
+        .notification {
+            margin-top: -56px;
         }
 
         .container {
@@ -58,6 +70,7 @@
 
             .bx--label {
                 width: 100%;
+                color: #8d8d8d;
 
                 .forgot {
                     width: 100%;
@@ -70,6 +83,26 @@
         .forgot-id {
             margin-top: 18px;
             padding-bottom: 2px;
+            color: #78a9ff;
         }
     }
 }
+
+.bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100vh - 3rem);
+    width: 100vw;
+    background-image: url('https://cloud.ibm.com/login/static/cache/2710b-1194401830/img/login_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+// @media (max-width: 672px) {
+//     .bg {
+//         filter: blur(8px);
+//         -webkit-filter: blur(8px);
+//     }
+// }
