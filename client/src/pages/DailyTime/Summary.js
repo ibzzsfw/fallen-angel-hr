@@ -70,9 +70,9 @@ const Summary = () => {
                         </div>
                         <Link to='/deduction' className='link'>View deduction</Link>
                     </div>
-                    <Tabs aria-label='summary tab'>
+                    <Tabs aria-label='summary tab' contained className='tabs'>
                         <Tab label={TabLabel('Month', 0)}>
-                            <div className='no-data'>No late records</div>
+                            <div className='no-data'>No records</div>
                         </Tab>
                         <Tab label={TabLabel('Year', 16)}>working on this...</Tab>
                     </Tabs>
