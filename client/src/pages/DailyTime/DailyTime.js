@@ -1,28 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
-    Button,
     Tabs,
     Tab,
-    Tile
 } from 'carbon-components-react';
-import { Time32, WarningOther32 } from '@carbon/icons-react';
-import { Link } from 'react-router-dom';
-// import tab_illo from 'client/src/assets/images/tab-illo.png';
+import Summary from './Summary';
+import Log from './Log';
 
 const DailyTime = () => {
-
-    const [clock, setClock] = useState(new Date())
-
-    useEffect(() => {
-        const timerID = setInterval(() => setClock(new Date()), 1000);
-
-        return function cleanup() {
-            clearInterval(timerID);
-        };
-    });
-
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     const props = {
         tabs: {
@@ -47,54 +31,10 @@ const DailyTime = () => {
                 <div className="cds--col cds--no-gutter">
                     <Tabs {...props.tabs} aria-label="Tab navigation">
                         <Tab {...props.tab} label="Summary">
-                            <div className="cds--grid cds--grid--full-width summary">
-                                <div className='cds--row'>
-                                    <div className='cds--col-max-4 cds--col-xlg-8 cds--col-lg-8 cds--col-md-8 cds--col-sm-4 left'>
-                                        <div className="datetime">
-                                            <div className='date'>{`${dayNames[clock.getDay()]}, ${monthNames[clock.getMonth()]} ${clock.getDate()}, ${clock.getFullYear()}`}</div>
-                                            <div className='time'>{
-                                                clock.getHours().toString().padStart(2, '0')
-                                                + ' : ' +
-                                                clock.getMinutes().toString().padStart(2, '0')
-                                                + ' : ' +
-                                                clock.getSeconds().toString().padStart(2, '0')
-                                            }</div>
-                                        </div>
-                                        <Tile className='clock in'>
-                                            <div className='clock__title'>Clock-in</div>
-                                            <div className='bottom'>
-                                                <div className='time'>08:34:30</div>
-                                                <Time32 className='logo' />
-                                            </div>
-                                        </Tile>
-                                        <Tile className='clock out'>
-                                            <div className='clock__title'>Clock-out</div>
-                                            <div className='bottom'>
-                                                <div className='time'>16:12:51</div>
-                                                <Time32 className='logo' />
-                                            </div>
-                                        </Tile>
-                                    </div>
-                                    <Tile className='cds--col-max-4 cds--col-xlg-8 cds--col-lg-8 cds--col-md-8 cds--col-sm-4 right'>
-                                        <div className='top'>
-                                            <div className='wrap'>
-                                                <WarningOther32 />
-                                                <div className='title'>Late/Early/Absent</div>
-                                            </div>
-                                            <Link to='/deduction' className='link'>View deduction</Link>
-                                        </div>
-                                        <Tabs defaultSelectedIndex={0} selectedIndex={0} aria-label='summary tab'>
-                                            <Tab label='month'>1</Tab>
-                                            <Tab label='year'>2</Tab>
-                                        </Tabs>
-                                    </Tile>
-                                </div>
-                            </div>
+                            <Summary />
                         </Tab>
                         <Tab {...props.tab} label="Log">
-                            <div className="cds--grid cds--grid--no-gutter cds--grid--full-width">
-
-                            </div>
+                            <Log />
                         </Tab>
                     </Tabs>
                 </div>
