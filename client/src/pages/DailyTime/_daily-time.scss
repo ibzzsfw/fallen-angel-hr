@@ -2,10 +2,12 @@
 @import './overrides.scss';
 
 .dailytime {
-    height: 100vh;
+    height: calc(100vh - 3rem);
+    width: 100vw;
     background-image: url(https://quantum-computing.ibm.com/_nuxt/img/bg-vector-pattern-dark.6fce647.svg);
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    background-position: -120px 80px;
 
 }
 
