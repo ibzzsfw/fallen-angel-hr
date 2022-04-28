@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     Link,
+    Tile,
     Tabs,
     Tab
 } from 'carbon-components-react';

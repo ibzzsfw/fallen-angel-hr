@@ -19,7 +19,6 @@
 #root {
    margin-top: 3rem;
    @include carbon--theme($carbon--theme--g10, true);
-   // background: var(--cds-ui-background);
    // color: var(--cds-text-01);
 
    .bg {

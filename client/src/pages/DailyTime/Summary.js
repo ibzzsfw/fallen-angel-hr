@@ -46,7 +46,7 @@ const Summary = () => {
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     return (
-        <div className="cds--grid cds--grid--full-width summary theme--g90">
+        <div className="cds--grid cds--grid--full-width summary">
             <div className='cds--row'>
                 <div className='cds--col cds--col-max-4 cds--col-md-8 cds--col-sm-4 left'>
                     <div className="datetime">
@@ -77,6 +77,9 @@ const Summary = () => {
                         <Tab label={TabLabel('Year', 16)}>working on this...</Tab>
                     </Tabs>
                 </Tile>
+                <div className="cds--col-max-7 space">
+                        <img src='https://react-step-6--carbon-tutorial.netlify.app/tab-illo.png' alt='tab-illo' />
+                    </div>
             </div>
         </div>
     );

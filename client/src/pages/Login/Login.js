@@ -114,7 +114,6 @@ const Login = () => {
                             renderIcon={ArrowRight32}
                             kind="primary"
                             tabIndex={0}
-                            // type="submit"
                             onClick={onClickLogin}
                         >Log in</Button>
                         <Link className="forgot-id" to='/'>Forgot ID?</Link>
