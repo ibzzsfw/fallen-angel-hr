@@ -1,4 +1,5 @@
 .login {
+    @include carbon--theme($carbon--theme--g100, true);
     position: relative;
     height: calc(100vh - 3rem);
     width: 100vw;
@@ -34,13 +35,13 @@
         }
 
         .help {
-            color: #8d8d8d;
+            color: var(--cds-link-01, #0f62fe);
             font-size: .875rem;
             margin-top: 8px;
 
             .link {
                 margin-left: 8px;
-                color: #78a9ff;
+                color: var(--cds-link-01, #0f62fe);
                 text-decoration: none;
 
                 &:hover {
@@ -54,6 +55,17 @@
     .form {
         margin-top: 56px;
         position: relative;
+
+        .option {
+            color: var(--cds-text-05);
+        }
+
+        // .bx--list-box {
+        //     background-color: #262626;
+        //     border-bottom: 1px solid #6f6f6f;
+        //     color: #f4f4f4;
+
+        // }
 
         .button {
 
@@ -74,7 +86,7 @@
 
             .bx--label {
                 width: 100%;
-                color: #8d8d8d;
+                color: var(--cds-text-02);
 
                 .forgot {
                     width: 100%;
@@ -87,7 +99,7 @@
         .forgot-id {
             margin-top: 18px;
             padding-bottom: 2px;
-            color: #78a9ff;
+            color: var(--cds-link-01, #0f62fe);
         }
     }
 }

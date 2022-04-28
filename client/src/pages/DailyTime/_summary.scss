@@ -56,17 +56,6 @@
                         height: 75%;
                     }
                 }
-
-                .phd {
-                    z-index: -1;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    background-color: var(--cds-ui-01, #f4f4f4);
-                }
-
             }
         }
 
@@ -93,6 +82,7 @@
 
                     .title {
                         @include carbon--type-style('productive-heading-01');
+                        
                     }
                 }
 
