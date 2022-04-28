@@ -1,6 +1,7 @@
 .profile__banner {
     background-color: #f4f4f4;
-    padding: $spacing-05;
+    padding-top: $spacing-05;
+    padding-bottom: $spacing-05;
 
     .profile__header {
         @include carbon--type-style('productive-heading-05');
@@ -13,9 +14,15 @@
 }
 
 .profile__content {
+    .title {
+        padding-left: $spacing-05;
+        padding-top: $spacing-05;
+        @include carbon--type-style('productive-heading-03');
+    }
 
     .left {
         margin-top: $spacing-09;
+        margin-bottom: $spacing-09;
         background-color: #f4f4f4;
         /* height: 650px;
         width: 430px; */
@@ -26,26 +33,80 @@
         }
 
         .info__row {
-            padding-top: $spacing-12 * 3;
-            padding-left: $spacing-05;
-            padding-right: $spacing-05;
+            padding: $spacing-12 * 3 $spacing-05 $spacing-05 $spacing-05;
             display: flex;
             flex-direction: column;
             row-gap: $spacing-05;
+        }
+
+        .info__links {
+            display: flex;
+            justify-content: center;
+            column-gap: $spacing-07;
+            padding-bottom: $spacing-05;
         }
     }
 
     .mid {
         margin-top: $spacing-09;
         margin-left: 48px;
-        background-color: #f4f4f4;
+        margin-bottom: 3rem;
+        display: grid;
+        grid-template-rows: 50% 50%;
+        grid-gap: 48px;
+
+        .dash__booking {
+            background-color: #f4f4f4;
+                
+        }
+
+        .dash__dailytime {
+            background-color: #f4f4f4;
+            margin-bottom: 3rem;
+        }
     }
     
     .right {
         margin-top: $spacing-09;
         margin-left: 48px;
-        background-color: #f4f4f4;
-        display: flex;
-        flex-direction: column;
+        margin-bottom: 3rem;
+        display: grid;
+        grid-template-rows: 50% 50%;
+        grid-gap: 48px;
+
+        .dash__income {
+            background-color: #f4f4f4;
+            display: grid;
+            grid-template-rows: 25% 75%;
+            row-gap: 48px;
+            
+            .income__data {
+                padding-left: $spacing-05;
+                display: flex;
+                column-gap: 64px;
+                
+                p {
+                    color: #6f6f6f;
+                }
+            }
+        }
+
+        .dash__overtime {
+            background-color: #f4f4f4;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-rows: 25% 75%;
+            row-gap: 48px;
+            
+            .overtime__data {
+                padding-left: $spacing-05;
+                display: flex;
+                column-gap: 64px;
+                
+                p {
+                    color: #6f6f6f;
+                }
+            }
+        }
     }
 }
