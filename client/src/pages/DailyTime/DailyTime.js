@@ -20,26 +20,29 @@ const DailyTime = () => {
     };
 
     return (
-        <div className="cds--grid cds--grid--full-width dailytime">
-            <div className="cds--row dailytime__banner">
-                <div className="cds--col-lg-16">
-                    <h1 className="dailytime__heading">Daily time</h1>
-                    <p className='dailytime__p'>Monitoring and organizing time information</p>
+        <>
+            {/* <div className='dailytime-bg' /> */}
+            <div className="cds--grid cds--grid--full-width dailytime">
+                <div className="cds--row dailytime__banner">
+                    <div className="cds--col-lg-16">
+                        <h1 className="dailytime__heading">Daily time</h1>
+                        <p className='dailytime__p'>Monitoring and organizing time information</p>
+                    </div>
                 </div>
-            </div>
-            <div className="cds--row dailytime__r2">
-                <div className="cds--col cds--no-gutter">
-                    <Tabs {...props.tabs} aria-label="Tab navigation">
-                        <Tab {...props.tab} label="Summary">
-                            <Summary />
-                        </Tab>
-                        <Tab {...props.tab} label="Log">
-                            <Log />
-                        </Tab>
-                    </Tabs>
+                <div className="cds--row dailytime__r2">
+                    <div className="cds--col cds--no-gutter">
+                        <Tabs {...props.tabs} aria-label="Tab navigation">
+                            <Tab {...props.tab} label="Summary">
+                                <Summary />
+                            </Tab>
+                            <Tab {...props.tab} label="Log">
+                                <Log />
+                            </Tab>
+                        </Tabs>
+                    </div>
                 </div>
-            </div>
-        </div >
+            </div >
+        </>
     );
 }
 

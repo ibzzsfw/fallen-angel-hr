@@ -1,7 +1,11 @@
 .login {
     position: relative;
-    z-index: 1;
-    width: 100%;
+    height: calc(100vh - 3rem);
+    width: 100vw;
+    background-image: url('https://cloud.ibm.com/login/static/cache/2710b-1194401830/img/login_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     img {
         width: 56px;
@@ -88,21 +92,8 @@
     }
 }
 
-.bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: calc(100vh - 3rem);
-    width: 100vw;
-    background-image: url('https://cloud.ibm.com/login/static/cache/2710b-1194401830/img/login_background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+@media (min-width: 1921px) {
+    .login .wrap {
+        margin-left: 25%;
+    }
 }
-
-// @media (max-width: 672px) {
-//     .bg {
-//         filter: blur(8px);
-//         -webkit-filter: blur(8px);
-//     }
-// }
