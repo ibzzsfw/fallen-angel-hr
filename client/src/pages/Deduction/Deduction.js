@@ -5,7 +5,7 @@ const Deduction = () => {
 
     return (
             <div className='cds--grid cds--grid--full-width deduction'>
-                <div className='cds--row center'>
+                <div className='cds--row cds--no--gutter center'>
                     <div className='cds--col-max-10 cds--col-xlg-16' >
                         <div className='cds--row name'>
                             <div className='cds--col-lg-16'>
@@ -24,7 +24,7 @@ const Deduction = () => {
                                 </div>
                             </div>
                             <div className='cds--col'>
-                                <Tile style={{ backgroundColor: 'green' }} />
+                                <Tile  />
                             </div>
                             <div className='cds--col'>
                                 <Tile style={{ backgroundColor: 'blue' }} />

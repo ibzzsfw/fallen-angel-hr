@@ -3,8 +3,7 @@ import {
     Button,
     Form,
     TextInput,
-    Select,
-    SelectItem,
+    Dropdown,
     InlineNotification,
 } from 'carbon-components-react';
 import { ArrowRight32 } from '@carbon/icons-react';
@@ -17,6 +16,17 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [isInvalidEmail, setIsInvalidEmail] = useState(false);
     const [isInvalidPassword, setIsInvalidPassword] = useState(false);
+    const [items, setItems] = useState([
+        {
+            id: 'email',
+            text: 'Email'
+        },
+        {
+            id: 'employeeid',
+            text: 'Employee ID'
+        },
+    ]);
+    const [currentItem, setCurrentItem] = useState(items[0]);
 
     useEffect(() => sessionStorage.setItem('login', 'false'), [])
 
@@ -66,32 +76,27 @@ const Login = () => {
                                     subtitle="Try again." />
                             </div>
                         }
+                        <div className="cds--col-max-16 cds--col-xlg-16 cds--lg-16 cds--col-md-8 cds--col-sm-4 option">Sign in with</div>
                         <div className="cds--col-max-5 cds--col-xlg-5 cds--col-lg-5 cds--col-md-3 container">
-                            <Select
-                                size="lg"
+                            <Dropdown
                                 className="select"
                                 defaultValue='email'
                                 id='login-select'
-                                labelText='Log in with'
-                            >
-                                <SelectItem
-                                    text="Email"
-                                    value="eamil"
-                                />
-                                <SelectItem
-                                    text="EmployeeID"
-                                    value="employeeId"
-                                />
-                            </Select>
+                                items={items}
+                                itemToString={item => item ? item.text : ''}
+                                initialSelectedItem={items[0].id}
+                                label={currentItem.text}
+                                onChange={({ selectedItem }) => setCurrentItem(selectedItem)}
+                                selectedItem={currentItem}
+                            />
                         </div>
                         <div className="cds--col-max-11 cds--col-xlg-11 cds--col-lg-11 cds--col-md-5 container">
                             <TextInput
-                                size='lg'
                                 className="text-input"
                                 id='email'
                                 invalid={isInvalidEmail}
                                 // invalidText='Invalid Email'
-                                labelText='Email'
+                                // labelText='Email'
                                 // labelText={forgot('Email')}
                                 placeholder="username@angel.com"
                                 onChange={(e) => setEmail(e.target.value)}

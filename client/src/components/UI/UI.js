@@ -10,6 +10,7 @@ import {
     HeaderGlobalBar,
     HeaderGlobalAction,
     HeaderSideNavItems,
+    HeaderPanel,
     SideNav,
     SideNavItems,
     HeaderMenu,
@@ -26,16 +27,25 @@ const UI = () => {
 
     const navigate = useNavigate();
     const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
-    const onClickAvatar = useCallback(() => navigate('/profile', { replace: true }), [navigate]);
+    const [currentPage, setCurrentPage] = useState('login');
     const onClickLogOut = useCallback(() => {
 
         sessionStorage.setItem('login', 'false')
+        setCurrentPage('login')
         navigate('/', { replace: true })
     }, [navigate]);
 
+    useEffect(() => setCurrentPage((sessionStorage.getItem('login') === 'true') ? 'profile' : ''), [sessionStorage.getItem('login')])
+
+    const onClickAction = action => setCurrentPage(
+        action === currentPage
+            ? ''
+            : action
+    )
+
     return (
         sessionStorage.getItem('login') === 'true' ?
-            <Header aria-label="FallenAngel Platform">
+            <Header aria-label="FallenAngel Platform" className='header'>
                 <SkipToContent />
                 <HeaderMenuButton
                     aria-label="Open menu"
@@ -57,13 +67,25 @@ const UI = () => {
                     </HeaderMenu>
                 </HeaderNavigation>
                 <HeaderGlobalBar>
-                    <HeaderGlobalAction aria-label="Notifications">
+                    <HeaderGlobalAction
+                        aria-label="Notifications"
+                        isActive={currentPage === 'notifications'}
+                        onClick={() => onClickAction('notifications')}
+                    >
                         <Notification20 />
                     </HeaderGlobalAction>
-                    <HeaderGlobalAction aria-label="User Avatar">
-                        <UserAvatar20 onClick={onClickAvatar} />
+                    <HeaderGlobalAction
+                        aria-label="User Avatar"
+                        isActive={currentPage === 'profile'}
+                        onClick={() => onClickAction('profile')}
+                    >
+                        <UserAvatar20 />
                     </HeaderGlobalAction>
-                    <HeaderGlobalAction aria-label="App Switcher"  >
+                    <HeaderGlobalAction
+                        aria-label="App Switcher"
+                        isActive={currentPage === 'switcher'}
+                        onClick={() => onClickAction('switcher')}
+                    >
                         <Switcher20 />
                     </HeaderGlobalAction>
                     <HeaderGlobalAction aria-label="Log out" onClick={onClickLogOut}>
@@ -88,9 +110,11 @@ const UI = () => {
                         </HeaderSideNavItems>
                     </SideNavItems>
                 </SideNav>
+                <HeaderPanel aria-label="Notifications" expanded={currentPage === 'notifications'}>Notifications</HeaderPanel>
+                <HeaderPanel  aria-label="Switcher" expanded={currentPage === 'switcher'}>Switcher</HeaderPanel>
             </Header> :
             <Header aria-label="FallenAngel Platform">
-                <HeaderName element={Link} to='/' prefix="Welcome to FallenAngel">
+                <HeaderName element={Link} to='/' prefix="Welcome to FallenAngel" >
                     Human Resources
                 </HeaderName>
             </Header>
