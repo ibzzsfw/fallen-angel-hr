@@ -2,6 +2,7 @@
     .summary {
         margin-top: $spacing-09;
         height: 510px;
+        max-width: 2220px;
 
         .left {
 
@@ -82,7 +83,7 @@
 
                     .title {
                         @include carbon--type-style('productive-heading-01');
-                        
+
                     }
                 }
 
@@ -123,5 +124,24 @@
             }
         }
 
+        .space {
+            width: 100%;
+            position: relative;;
+
+            img {
+                position: absolute;
+                right: 0;
+                width: 100%;
+                height: auto;
+                max-width: 724px;
+                max-height: 596px;
+            }
+        }
+
+        @media (max-width: 1583px) {
+            .space {
+                display: none;
+            }
+        }
     }
 }

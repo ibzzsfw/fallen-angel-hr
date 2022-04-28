@@ -10,6 +10,7 @@ function App() {
   return (
     <>
       <UI />
+      <div className='bg' />
       <Routes>
         <Route index element={<Login />} />
         <Route path="/profile" element={<Profile />} />

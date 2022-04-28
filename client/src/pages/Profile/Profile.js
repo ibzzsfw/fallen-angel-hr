@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-    Link
+    Link,
+    Tile
 } from 'carbon-components-react';
 
 const Profile = () => {
@@ -14,7 +15,7 @@ const Profile = () => {
                 </div>
             </div>
             <div className='cds--row profile__content'>
-                <div className='cds--col left'>
+                <Tile className='cds--col left'>
                     <image src=''></image>
                     <div className='info__row'>
                         <h5>Employee ID</h5>
@@ -29,13 +30,13 @@ const Profile = () => {
                         <h5>Position</h5>
                         <p>admin</p>
                     </div>
-                </div>
-                <div className='cds--col mid'>
+                </Tile>
+                <Tile className='cds--col mid'>
                     <a href="#" class="bx--link">View all</a>
-                </div>
-                <div className='cds--col right'>
+                </Tile>
+                <Tile className='cds--col right'>
                     <a href="#" class="bx--link">View all</a>
-                </div>
+                </Tile>
             </div>
         </div>
     )

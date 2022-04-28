@@ -21,7 +21,7 @@ const DailyTime = () => {
 
     return (
         <>
-            <div className='bg' />
+            {/* <div className='bg-override' /> */}
             <div className="cds--grid cds--grid--full-width dailytime">
                 <div className="cds--row dailytime__banner">
                     <div className="cds--col-lg-16">
