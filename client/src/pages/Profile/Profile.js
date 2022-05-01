@@ -45,7 +45,6 @@ const Profile = () => {
                         {OpenModal && <EditProfile CloseModal={setOpenModal} />}
                     </div>
                 </div>
-
                 <div className='cds--col cds--col-max-5 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 mid'>
                     <div className='cds--row dash__booking'>
                         <div className='title'>Booking Summary</div>
@@ -62,7 +61,6 @@ const Profile = () => {
                         <div className='title'>Daily time</div>
                     </div>
                 </div>
-
                 <div className='cds--col cds--col-max-5 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 right'>
                     <div className='cds--row dash__income'>
                         <div className='title'>Income</div>
@@ -90,7 +88,7 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Tile>
             </div>
         </div>
     )

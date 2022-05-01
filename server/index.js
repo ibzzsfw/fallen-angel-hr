@@ -27,6 +27,6 @@ app.get("/getLeaveType", (req, res) => {
         }
     });
 });
-// app.get("/getUserRole", (req, res) => UserRole.UserRole(req, res, connection));
+app.get("/getUserRole", (req, res) => UserRole.UserRole(req, res, connection));
 
 app.listen(3306, () => console.log("server is running on port 3306"));

@@ -115,6 +115,7 @@ const UI = () => {
                         aria-label="User Avatar"
                         isActive={currentAction === 'profile'}
                         onClick={() => {
+                            sessionStorage.setItem('currentPage', 'profile')
                             onClickAction('profile')
                             navigate('/profile', { replace: true })
                         }}
