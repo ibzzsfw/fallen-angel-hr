@@ -109,3 +109,9 @@
         margin-left: 25%;
     }
 }
+
+@media (max-width: 672px) {
+    .login {
+        padding: 0 3rem;
+    }
+}

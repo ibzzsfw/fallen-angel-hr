@@ -19,7 +19,7 @@ const Profile = () => {
                 </div>
             </div>
             <div className='cds--row profile__content'>
-                <div className='cds--col left'>
+                <Tile className='cds--col left'>
                     {/* <image src={profile}></image> */}
                     <div className='info__row'>
                         <h5>Employee ID</h5>
@@ -38,9 +38,8 @@ const Profile = () => {
                         <a href="#" class="bx--link">Edit</a>
                         <a href="#" class="bx--link">View more</a>
                     </div>
-                </div>
-
-                <div className='cds--col mid'>
+                </Tile>
+                <Tile className='cds--col mid'>
                     <div className='cds--row dash__booking'>
                         <div className='title'>Booking Summary</div>
                             <Tabs contained className='tabs__booksum'>
@@ -55,9 +54,8 @@ const Profile = () => {
                     <div className='cds--row dash__dailytime'>
                         <div className='title'>Daily time</div>
                     </div>
-                </div>
-
-                <div className='cds--col right'>
+                </Tile>
+                <Tile className='cds--col right'>
                     <div className='cds--row dash__income'>
                         <div className='title'>Income</div>
                         <div className='income__data'>
@@ -84,7 +82,7 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Tile>
             </div>
         </div>
     )

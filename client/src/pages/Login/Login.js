@@ -115,7 +115,7 @@ const Login = () => {
                             kind="primary"
                             tabIndex={0}
                             onClick={onClickLogin}
-                        >Log in</Button>
+                        >Continue</Button>
                         <Link className="forgot-id" to='/'>Forgot ID?</Link>
                     </Form>
                 </div>
