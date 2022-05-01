@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-    Link,
     Tile,
     Tabs,
-    Tab
+    Tab,
+    Modal
 } from 'carbon-components-react';
 import EditProfile from './EditProfile';
-/* import profile from "../../../public/assets/images/profile.jpg"; */
 
 const Profile = () => {
+
+    const [OpenModal, setOpenModal] = useState(false);
 
     return (
         <div className='cds--grid cds--grid--full-width profile'>
@@ -19,8 +20,9 @@ const Profile = () => {
                 </div>
             </div>
             <div className='cds--row profile__content'>
-                <Tile className='cds--col left'>
+                <div className='cds--col cds--col-max-4 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 left'>
                     {/* <image src={profile}></image> */}
+                    <img src='https://i.pinimg.com/originals/fd/af/12/fdaf129c3310e638533e10a8dc229955.jpg' className='info__pic'></img>
                     <div className='info__row'>
                         <h5>Employee ID</h5>
                         <p>0023</p>
@@ -34,12 +36,16 @@ const Profile = () => {
                         <h5>Position</h5>
                         <p>admin</p>
                     </div>
-                    <div className='info__links'>
-                        <a href="#" class="bx--link">Edit</a>
-                        <a href="#" class="bx--link">View more</a>
+                    <div className='info__modal'>
+                        <button className='bx--btn bx--btn--primary button__openmodal'
+                        onClick={() => {
+                            setOpenModal(true);
+                            }
+                        }>Edit</button>
+                        {OpenModal && <EditProfile CloseModal={setOpenModal} />}
                     </div>
-                </Tile>
-                <Tile className='cds--col mid'>
+                </div>
+                <div className='cds--col cds--col-max-5 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 mid'>
                     <div className='cds--row dash__booking'>
                         <div className='title'>Booking Summary</div>
                             <Tabs contained className='tabs__booksum'>
@@ -54,8 +60,8 @@ const Profile = () => {
                     <div className='cds--row dash__dailytime'>
                         <div className='title'>Daily time</div>
                     </div>
-                </Tile>
-                <Tile className='cds--col right'>
+                </div>
+                <div className='cds--col cds--col-max-5 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 right'>
                     <div className='cds--row dash__income'>
                         <div className='title'>Income</div>
                         <div className='income__data'>
