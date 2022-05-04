@@ -21,8 +21,7 @@ const Profile = () => {
             </div>
             <div className='cds--row profile__content'>
                 <div className='cds--col cds--col-max-4 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 left'>
-                    {/* <image src={profile}></image> */}
-                    <img src='https://i.pinimg.com/originals/fd/af/12/fdaf129c3310e638533e10a8dc229955.jpg' className='info__pic'></img>
+                    <img className='info__pic' src='https://i.pinimg.com/originals/fd/af/12/fdaf129c3310e638533e10a8dc229955.jpg' ></img>
                     <div className='info__row'>
                         <h5>Employee ID</h5>
                         <p>0023</p>
@@ -88,7 +87,7 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                </Tile>
+                </div>
             </div>
         </div>
     )
