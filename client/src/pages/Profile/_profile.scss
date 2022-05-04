@@ -1,44 +1,143 @@
 .profile__banner {
-    background-color: #f4f4f4;
-    padding: $spacing-05;
+    background-color: var(--cds-ui-01);
+    border-bottom: solid 1px #e0e0e0;
+    padding-top: $spacing-06;
+    padding-bottom: $spacing-05;
+
     .profile__header {
         @include carbon--type-style('productive-heading-05');
+        color: var(--cds-text-01,#161616);
     }
     .profile__p {
-        @include carbon--type-style('productive-heading-03');
-        margin-top: $spacing-05;
+        @include carbon--type-style('body-short-01');
+        margin-top: $spacing-03;
+        color: var(--cds-text-05);
     }
 }
 
 .profile__content {
+    .title {
+        padding-left: $spacing-05;
+        padding-top: $spacing-05;
+        @include carbon--type-style('productive-heading-02');
+    }
+
     .left {
-        margin-top: $spacing-09;
-        background-color: #f4f4f4;
+        width: 100%;
+        height: 650px;
+        margin: $spacing-06;
+        background-color: var(--cds-ui-01);
         /* height: 650px;
         width: 430px; */
-        image {
-            width: 260px;
-            clip-path: circle();
+/* 
+        .info__links {
+            display: flex;
+            justify-content: right;
+            column-gap: $spacing-05;
+            padding-top: $spacing-05;
+            padding-right: $spacing-03;
+
+            .link {
+                text-decoration: none;
+                cursor: pointer;
+                color: var(--cds-link-01, #0f62fe);
+                transition: color 70ms cubic-bezier(.2, 0, .38, .9);
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+*/
+        .info__pic {
+            padding-top: $spacing-07;
+            display: block;
+            margin: 0 auto;
+            width: 200px;
         }
         .info__row {
-            padding-top: $spacing-12 * 3;
-            padding-left: $spacing-05;
-            padding-right: $spacing-05;
+            padding: $spacing-09 $spacing-05 $spacing-05 $spacing-05;
             display: flex;
             flex-direction: column;
             row-gap: $spacing-05;
         }
+
+        .info__modal {
+            /* display: flex;
+            justify-content: right; */
+        }
     }
     .mid {
-        margin-top: $spacing-09;
-        margin-left: 48px;
-        background-color: #f4f4f4;
+        width: 100%;
+        height: 650px;
+        margin: $spacing-06;
+        display: grid;
+        grid-template-rows: 50% 50%;
+        grid-gap: 48px;
+
+        .dash__booking {
+            background-color: var(--cds-ui-01);
+                
+        }
+
+        .dash__dailytime {
+            background-color: var(--cds-ui-01);
+            margin-bottom: 3rem;
+        }
     }
     .right {
-        margin-top: $spacing-09;
-        margin-left: 48px;
-        background-color: #f4f4f4;
-        display: flex;
-        flex-direction: column;
+        width: 100%;
+        height: 650px;
+        margin: $spacing-06;
+        display: grid;
+        grid-template-rows: 50% 50%;
+        grid-gap: 48px;
+
+        .dash__income {
+            background-color: var(--cds-ui-01);
+            display: grid;
+            grid-template-rows: 25% 75%;
+            row-gap: 48px;
+            
+            .income__data {
+                height: 70px;
+                padding-left: $spacing-05;
+                display: flex;
+                column-gap: 64px;
+                
+                h1 {
+                    font: 40px 'IBM Plex Sans';
+                    font-weight: 500;
+                }
+                
+                p {
+                    color: #6f6f6f;
+                }
+            }
+        }
+
+        .dash__overtime {
+            background-color: var(--cds-ui-01);
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-rows: 25% 75%;
+            row-gap: 48px;
+            
+            .overtime__data {
+                height: 70px;
+                padding-left: $spacing-05;
+                display: flex;
+                column-gap: 64px;
+                
+                h1 {
+                    font: 40px 'IBM Plex Sans';
+                    font-weight: 500;
+                }
+
+                p {
+                    color: #6f6f6f;
+                }
+            }
+        }
     }
 }

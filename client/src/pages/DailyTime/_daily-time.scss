@@ -1,28 +1,26 @@
 @import './mixins.scss';
 @import './overrides.scss';
 
-.dailytime {
-    height: calc(100vh - 3rem);
-    width: 100vw;
-    background-image: url(https://quantum-computing.ibm.com/_nuxt/img/bg-vector-pattern-dark.6fce647.svg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-}
+// .bg-override {
+//     background-image: url(https://quantum-computing.ibm.com/_nuxt/img/bg-vector-pattern-dark.6fce647.svg);
+// }
 
 .dailytime__illo {
     max-width: 100%;
 }
 
 .dailytime__banner {
-    padding-top: $spacing-05;
+    border-bottom: solid 1px #e0e0e0;
+    padding-top: $spacing-06;
     padding-bottom: $spacing-07 * 2;
-    @include dailytime-background;
+    color: var(--cds-text-01);
+    background-color: var(--cds-ui-01);
+    // @include dailytime-background;
 }
 
 .dailytime__heading {
     @include carbon--type-style('productive-heading-05');
+    color: var(--cds-text-01,#161616);
 }
 
 .dailytime__r2 {
@@ -34,26 +32,8 @@
     padding-bottom: $spacing-10;
 }
 
-.dailytime__subheading {
-    @include carbon--type-style('productive-heading-03');
-    @include carbon--font-weight('semibold');
-}
-
 .dailytime__p {
-    @include carbon--type-style('productive-heading-03');
-    margin-top: $spacing-06;
-
-    @include carbon--breakpoint-between((320px + 1), md) {
-        max-width: 75%;
-    }
-}
-
-.dailytime__r3 {
-    padding-top: $spacing-09;
-    padding-bottom: $spacing-09;
-    @include dailytime-background;
-}
-
-.dailytime__label {
-    @include carbon--type-style('heading-01');
+    @include carbon--type-style('body-short-01');
+    margin-top: $spacing-03;
+    color: var(--cds-text-05);
 }

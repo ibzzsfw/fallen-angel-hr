@@ -33,6 +33,7 @@ app.get("/getLeaveType", (req, res) => {
         }
     });
 });
+
 // app.get("/getUserRole", (req, res) => UserRole.UserRole(req, res, connection));
 //app.get("/getShowInfo", (req, res) => UserRole.ShowInfo(req, res, connection))
 //app.get("/getShowEducation", (req, res) => UserRole.ShowEducation(req, res, connection))
@@ -41,16 +42,5 @@ app.get("/getLeaveType", (req, res) => {
 //app.get("/getShowPosName", (req, res) => UserRole.ShowPosName(req, res, connection))
 //app.get("/getLeaveCount", (req, res) => UserRole.LeaveCount(req, res, connection))
 
-
-
-app.get("/", (res, req) => {
-    connection.query("", (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    })
-});
 
 app.listen(3306, () => console.log("server is running on port 3306"));

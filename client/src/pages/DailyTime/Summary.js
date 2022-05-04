@@ -77,6 +77,9 @@ const Summary = () => {
                         <Tab label={TabLabel('Year', 16)}>working on this...</Tab>
                     </Tabs>
                 </Tile>
+                <div className="cds--col-max-7 space">
+                        <img src='https://react-step-6--carbon-tutorial.netlify.app/tab-illo.png' alt='tab-illo' />
+                    </div>
             </div>
         </div>
     );
