@@ -16,7 +16,7 @@ const Profile = () => {
             <div className='cds--row profile__banner'>
                 <div className="cds--col-lg-16">
                     <h1 className='profile__header'>Profile</h1>
-                    <p  className='profile__p'>Welcome, suppakorn rakna</p>
+                    <p className='profile__p'>Welcome, suppakorn rakna</p>
                 </div>
             </div>
             <div className='cds--row profile__content'>
@@ -38,25 +38,25 @@ const Profile = () => {
                     </div>
                     <div className='info__modal'>
                         <button className='bx--btn bx--btn--primary button__openmodal'
-                        onClick={() => {
-                            setOpenModal(true);
+                            onClick={() => {
+                                setOpenModal(true);
                             }
-                        }>Edit</button>
+                            }>Edit</button>
                         {OpenModal && <EditProfile CloseModal={setOpenModal} />}
                     </div>
                 </div>
                 <div className='cds--col cds--col-max-5 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 mid'>
                     <div className='cds--row dash__booking'>
                         <div className='title'>Booking Summary</div>
-                            <Tabs contained className='tabs__booksum'>
-                                <Tab label='Leave'>
-                                    <p>Content for first tab goes here.</p>
-                                </Tab>
-                                <Tab label='Document request'>
-                                    <p>Content for second tab goes here.</p>
-                                </Tab>
-                            </Tabs>
-                        </div>
+                        <Tabs contained className='tabs__booksum'>
+                            <Tab label='Leave'>
+                                <p>Content for first tab goes here.</p>
+                            </Tab>
+                            <Tab label='Document request'>
+                                <p>Content for second tab goes here.</p>
+                            </Tab>
+                        </Tabs>
+                    </div>
                     <div className='cds--row dash__dailytime'>
                         <div className='title'>Daily time</div>
                     </div>
@@ -88,7 +88,7 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                </Tile>
+                </div>
             </div>
         </div>
     )
