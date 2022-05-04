@@ -41,22 +41,7 @@ SELECT date, clockIn, clockOut, type, lateHrs FROM DailyTime WHERE employeeID = 
 
 --หน้า 30
 -- แท็บ Summary
-SELECT employeeID, firstName,  COUNT(status = 'approved') FROM LeaveApplication WHERE employeeID IN (SELECT employeeID FROM Information WHERE employeeID = '0e38af30-7a6a4201-9584-42264f2684fc');
---employeeID = '0e38af30-7a6a4201-9584-42264f2684fc'
-
---หน้า 24
---แสดงประวัติการศึกษา
-SELECT * FROM Education WHERE employeeID = '..';
---แสดงประวัติการเลื่อนตำแหน่ง
-SELECT * FROM PromotionHistory WHERE employeeID = '..';
---แสดงจำนวนครั้งการลา แบ่งตามประเภทการลา
-SELECT COUNT(status) FROM LeaveApplication WHERE employeeID = '..' GROUP BY status;
---แสดงจำนวนครั้งที่ขอคำร้อง เอกสาร แบ่งตามสถานะของคำร้อง
-SELECT COUNT(status) FROM DocumentRequest WHERE employeeID = '..' GROUP BY status;
---
---แสดงรายได้ทั้งหมดต่อเดือน ปี ?
-SELECT SUM(salary + OT + other) FROM Income WHERE employeeID = '..' GROUP BY month;
---
+SELECT employeeID, firstName,  COUNT(status) FROM LeaveApplication WHERE status = 'approved' AND employeeID IN (SELECT employeeID FROM Information WHERE employeeID = '0e38af30-7a6a4201-9584-42264f2684fc');
 
 
 --หน้า 27
