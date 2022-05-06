@@ -11,7 +11,7 @@ const UserRole = (req, res, connection) => {
 
 const ShowInfo = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
-    connection.query("SELECT * FROM Information WHERE employeeID = ?", [employeeID], function(err, result) {
+    connection.query("SELECT * FROM Information WHERE employeeID = ?", [employeeID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -36,7 +36,7 @@ const ShowInfo = (req, res, connection) => {
 */
 const ShowEducation = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
-    connection.query("SELECT * FROM Education WHERE employeeID = ?", [employeeID], function(err, result) {
+    connection.query("SELECT * FROM Education WHERE employeeID = ?", [employeeID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -46,7 +46,7 @@ const ShowEducation = (req, res, connection) => {
     });
 };
 
-const ShowPromoHis = (res, req, connection) => {
+const ShowPromotionHistory = (res, req, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query("SELECT * FROM PromotionHistory WHERE employeeID = ?", [employeeID], (err, result) => {
         if (err) {
@@ -73,7 +73,7 @@ const IncomeByMonth = (res, req, connection) => {
     });
 };
 
-const ShowPosName = (res, req, connection) => {
+const ShowPositionName = (res, req, connection) => {
     let Position = (req.headers.Position || '')
     let positionID = (req.headers.positionID || '')
         //let positionName = (req.headers.positionName || '')
@@ -88,6 +88,20 @@ const ShowPosName = (res, req, connection) => {
     });
 };
 
+const CountStatus = (res, req, connection) => {
+    let status = (req.headers.status || '')
+    let employeeID = (req.headers.employeeID || '')
+    connection.query("SELECT COUNT(status) FROM LeaveApplication WHERE status = ? AND employeeID = ?;", [status, employeeID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+};
+
+/*
 const LeaveCount = (res, req, connection) => {
     let status = (req.headers.status)
     let employeeID = (req.headers.employeeID)
@@ -120,15 +134,35 @@ const LeaveCount = (res, req, connection) => {
         });
     }
 };
+*/
 
-
+const RequestLeave = (res, req, connection) => {
+    let employeeID = (req.headers.employeeID || '')
+    let bookingID = (req.headers.bookingID || '')
+    let leaveID = (req.headers.leaveID || '')
+    let bookingDate = (req.headers.bookingDate || '')
+    let reason = (req.headers.reason || '')
+    let document = (req.headers.document || '')
+    let startDate = (req.headers.startDate || '')
+    let endDate = (req.headers.endDate || '')
+    let status = (req.headers.status || '')
+    connection.query("INSERT INTO LeaveApplication(bookingID, employeeID, leaveID, bookingDate, reason, document, startDate, endDate, status) VALUES (?,?,?,?,?,?,?,?,?)", [bookingID, employeeID, leaveID, bookingDate, reason, document, startDate, endDate, status], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+};
 
 export default {
     UserRole,
     ShowInfo,
     ShowEducation,
-    ShowPromoHis,
+    ShowPromotionHistory,
     IncomeByMonth,
-    ShowPosName,
-    LeaveCount,
+    ShowPositionName,
+    CountStatus,
+    RequestLeave,
 }
