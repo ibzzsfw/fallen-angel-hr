@@ -8,15 +8,23 @@ SELECT * FROM Education WHERE employeeID = '..';
 --แสดงประวัติการเลื่อนตำแหน่ง
 SELECT * FROM PromotionHistory WHERE employeeID = '..';
 --แสดงจำนวนครั้งการลา แบ่งตามประเภทการลา
-SELECT COUNT(status) FROM LeaveApplication WHERE employeeID = '..' GROUP BY status;
+SELECT status, COUNT(status) FROM LeaveApplication WHERE employeeID = '..' GROUP BY status;
 --แสดงจำนวนครั้งที่ขอคำร้อง เอกสาร แบ่งตามสถานะของคำร้อง
-SELECT COUNT(status) FROM DocumentRequest WHERE employeeID = '..' GROUP BY status;
---แสดงสรุปจำนวนวัน
-******************************************
+SELECT status, COUNT(status) FROM DocumentRequest WHERE employeeID = '..' GROUP BY status;
+--แสดงสรุปจำนวนวัน เลือกเป็นรายสัปดาห์/เดือน **ไม่แน่ใจว่าเข้าใจถูกไหม** และเวลาเข้าออกงานในวันนั้น ๆ 
+SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = '0e38af30-7a6a4201-9584-42264f2684fc' AND date BETWEEN '2022-03-11' AND '2022-03-17' GROUP BY type;
+SELECT clockIn, clockOut FROM DailyTime WHERE employeeID = '..' AND date = '..';
 --แสดงรายได้ทั้งหมดต่อเดือน ปี ?
 SELECT SUM(salary + OT + other) FROM Income WHERE employeeID = '..' GROUP BY month;
 --แสดงสรุปจำนวนชั่วโมง/การคำนวณรายได้ ขณะนั้นนับเริ่มจากต้นเดือน
-******************************************
+CREATE VIEW OTcalculate AS
+SELECT OverTime.*, HOUR(TIMEDIFF(TIME(OverTime.clockOut),Position.clockOut)) AS OTHrs, 
+(((Position.salary/30)/8)*1.5)*(HOUR(TIMEDIFF(TIME(OverTime.clockOut),Position.clockOut))) AS OTincome
+FROM OverTime INNER JOIN Position ON OverTime.positionID = Position.positionID
+LEFT JOIN DailyTime ON OverTime.employeeID = DailyTime.employeeID 
+AND DATE(OverTime.clockOut) = DailyTime.date
+--
+SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) = '..' AND YEAR(clockOut) = '..'
 --แสดงชื่อตำแหน่ง
 SELECT positionName FROM PromotionHistory WHERE employeeID = '..' AND stopDate IS NULL;
 --แสดงชื่อแผนก
@@ -40,7 +48,9 @@ UPDATE Notification SET status = 'approved';
 
 ----- หน้า 28 -----
 -- แถบ Summary --
+--แสดงเวลาเข้าและออกงานของวันนั้นน ๆ
 SELECT clockIn, clockOut FROM DailyTime WHERE employeeID = '..' AND date = '..';
+--สรุปจำนวนการมาทำงาน/มาสายในแต่ละเดือน/ปี
 SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = '..' GROUP BY type;
 
 -- ตาราง Log
@@ -50,12 +60,21 @@ SELECT date, clockIn, clockOut, type, lateHrs FROM DailyTime WHERE employeeID = 
 ----- หน้า 30 -----
 -- แท็บ Summary --
 --สรุปวันลา
+SELECT DATE(leaveapp.startDate) AS startDate, DATE(leaveapp.endDate) AS endDate, LeaveType.leaveName, 
+DATEDIFF(leaveapp.endDate, leaveapp.startDate)+1 AS sumDate FROM LeaveApplication leaveapp 
+INNER JOIN LeaveType ON leaveapp.leaveID = LeaveType.leaveID
+WHERE leaveapp.status = 'approved' AND leaveapp.employeeID = '..'
+GROUP BY leaveapp.leaveID, leaveapp.status;
 SELECT COUNT(status) FROM LeaveApplication WHERE status = 'approved' AND employeeID = '..';
+--
 SELECT COUNT(status) FROM LeaveApplication WHERE status = 'waiting' AND employeeID = '..';
-SELECT COUNT(status) FROM LeaveApplication WHERE status = 'rejected' AND employeeID = '..';
-********
-SELECT employeeID, COUNT(status) FROM LeaveApplication 
-WHERE status = 'waiting' AND employeeID IN (SELECT employeeID FROM Information WHERE employeeID = '..');
+--
+SELECT COUNT(LeaveApplication.status) AS rejected, LeaveType.leaveName, LeaveBooking.managerNote FROM LeaveApplication
+INNER JOIN LeaveType ON LeaveApplication.leaveID = LeaveType.leaveID
+LEFT JOIN LeaveBooking ON LeaveApplication.bookingID = LeaveBooking.bookingID
+WHERE LeaveApplication.status = 'rejected' AND LeaveApplication.employeeID = '0e38af30-7a6a4201-9584-42264f2684fc'
+GROUP BY LeaveApplication.leaveID, LeaveApplication.status;
+
 --แจ้งวันลาที่เหลืออยู่
 SELECT sickRemain, personalRemain, vacationRemain, maternityRemain FROM information WHERE employeeID = '..';
 
@@ -108,7 +127,7 @@ INSERT INTO LeaveBooking(bookingID, confirmation, managerNote) VALUES ('[value-1
 --แสดงตัวเลือก
 SELECT documentName FROM Document;
 --ส่งคำขอเอกสารจากรายชื่อ เหตุผล
-INSERT INTO DocumentRequest(requestID, documentID, employeeID, purpose, requestDate, status) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]');
+INSERT INTO DocumentRequest(requestID, documentID, employeeID, purpose, requestDate, status) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]',CURRENT_TIMESTAMP,'waiting');
 
 -- แท็บ Status --
 SELECT confirmationDate, status, managerNote FROM RequestBooking WHERE employeeID = '..';
@@ -136,21 +155,28 @@ WHERE info.employeeID = '0e38af30-7a6a4201-9584-42264f2684fc';
 ******************************************
 
 
------ หน้า 36 -----
--- แท็บ Absent --
-******************************************
+----- หน้า 36 ----- ********** น่าจะได้แค่ Late/EarlyLeave ***********
+-- แท็บ Absent -- 
+SELECT (pro.salary/30)*(COUNT(NOT EXISTS (SELECT clockIn, clockOut FROM DailyTime))) AS absentDeduct FROM PromotionHistory pro 
+INNER JOIN DailyTime daily ON pro.employeeID = daily.employeeID
+WHERE pro.stopDate IS NULL AND NOT EXISTS (SELECT clockIn, clockOut FROM DailyTime)
+AND pro.employeeID = '0e38af30-7a6a4201-9584-42264f2684fc' AND date BETWEEN '2022-03-15' AND '2022-03-17';
 
 -- แท็บ Late/EarlyLeave --
-******************************************
+SELECT daily.*,((((pro.salary/30)/8)/60) * daily.lateHrs) AS lateEarlyDeduct FROM PromotionHistory pro
+INNER JOIN DailyTime daily ON pro.employeeID = daily.employeeID
+WHERE pro.stopDate IS NULL AND pro.employeeID = '..';
 
 -- แท็บ OverLeave --
-******************************************
+
 
 
 ----- หน้า 38 -----
 --อัพเดตข้อมูลพนักงานปัจจุบัน
-INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]');
-UPDATE PromotionHistory SET stopDate = '[value-4]' WHERE employeeID = '..';
+INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]',NULL,'[value-5]');
+--update ตำแหน่งเก่า
+UPDATE PromotionHistory SET stopDate = '[value-1]' WHERE employeeID = '..';
+--update role ใหม่ (ถ้าเลื่อนยศ)
 UPDATE Information SET roleID = '[value-1]' WHERE employeeID = '..';
 
 ----- หน้า 40 -----
