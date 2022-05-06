@@ -3,19 +3,21 @@ import mysql from 'mysql2';
 import cors from "cors";
 
 // controllers import
-import UserRole from './controllers/userRole.js';
-import ShowInfo from './controllers/UserRole.js';
-import ShowEducation from './controllers/UserRole.js';
-import ShowPromoHis from './controllers/UserRole.js';
-import IncomeByMonth from './controllers/UserRole.js';
-import ShowPosName from './controllers/UserRole.js';
-import LeaveCount from './controllers/UserRole.js';
+import UserRole from './controllers/Controller.js';
+import ShowInfo from './controllers/Controller.js';
+import ShowEducation from './controllers/Controller.js';
+import ShowPromotionHistory from './controllers/Controller.js';
+import IncomeByMonth from './controllers/Controller.js';
+import ShowPositionName from './controllers/Controller.js';
+import CountStatus from './controllers/Controller.js';
+import RequestLeave from './controllers/Controller.js';
+import Controller from "./controllers/Controller.js";
 
 const connection = mysql.createConnection({
     host: 'SG-fallen-angel-hr-6098-mysql-master.servers.mongodirector.com',
     port: '3306',
     user: 'sgroot',
-    password: 'VuFMRb4nI4Tj@e69',
+    password: '9cCzZPgxx,yn3g1B',
     database: 'fallen-angel-hr',
 });
 
@@ -34,13 +36,19 @@ app.get("/getLeaveType", (req, res) => {
     });
 });
 
-// app.get("/getUserRole", (req, res) => UserRole.UserRole(req, res, connection));
-//app.get("/getShowInfo", (req, res) => UserRole.ShowInfo(req, res, connection))
-//app.get("/getShowEducation", (req, res) => UserRole.ShowEducation(req, res, connection))
-//app.get("/getShowPromoHis", (req, res) => UserRole.ShowPromoHis(req, res, connection))
-//app.get("/getIncomeByMonth", (req, res) => UserRole.IncomeByMonth(req, res, connection))
-//app.get("/getShowPosName", (req, res) => UserRole.ShowPosName(req, res, connection))
-//app.get("/getLeaveCount", (req, res) => UserRole.LeaveCount(req, res, connection))
+//app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));
 
+
+
+
+
+// app.get("/getUserRole", (req, res) => Controller.UserRole(req, res, connection));
+//app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));
+//app.get("/getShowEducation", (req, res) => Controller.ShowEducation(req, res, connection));
+//app.get("/getShowPromotionHistory", (req, res) => Controller.ShowProtionmoHistory(req, res, connection));
+//app.get("/getIncomeByMonth", (req, res) => Controller.IncomeByMonth(req, res, connection));
+//app.get("/getShowPositionName", (req, res) => Controller.ShowPoitionName(req, res, connection));
+//app.get("/getLeaveCount", (req, res) => Controller.CountStatus(req, res, connection));
+//app.get("/geRequestLeave", (req, res) => Controller.RequestLeave(req, res, connection));
 
 app.listen(3306, () => console.log("server is running on port 3306"));

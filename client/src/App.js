@@ -13,6 +13,7 @@ function App() {
       <div className='bg' />
       <Routes>
         <Route index element={<Login />} />
+        <Route path="/getShowinfo"/>
         <Route path="/profile" element={<Profile />} />
         <Route path="/dailytime" element={<DailyTime />} />
         <Route path="/deduction" element={<Deduction />} />

@@ -88,7 +88,7 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                </Tile>
+                </div>
             </div>
         </div>
     )
