@@ -168,3 +168,18 @@ INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, sala
 --แท็บ RemoveEmployee --
 DELETE * WHERE employeeID = '..';
 INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]');
+
+----------- Complex -----------
+-- เลื่อนตำแหน่ง
+INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]');
+UPDATE PromotionHistory SET positionName = '..' WHERE employeeID = '';
+UPDATE Information SET roleID = '..' WHERE employeeID = '';
+-- พนักงานออก
+UPDATE Information SET SickRemain = NULL, personalRemain = NULL, vacationRemain = NULL, maternityRemain = NULL, roleID = NULL;
+DELETE FROM Password WHERE employeeID = '..' 
+
+-- Advanced -- 
+-- สรุปแต่ละ status + type + managernote
+SELECT L.status , Lt.leaveName , COUNT(L.status) AS count, Lb.managerNote AS managerNote FROM LeaveApplication AS L LEFT JOIN LeaveType AS Lt ON L.leaveID = Lt.leaveID  
+    LEFT JOIN LeaveBooking AS Lb ON Lb.bookingID = L.bookingID WHERE employeeID = '0e38af30-7a6a4201-9584-42264f2684fc' GROUP BY status;
+
