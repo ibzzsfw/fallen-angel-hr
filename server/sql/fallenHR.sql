@@ -182,3 +182,4 @@ DELETE FROM Password WHERE employeeID = '..'
 -- สรุปแต่ละ status + type + managernote
 SELECT L.status , Lt.leaveName , COUNT(L.status) AS count, Lb.managerNote AS managerNote FROM LeaveApplication AS L LEFT JOIN LeaveType AS Lt ON L.leaveID = Lt.leaveID  
     LEFT JOIN LeaveBooking AS Lb ON Lb.bookingID = L.bookingID WHERE employeeID = '0e38af30-7a6a4201-9584-42264f2684fc' GROUP BY status;
+

@@ -6,13 +6,16 @@
 
 .edit__container {
     background-color: var(--cds-ui-01, #f4f4f4);
-    width: 48%;
+    width: 60%;
+    max-height: 80%;
     height: auto;
+    margin-top: $spacing-05;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: $spacing-09;
+    overflow-y: auto;
 }
 
 .heading {
@@ -21,6 +24,10 @@
 
 .p {
     color: var(--cds-text-02, #393939);
+}
+
+.input {
+    margin-bottom: $spacing-05;
 }
 
 .edit__basic {

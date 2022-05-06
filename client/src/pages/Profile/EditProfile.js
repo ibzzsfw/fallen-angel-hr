@@ -22,27 +22,28 @@ const EditProfile = ({ CloseModal }) => {
                     <div className='form'>
                         <Form>
                             <TextInput 
-                                className='text-input'
+                                className='input'
                                 id='identification'
                                 labelText='Identification no.'
                                 placeholder='1 1000 20000 30 4'
                                 size='sm'
                             />
                             <TextInput 
-                                className='text-input'
+                                className='input'
                                 id='firstname'
                                 labelText='First name'
                                 placeholder='suppakorn'
                                 size='sm'
                             />
                             <TextInput 
-                                className='text-input'
+                                className='input'
                                 id='lastname'
                                 labelText='Last name'
                                 placeholder='rakna'
                                 size='sm'
                             />
                             <DatePicker
+                                className='input'
                                 datePickerType="single"
                                 size='sm'
                             >
@@ -54,6 +55,7 @@ const EditProfile = ({ CloseModal }) => {
                                 />
                             </DatePicker>
                             <RadioButtonGroup
+                                className='input'
                                 defaultSelected="gender"
                                 legendText="Gender"
                                 name="gender"
@@ -86,21 +88,24 @@ const EditProfile = ({ CloseModal }) => {
                     <div className='form'>
                         <Form>
                             <TextInput 
-                                className='text-input'
+                                className='input'
+                                //className='text-input'
                                 id='email'
                                 labelText='Email'
                                 placeholder='username@angel.com'
                                 size='sm'
                             />
                             <TextInput 
-                                className='text-input'
+                                className='input'
+                                //className='text-input'
                                 id='phone'
                                 labelText='Phone'
                                 placeholder='0812345678'
                                 size='sm'
                             />
                             <TextArea 
-                                className='text-area'
+                                className='input'
+                                //className='text-area'
                                 id='address'
                                 labelText='Address'
                                 size='sm'

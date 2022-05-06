@@ -27,44 +27,20 @@
         height: 650px;
         margin: $spacing-06;
         background-color: var(--cds-ui-01);
-        /* height: 650px;
-        width: 430px; */
-/* 
-        .info__links {
-            display: flex;
-            justify-content: right;
-            column-gap: $spacing-05;
-            padding-top: $spacing-05;
-            padding-right: $spacing-03;
 
-            .link {
-                text-decoration: none;
-                cursor: pointer;
-                color: var(--cds-link-01, #0f62fe);
-                transition: color 70ms cubic-bezier(.2, 0, .38, .9);
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-*/
         .info__pic {
             padding-top: $spacing-07;
             display: block;
             margin: 0 auto;
+            object-fit: cover;
             width: 200px;
+            height: 200px;
         }
         .info__row {
             padding: $spacing-09 $spacing-05 $spacing-05 $spacing-05;
             display: flex;
             flex-direction: column;
             row-gap: $spacing-05;
-        }
-
-        .info__modal {
-            /* display: flex;
-            justify-content: right; */
         }
     }
     .mid {
