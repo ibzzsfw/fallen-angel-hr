@@ -196,16 +196,38 @@ DELETE * WHERE employeeID = '..';
 INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]');
 
 ----------- Complex -----------
--- เลื่อนตำแหน่ง
-INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]');
-UPDATE PromotionHistory SET positionName = '..' WHERE employeeID = '';
-UPDATE Information SET roleID = '..' WHERE employeeID = '';
--- พนักงานออก
-UPDATE Information SET SickRemain = NULL, personalRemain = NULL, vacationRemain = NULL, maternityRemain = NULL, roleID = NULL;
-DELETE FROM Password WHERE employeeID = '..' 
+-- ส่งคำขอแจ้งเตือน
 
--- Advanced -- 
+-- คำขอลางาน
+
+-- เลื่อนตำแหน่ง
+INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]',NULL,'[value-5]');
+UPDATE PromotionHistory SET stopDate = '..' WHERE employeeID = '';
+UPDATE Information SET roleID = '..' WHERE employeeID = '';
+-- เพิ่มพนักงาน
+INSERT INTO Information(employeeID, roleID, identificationNo, firstName, lastName, DOB, sex, phoneNumber, email, address, photo, sickRemain, personalRemain, vacationRemain, maternityRemain, passwordHash, bankName, bankAccount) 
+VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]','[value-11]',
+(SELECT dayAvailable FROM LeaveType WHERE leaveName = 'sickRemain'),
+(SELECT dayAvailable FROM LeaveType WHERE leaveName = 'personalRemain'),
+(SELECT dayAvailable FROM LeaveType WHERE leaveName = 'vacationRemain'),
+(SELECT dayAvailable FROM LeaveType WHERE leaveName = 'maternityRemain'),'[value-16]','[value-17]','[value-18]');
+INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]', NULL ,'[value-5]');
+-- พนักงานออก
+UPDATE Information SET SickRemain = NULL, personalRemain = NULL, vacationRemain = NULL, maternityRemain = NULL, roleID = NULL, passwordHash = NULL WHERE employeeID = '..';
+UPDATE PromotionHistory SET stopDate = '..' WHERE employeeID = '..';
+
+----------- Advanced -----------
 -- สรุปแต่ละ status + type + managernote
 SELECT L.status , Lt.leaveName , COUNT(L.status) AS count, Lb.managerNote AS managerNote FROM LeaveApplication AS L LEFT JOIN LeaveType AS Lt ON L.leaveID = Lt.leaveID  
     LEFT JOIN LeaveBooking AS Lb ON Lb.bookingID = L.bookingID WHERE employeeID = '0e38af30-7a6a4201-9584-42264f2684fc' GROUP BY status;
+-- จำนวนคนในแผนกที่ลาพร้อมกันในช่วงที่เลือก
 
+-- Dashboard ของ manager
+
+-- Pay slip
+
+-- คำนวณการขาดงาน
+
+-- คำนวณการมาสายหรืออกก่อนเวลา
+
+-- คำนวณการลางานเกินวันอนูญาต
