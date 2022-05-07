@@ -1,0 +1,67 @@
+@use '@carbon/type';
+
+$type-color : ('t0': var(--cds-support-success),
+    't1': var(--cds-support-caution-major),
+    't2': var(--cds-support-caution-undefined));
+
+.notificationItem {
+    padding: 0 1rem;
+    display: flex;
+    align-items: flex-start;
+
+    .dot-container {
+        width: 16px;
+        margin-top: 5px;
+
+        @each $key,
+        $value in $type-color {
+            .#{$key} {
+                background-color: #{$value};
+                height: 6px;
+                width: 6px;
+                border-radius: 100%;
+            }
+        }
+    }
+
+    .content {
+
+        display: flex;
+        flex-direction: column;
+
+        .type {
+            margin-bottom: 0.5rem;
+            @include type.type-style('label-01');
+            color: var(--cds-text-secondary);
+        }
+
+        .title {
+            margin-bottom: 0.25rem;
+            @include type.type-style('body-short-01');
+            color: var(--cds-text-primary);
+        }
+
+        .bottom {
+            display: flex;
+            @include type.type-style('body-short-01');
+            font-size: 13px;
+
+            .date {
+                color: var(--cds-text-helper);
+
+                span {
+                    padding: 0 0.25rem;
+                }
+            }
+
+            a {
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

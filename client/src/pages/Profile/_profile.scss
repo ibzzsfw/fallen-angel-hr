@@ -29,18 +29,23 @@
         background-color: var(--cds-ui-01);
 
         .info__pic {
-            padding-top: $spacing-07;
+            margin-top: $spacing-07;
             display: block;
             margin: 0 auto;
             object-fit: cover;
             width: 200px;
             height: 200px;
+            border-radius: 100%;
         }
         .info__row {
             padding: $spacing-09 $spacing-05 $spacing-05 $spacing-05;
             display: flex;
             flex-direction: column;
             row-gap: $spacing-05;
+        }
+
+        .info__modal {
+            position: relative;
         }
     }
     .mid {
