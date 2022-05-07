@@ -1,6 +1,6 @@
 --employeeID = '0e38af30-7a6a4201-9584-42264f2684fc'
 
------ หน้า 24 -----
+----- หน้า 24 Profile page -----
 --แสดงข้อมูลส่วนตัว
 SELECT employeeID, identificationNo, firstName, lastName, DOB, email, phoneNumber, address, photo FROM Information WHERE employeeID = '..';
 --แสดงประวัติการศึกษา
@@ -11,10 +11,10 @@ SELECT * FROM PromotionHistory WHERE employeeID = '..';
 SELECT status, COUNT(status) FROM LeaveApplication WHERE employeeID = '..' GROUP BY status;
 --แสดงจำนวนครั้งที่ขอคำร้อง เอกสาร แบ่งตามสถานะของคำร้อง
 SELECT status, COUNT(status) FROM DocumentRequest WHERE employeeID = '..' GROUP BY status;
---แสดงสรุปจำนวนวัน เลือกเป็นรายสัปดาห์/เดือน **ไม่แน่ใจว่าเข้าใจถูกไหม** และเวลาเข้าออกงานในวันนั้น ๆ 
-SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = '0e38af30-7a6a4201-9584-42264f2684fc' AND date BETWEEN '2022-03-11' AND '2022-03-17' GROUP BY type;
-SELECT clockIn, clockOut FROM DailyTime WHERE employeeID = '..' AND date = '..';
---แสดงรายได้ทั้งหมดต่อเดือน ปี ?
+--แสดงสรุปจำนวนวัน เลือกเป็นรายสัปดาห์/เดือน และเวลาเข้าออกงานในวันนั้น ๆ 
+SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = '..' AND date BETWEEN '2022-03-11' AND '2022-03-17' GROUP BY type;
+SELECT date, TIME(clockIn), TIME(clockOut) FROM DailyTime WHERE employeeID = '..' AND date = '..';
+--แสดงรายได้ทั้งหมดต่อเดือน ปี *********
 SELECT SUM(salary + OT + other) FROM Income WHERE employeeID = '..' GROUP BY month;
 --แสดงสรุปจำนวนชั่วโมง/การคำนวณรายได้ ขณะนั้นนับเริ่มจากต้นเดือน
 CREATE VIEW OTcalculate AS
@@ -22,9 +22,9 @@ SELECT OverTime.*, HOUR(TIMEDIFF(TIME(OverTime.clockOut),Position.clockOut)) AS 
 (((Position.salary/30)/8)*1.5)*(HOUR(TIMEDIFF(TIME(OverTime.clockOut),Position.clockOut))) AS OTincome
 FROM OverTime INNER JOIN Position ON OverTime.positionID = Position.positionID
 LEFT JOIN DailyTime ON OverTime.employeeID = DailyTime.employeeID 
-AND DATE(OverTime.clockOut) = DailyTime.date
+AND DATE(OverTime.clockOut) = DailyTime.date;
 --
-SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) = '..' AND YEAR(clockOut) = '..'
+SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) = '..' AND YEAR(clockOut) = '..';
 --แสดงชื่อตำแหน่ง
 SELECT positionName FROM PromotionHistory WHERE employeeID = '..' AND stopDate IS NULL;
 --แสดงชื่อแผนก
@@ -34,7 +34,7 @@ LEFT JOIN PromotionHistory ON Position.positionName = PromotionHistory.positionN
 WHERE PromotionHistory.employeeID = '..' AND PromotionHistory.stopDate IS NULL;
 
 
------ หน้า 27 -----
+----- หน้า 27 Nottification -----
 -- แท็บ Notification --
 SELECT content, date FROM Notification;
 
@@ -46,7 +46,7 @@ SELECT * FROM Notification WHERE status = 'waiting';
 UPDATE Notification SET status = 'approved';
 
 
------ หน้า 28 -----
+----- หน้า 28 DailyTime page -----
 -- แถบ Summary --
 --แสดงเวลาเข้าและออกงานของวันนั้นน ๆ
 SELECT clockIn, clockOut FROM DailyTime WHERE employeeID = '..' AND date = '..';
@@ -54,10 +54,10 @@ SELECT clockIn, clockOut FROM DailyTime WHERE employeeID = '..' AND date = '..';
 SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = '..' GROUP BY type;
 
 -- ตาราง Log
-SELECT date, clockIn, clockOut, type, lateHrs FROM DailyTime WHERE employeeID = '..';
+SELECT date, TIME(clockIn), TIME(clockOut), type, lateHrs FROM DailyTime WHERE employeeID = '..';
 
 
------ หน้า 30 -----
+----- หน้า 30 Leave page -----
 -- แท็บ Summary --
 --สรุปวันลา
 SELECT DATE(leaveapp.startDate) AS startDate, DATE(leaveapp.endDate) AS endDate, LeaveType.leaveName, 
@@ -72,7 +72,7 @@ SELECT COUNT(status) FROM LeaveApplication WHERE status = 'waiting' AND employee
 SELECT COUNT(LeaveApplication.status) AS rejected, LeaveType.leaveName, LeaveBooking.managerNote FROM LeaveApplication
 INNER JOIN LeaveType ON LeaveApplication.leaveID = LeaveType.leaveID
 LEFT JOIN LeaveBooking ON LeaveApplication.bookingID = LeaveBooking.bookingID
-WHERE LeaveApplication.status = 'rejected' AND LeaveApplication.employeeID = '0e38af30-7a6a4201-9584-42264f2684fc'
+WHERE LeaveApplication.status = 'rejected' AND LeaveApplication.employeeID = '..'
 GROUP BY LeaveApplication.leaveID, LeaveApplication.status;
 
 --แจ้งวันลาที่เหลืออยู่
@@ -95,19 +95,18 @@ WHERE LeaveApplication.status = 'approved' GROUP BY LeaveApplication.bookingDate
 SELECT * FROM LeaveApplication WHERE employeeID = '..';
 
 
------ หน้า 32 -----
+----- หน้า 32 Manager Home page -----
 -- แท็บ DashBoard Manager --
---มีพนักงานในแผนกลากี่คน **
-SELECT COUNT(LeaveApplication.status), LeaveApplication.endDate - LeaveApplication.startDate FROM LeaveApplication 
+--มีพนักงานในแผนกลากี่คน **ช่วงวันที่ ให้ชื่อแสดงทุกวันที่ยังอยู่ในช่วงลา
+SELECT DATE(LeaveApplication.startDate), info.firstName, info.lastName, Position.positionID, COUNT(LeaveApplication.status) FROM LeaveApplication 
 INNER JOIN PromotionHistory ON LeaveApplication.employeeID = PromotionHistory.employeeID AND PromotionHistory.stopDate IS NULL
-LEFT JOIN Position ON PromotionHistory.positionName = Position.positionName
-AND Position.departmentID = '..'
-WHERE LeaveApplication.status = 'approved' GROUP BY LeaveApplication.bookingDate, LeaveApplication.status;
+LEFT JOIN Position ON PromotionHistory.positionName = Position.positionName AND Position.departmentID = '..'
+LEFT JOIN Information info ON LeaveApplication.employeeID = info.employeeID
+WHERE LeaveApplication.status = 'approved' AND DATE(LeaveApplication.startDate) <= DATE(LeaveApplication.endDate) GROUP BY LeaveApplication.status;
 --มีขอลากี่ booking **
 SELECT COUNT(LeaveApplication.status) FROM LeaveApplication 
 INNER JOIN PromotionHistory ON LeaveApplication.employeeID = PromotionHistory.employeeID AND PromotionHistory.stopDate IS NULL
-LEFT JOIN Position ON PromotionHistory.positionName = Position.positionName
-AND Position.departmentID = '..'
+LEFT JOIN Position ON PromotionHistory.positionName = Position.positionName AND Position.departmentID = '..'
 WHERE LeaveApplication.status = 'waiting' GROUP BY LeaveApplication.bookingDate, LeaveApplication.status;
 --มาสายกี่คน
 SELECT COUNT(type) FROM DailyTime WHERE type = 'late' GROUP BY date;
@@ -116,13 +115,12 @@ SELECT COUNT(type) FROM DailyTime WHERE type = 'late' GROUP BY date;
 SELECT LeaveApp.* FROM LeaveApplication LeaveApp
 INNER JOIN PromotionHistory ON LeaveApp.employeeID = PromotionHistory.employeeID AND PromotionHistory.stopDate IS NULL
 LEFT JOIN Position ON PromotionHistory.positionName = Position.positionName
-AND Position.departmentID = 'HR000'
-WHERE LeaveApp.status = 'waiting';
+AND Position.departmentID = 'HR000' WHERE LeaveApp.status = 'waiting';
 --
 INSERT INTO LeaveBooking(bookingID, confirmation, managerNote) VALUES ('[value-1]','[value-2]','[value-3]');
 
 
------ หน้า 33 -----
+----- หน้า 33 Document Request page-----
 -- แท็บ Request --
 --แสดงตัวเลือก
 SELECT documentName FROM Document;
@@ -133,13 +131,13 @@ INSERT INTO DocumentRequest(requestID, documentID, employeeID, purpose, requestD
 SELECT confirmationDate, status, managerNote FROM RequestBooking WHERE employeeID = '..';
 
 
------ หน้า 34 -----
+----- หน้า 34 HR Document Request page (HR Manager) -----
 --แสดงคำขอเอกสาร
 SELECT * FROM DocumentRequest WHERE status = 'waiting';
 INSERT INTO RequestBooking(requestID, confirmationDate, status, managerNote) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]');
 
 
------ หน้า 35 -----
+----- หน้า 35 Payment page -----
 -- แท็บ Banking --
 --แสดงรายละเอียดข้อมูลเกี่ยวกับธนาคาร
 SELECT bankName, bankAccount FROM Information WHERE employeeID = '..';
@@ -152,11 +150,17 @@ LEFT JOIN Position pos ON pro.positionName = pos.positionName
 LEFT JOIN Department dpm ON pos.departmentID = dpm.departmentID
 WHERE info.employeeID = '0e38af30-7a6a4201-9584-42264f2684fc';
 --การเงิน
-******************************************
+SELECT MONTH(Monthly.month) AS month, Pro.salary, SUM(OTcalculate.OTincome) AS overtime, SUM(OTcalculate.OTHrs) AS OTHrs, Income.other, SUM(Pro.salary + OTcalculate.OTincome + Income.other) AS netPay 
+FROM MonthlyPaySlip Monthly
+INNER JOIN PromotionHistory Pro ON Monthly.employeeID = Pro.employeeID
+LEFT JOIN OTcalculate ON Monthly.employeeID = OTcalculate.employeeID
+LEFT JOIN Income ON Monthly.employeeID = Income.employeeID AND Monthly.month = Income.month
+WHERE Monthly.employeeID = '0e38af30-7a6a4201-9584-42264f2684fc' AND Pro.stopDate IS NULL
+AND MONTH(Monthly.month) = '04' AND YEAR(Monthly.month) = '2022' AND DATE(OTcalculate.clockOut) <= '2022-04-25';
 
 
------ หน้า 36 ----- ********** น่าจะได้แค่ Late/EarlyLeave ***********
--- แท็บ Absent -- 
+----- หน้า 36 Deduction page ----- ********** น่าจะได้แค่ Late/EarlyLeave ***********
+-- แท็บ Absent -- **** รอ mock up *****
 SELECT (pro.salary/30)*(COUNT(NOT EXISTS (SELECT clockIn, clockOut FROM DailyTime))) AS absentDeduct FROM PromotionHistory pro 
 INNER JOIN DailyTime daily ON pro.employeeID = daily.employeeID
 WHERE pro.stopDate IS NULL AND NOT EXISTS (SELECT clockIn, clockOut FROM DailyTime)
@@ -171,7 +175,8 @@ WHERE pro.stopDate IS NULL AND pro.employeeID = '..';
 
 
 
------ หน้า 38 -----
+
+----- หน้า 38 Promotion History page (ADMIN) -----
 --อัพเดตข้อมูลพนักงานปัจจุบัน
 INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]',NULL,'[value-5]');
 --update ตำแหน่งเก่า
@@ -179,7 +184,7 @@ UPDATE PromotionHistory SET stopDate = '[value-1]' WHERE employeeID = '..';
 --update role ใหม่ (ถ้าเลื่อนยศ)
 UPDATE Information SET roleID = '[value-1]' WHERE employeeID = '..';
 
------ หน้า 40 -----
+----- หน้า 40 Manage Employee page (ADMIN) -----
 --แท็บ AddEmployee --
 --แอดมินเพิ่มรายละเอียดพนักงานใหม่
 INSERT INTO Information(employeeID, roleID, identificationNo, firstName, lastName, DOB, sex, phoneNumber, email, address, photo, sickRemain, personalRemain, vacationRemain, maternityRemain, passwordHash, bankName, bankAccount) 
