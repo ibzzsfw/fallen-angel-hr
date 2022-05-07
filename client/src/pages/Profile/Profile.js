@@ -3,7 +3,6 @@ import {
     Tile,
     Tabs,
     Tab,
-    Modal
 } from 'carbon-components-react';
 import EditProfile from './EditProfile';
 
@@ -20,7 +19,7 @@ const Profile = () => {
                 </div>
             </div>
             <div className='cds--row profile__content'>
-                <div className='cds--col cds--col-max-4 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 left'>
+                <Tile className='cds--col cds--col-max-4 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 left'>
                     <img className='info__pic' src='https://i.pinimg.com/originals/fd/af/12/fdaf129c3310e638533e10a8dc229955.jpg' ></img>
                     <div className='info__row'>
                         <h5>Employee ID</h5>
@@ -43,9 +42,9 @@ const Profile = () => {
                             }>Edit</button>
                         {OpenModal && <EditProfile CloseModal={setOpenModal} />}
                     </div>
-                </div>
+                </Tile>
                 <div className='cds--col cds--col-max-5 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 mid'>
-                    <div className='cds--row dash__booking'>
+                    <Tile className='cds--row dash__booking'>
                         <div className='title'>Booking Summary</div>
                         <Tabs contained className='tabs__booksum'>
                             <Tab label='Leave'>
@@ -55,13 +54,13 @@ const Profile = () => {
                                 <p>Content for second tab goes here.</p>
                             </Tab>
                         </Tabs>
-                    </div>
-                    <div className='cds--row dash__dailytime'>
+                    </Tile>
+                    <Tile className='cds--row dash__dailytime'>
                         <div className='title'>Daily time</div>
-                    </div>
+                    </Tile>
                 </div>
                 <div className='cds--col cds--col-max-5 cds--col-lg-7 cds--col-md-6 cds--col-sm-4 right'>
-                    <div className='cds--row dash__income'>
+                    <Tile className='cds--row dash__income'>
                         <div className='title'>Income</div>
                         <div className='income__data'>
                             <div className='income__month'>
@@ -73,8 +72,8 @@ const Profile = () => {
                                 <p>per year</p>
                             </div>
                         </div>
-                    </div>
-                    <div className='cds--row dash__overtime'>
+                    </Tile>
+                    <Tile className='cds--row dash__overtime'>
                         <div className='title'>Overtime</div>
                         <div className='overtime__data'>
                             <div className='overtime__hours'>
@@ -86,7 +85,7 @@ const Profile = () => {
                                 <p>baht</p>
                             </div>
                         </div>
-                    </div>
+                    </Tile>
                 </div>
             </div>
         </div>
