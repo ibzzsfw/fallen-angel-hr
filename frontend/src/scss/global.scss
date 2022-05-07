@@ -1,0 +1,42 @@
+@use '@carbon/react';
+@use '@carbon/styles/scss/grid/flexbox';
+@use '@carbon/themes/scss/themes';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin-top: 3rem;
+  background: react.$background;
+  color: react.$text-primary;
+}
+
+.theme-section {
+  background: react.$background;
+  color: react.$text-primary;
+}
+
+:root {
+  @include react.theme(react.$g10);
+}
+
+[data-carbon-theme='g100'] {
+  @include react.theme(react.$g100);
+}
+
+.cds--tab-content:focus {
+  outline: none;
+}
+
+.cds--header-panel {
+  width: 16rem;
+  height: 0;
+  transition: 0.11s;
+  will-change: height;
+}
+
+.cds--header-panel--expanded {
+  height: 50%;
+  border: 1px solid var(--cds-border-subtle);
+}
