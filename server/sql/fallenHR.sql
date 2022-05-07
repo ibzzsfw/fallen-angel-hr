@@ -25,7 +25,7 @@ LEFT JOIN DailyTime ON OverTime.employeeID = DailyTime.employeeID
 AND DATE(OverTime.clockOut) = DailyTime.date
 --
 SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) = '..' AND YEAR(clockOut) = '..'
---แสดงชื่อตำแหน่ง
+--แสดงชื่อตำแหน่ง   ******* อาจจะผิด ***********************************************************************************************
 SELECT positionName FROM PromotionHistory WHERE employeeID = '..' AND stopDate IS NULL;
 --แสดงชื่อแผนก
 SELECT departmentName FROM Department
