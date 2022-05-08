@@ -24,8 +24,13 @@ FROM OverTime INNER JOIN Position ON OverTime.positionID = Position.positionID
 LEFT JOIN DailyTime ON OverTime.employeeID = DailyTime.employeeID 
 AND DATE(OverTime.clockOut) = DailyTime.date;
 --
+
+SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) = '..' AND YEAR(clockOut) = '..'
+--แสดงชื่อตำแหน่ง   ******* อาจจะผิด ***********************************************************************************************
+
 SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) = '..' AND YEAR(clockOut) = '..';
 --แสดงชื่อตำแหน่ง
+
 SELECT positionName FROM PromotionHistory WHERE employeeID = '..' AND stopDate IS NULL;
 --แสดงชื่อแผนก
 SELECT departmentName FROM Department
@@ -172,6 +177,7 @@ INNER JOIN DailyTime daily ON pro.employeeID = daily.employeeID
 WHERE pro.stopDate IS NULL AND pro.employeeID = '..';
 
 -- แท็บ OverLeave --
+
 
 
 
