@@ -24,13 +24,8 @@ FROM OverTime INNER JOIN Position ON OverTime.positionID = Position.positionID
 LEFT JOIN DailyTime ON OverTime.employeeID = DailyTime.employeeID 
 AND DATE(OverTime.clockOut) = DailyTime.date;
 --
-
-SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) = '..' AND YEAR(clockOut) = '..'
---แสดงชื่อตำแหน่ง   ******* อาจจะผิด ***********************************************************************************************
-
 SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) = '..' AND YEAR(clockOut) = '..';
 --แสดงชื่อตำแหน่ง
-
 SELECT positionName FROM PromotionHistory WHERE employeeID = '..' AND stopDate IS NULL;
 --แสดงชื่อแผนก
 SELECT departmentName FROM Department
@@ -59,8 +54,19 @@ SELECT clockIn, clockOut FROM DailyTime WHERE employeeID = '..' AND date = '..';
 SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = '..' GROUP BY type;
 
 -- ตาราง Log
-SELECT date, TIME(clockIn), TIME(clockOut), type, lateHrs FROM DailyTime WHERE employeeID = '..';
+CREATE VIEW DailyTime_view AS
+SELECT daily.*, (
+CASE
+    WHEN daily.type = 'late' THEN TIMEDIFF(TIME(daily.clockIn),pos.clockIn)
+	WHEN daily.type = 'earlyLeave' THEN TIMEDIFF(pos.clockOut,TIME(daily.clockOut))
+END) AS lateHrs 
+FROM PromotionHistory pro
+INNER JOIN DailyTime daily ON pro.employeeID = daily.employeeID
+LEFT JOIN Position pos ON pro.positionName = pos.positionName
+WHERE pro.stopDate IS NULL;
 
+SELECT TIME(clockIn), TIME(clockOut), type, (((pro.salary/30)/8)/60) * lateHrs AS lateEarlyDeduct, ***OverTime 
+FROM DailyTime_view WHERE employeeID = '..';
 
 ----- หน้า 30 Leave page -----
 -- แท็บ Summary --
@@ -125,7 +131,7 @@ AND Position.departmentID = 'HR000' WHERE LeaveApp.status = 'waiting';
 INSERT INTO LeaveBooking(bookingID, confirmation, managerNote) VALUES ('[value-1]','[value-2]','[value-3]');
 
 
------ หน้า 33 Document Request page-----
+----- หน้า 33 Document Request page -----
 -- แท็บ Request --
 --แสดงตัวเลือก
 SELECT documentName FROM Document;
@@ -176,9 +182,16 @@ SELECT daily.*,((((pro.salary/30)/8)/60) * daily.lateHrs) AS lateEarlyDeduct FRO
 INNER JOIN DailyTime daily ON pro.employeeID = daily.employeeID
 WHERE pro.stopDate IS NULL AND pro.employeeID = '..';
 
--- แท็บ OverLeave --
-
-
+-- แท็บ OverLeave -- **** รอ mock up *****
+SELECT DATE(leaveapp.startDate) AS startDate, DATE(leaveapp.endDate) AS endDate, LeaveType.leaveName AS type, 
+DATEDIFF(DATE(leaveapp.startDate), DATE(leaveapp.endDate)) AS amount, 
+((pro.salary/30) * DATEDIFF(DATE(leaveapp.startDate), DATE(leaveapp.endDate))) AS overLeaveDeduct 
+FROM LeaveApplication leaveapp
+INNER JOIN LeaveType ON leaveapp.leaveID = LeaveType.leaveID 
+LEFT JOIN Information info ON leaveapp.employeeID = info.employeeID
+LEFT JOIN PromotionHistory pro ON leaveapp.employeeID = pro.employeeID AND pro.stopDate IS NULL
+WHERE leaveapp.employeeID = '..' 
+AND info.sickRemain < 0 OR info.personalRemain < 0 OR info.vacationRemain < 0 OR info.maternityRemain < 0
 
 
 ----- หน้า 38 Promotion History page (ADMIN) -----
