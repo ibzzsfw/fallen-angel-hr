@@ -1,0 +1,33 @@
+@use '@carbon/type';
+
+.add-booking {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    row-gap: 16px;
+
+    svg.calendarEvent {
+        fill: var(--cds-support-info);
+    }
+
+    img {
+        height: 32px;
+        width: fit-content;
+    }
+
+    .middle {
+        margin-bottom: 16px;
+
+        .intro {
+            @include type.type-style('body-short-01');
+            color: var(--cds-text-secondary);
+        }
+
+        .title {
+            @include type.type-style('productive-heading-03');
+            color: var(--cds-text-primary);
+        }
+    }
+}

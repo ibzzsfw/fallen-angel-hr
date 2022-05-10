@@ -1,0 +1,25 @@
+@use '@carbon/layout';
+
+.leave {
+    position: relative;
+    height: calc(100vh - 3rem);
+    padding-bottom: layout.$spacing-10;
+
+    .mainRow {
+        height: 100%;
+        .left {
+            margin: layout.$spacing-10 0;
+
+            .stack {
+                padding: 0;
+            }
+        }
+
+        .containerStatus {
+            padding-top: 0;
+            height: 100%;
+            background-color: var(--cds-background);
+            // border-left: 1px solid var(--cds-border-strong-01);
+        }
+    }
+}

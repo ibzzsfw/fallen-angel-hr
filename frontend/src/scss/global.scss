@@ -40,3 +40,7 @@ body {
   height: 50%;
   border: 1px solid var(--cds-border-subtle);
 }
+
+.cds--date-picker--range .cds--date-picker-container, .cds--date-picker--range .cds--date-picker__input {
+  width: 100%;
+}

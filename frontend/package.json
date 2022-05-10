@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@carbon/layout": "^11.1.0",
+    "@carbon/pictograms-react": "^11.26.2",
     "@carbon/react": "^1.2.0",
     "@carbon/styles": "^1.2.0",
     "@carbon/type": "^11.2.0",
