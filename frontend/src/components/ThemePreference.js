@@ -8,7 +8,7 @@ function useThemePreference() {
 }
 
 function ThemePreference({ children }) {
-  const [theme, setTheme] = useState('white');
+  const [theme, setTheme] = useState('g10');
   const value = { theme, setTheme, };
 
   useEffect(() => {
