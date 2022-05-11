@@ -81,15 +81,6 @@ const Navbar = () => {
                             Daily Time
                         </HeaderMenuItem>
                         <HeaderMenuItem
-                            onClick={() => router.push('/deduction')}
-                            // element={Link}
-                            // to='/deduction'
-                            // onClick={() => sessionStorage.setItem('currentPage', 'deduction')}
-                            isCurrentPage={currentPage === 'deduction'}
-                        >
-                            Deduction
-                        </HeaderMenuItem>
-                        <HeaderMenuItem
                             onClick={() => router.push('/leave')}
                             // element={Link}
                             // to='/dailytime'
@@ -107,8 +98,7 @@ const Navbar = () => {
                         </HeaderMenuItem>
                         <HeaderMenu aria-label="Admin" menuLinkName="Admin">
                             <HeaderMenuItem onClick={() => router.push('/manage')}>Manage employee</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Sub-link 2</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Sub-link 3</HeaderMenuItem>
+                            <HeaderMenuItem onClick={() => router.push('/promotion')}>Promotion</HeaderMenuItem>
                         </HeaderMenu>
                     </HeaderNavigation>
                     <HeaderGlobalBar>

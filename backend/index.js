@@ -3,22 +3,22 @@ import mysql from 'mysql2';
 import cors from "cors";
 
 // controllers import
-import UserRole from './controllers/Controller.js';
-import ShowInfo from './controllers/Controller.js';
-import ShowEducation from './controllers/Controller.js';
-import ShowPromotionHistory from './controllers/Controller.js';
-import IncomeByMonth from './controllers/Controller.js';
-import ShowPositionName from './controllers/Controller.js';
-import CountStatus from './controllers/Controller.js';
-import RequestLeave from './controllers/Controller.js';
-import Controller from "./controllers/Controller.js";
+// import UserRole from './controllers/Controller.js';
+// import ShowInfo from './controllers/Controller.js';
+// import ShowEducation from './controllers/Controller.js';
+// import ShowPromotionHistory from './controllers/Controller.js';
+// import IncomeByMonth from './controllers/Controller.js';
+// import ShowPositionName from './controllers/Controller.js';
+// import CountStatus from './controllers/Controller.js';
+// import RequestLeave from './controllers/Controller.js';
+// import Controller from "./controllers/Controller.js";
 
 const connection = mysql.createConnection({
-    host: 'SG-fallen-angel-hr-6098-mysql-master.servers.mongodirector.com',
+    host: 'us-cdbr-east-05.cleardb.net',
     port: '3306',
-    user: 'sgroot',
-    password: '9cCzZPgxx,yn3g1B',
-    database: 'fallen-angel-hr',
+    user: 'b3c6b9362228e6',
+    password: '53446057',
+    database: 'heroku_174ba6c18c17d0c',
 });
 
 const app = express();
@@ -29,21 +29,18 @@ app.use(express.json());
 app.listen(3306, () => console.log("server is running on port 3306"));
 
 app.get("/getLeaveType", (req, res) => {
-    console.log("ข้ าวมั นไก่")
+
     connection.query("SELECT * FROM LeaveType", (err, result) => {
         if (err) {
             console.log(err);
         } else {
+            // console.log(result);
             res.send(result);
         }
     });
 });
 
 //app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));
-
-
-
-
 
 // app.get("/getUserRole", (req, res) => Controller.UserRole(req, res, connection));
 //app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));
