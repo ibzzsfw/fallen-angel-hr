@@ -16,7 +16,7 @@ import {
     Row,
     Column,
 } from '@carbon/react';
-import styles from '../../scss/table-status.module.scss';
+import styles from '../../scss/leave/table-status.module.scss';
 import Offcanvas from "../Offcanvas";
 import { rows } from './LeaveData';
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../../scss/card-status.module.scss';
+import styles from '../../scss/leave/card-status.module.scss';
 import {
     FlexGrid,
     Column,

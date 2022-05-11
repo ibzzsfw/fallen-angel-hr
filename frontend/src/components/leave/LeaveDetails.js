@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../scss/leave-detail.module.scss';
+import styles from '../../scss/leave/leave-detail.module.scss';
 import {
     Stack,
     CodeSnippet,
@@ -44,7 +44,7 @@ const LeaveDetails = () => {
                                 </div>
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Booking date</div>
-                                    <div className={styles.content}>{'05.02.2022'}</div>
+                                    <div className={styles.content}>{'05/02/2022'}</div>
                                 </div>
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Reason</div>

@@ -20,6 +20,7 @@
         .title {
             margin-top: 24px;
             font-size: 2rem;
+            color: #f4f4f4;
 
             .span {
                 font-weight: 600;
@@ -33,13 +34,12 @@
         }
 
         .help {
-            color: var(--cds-link-01);
+            color: #8d8d8d;
             font-size: .875rem;
             margin-top: 8px;
 
             .link {
                 margin-left: 8px;
-                color: var(--cds-link-01);
                 text-decoration: none;
 
                 &:hover {
@@ -55,7 +55,7 @@
         position: relative;
 
         .option {
-            color: var(--cds-text-05);
+            color: #8d8d8d;
         }
 
         // .bx--list-box {
@@ -65,10 +65,16 @@
 
         // }
 
-        .button {
+        .buttonContainer {
 
-            margin-top: 16px;
-            padding-left: 1rem;
+            width: 100%;
+
+            .button {
+
+                margin-top: 16px;
+                padding-left: 1rem;
+                width: 100%;
+            }
         }
 
         .notification {
@@ -84,7 +90,6 @@
 
             .bx--label {
                 width: 100%;
-                color: var(--cds-text-02);
 
                 .forgot {
                     width: 100%;
@@ -97,7 +102,6 @@
         .forgot-id {
             margin-top: 18px;
             padding-bottom: 2px;
-            color: var(--cds-link-01);
         }
     }
 }

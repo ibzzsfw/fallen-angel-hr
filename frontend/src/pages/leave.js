@@ -12,7 +12,7 @@ import {
     Tile,
     Stack,
 } from '@carbon/react';
-import styles from '../scss/leave.module.scss';
+import styles from '../scss/leave/leave.module.scss';
 import Banner from '../components/Banner';
 import LeaveSummary from "../components/leave/LeaveSummary";
 import AddBooking from "../components/leave/AddBooking";
