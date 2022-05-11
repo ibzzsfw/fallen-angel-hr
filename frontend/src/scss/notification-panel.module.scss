@@ -27,48 +27,5 @@
 
     .stack-container {
         margin: 0;
-
-.status-notification {
-
-    .swticher {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-
-        .swticher-description {
-            display: flex;
-            flex-direction: column;
-            row-gap: 0.5rem;
-
-            p {
-                @include type.type-style('productive-heading-01');
-                color: var(--cds-text-helper);
-            }
-        }
-
-        .group {
-            display: flex;
-            align-items: center;
-
-            .button {
-
-                color: var(--cds-text-helper);
-                width: fit-content;
-            }
-
-            .active {
-
-                color: var(--cds-text-primary);
-            }
-
-            .vertivalBar {
-                border-left: 2px solid var(--cds-border-strong-01);
-                height: 1.5rem;
-                margin: 0 0.75rem;
-            }
-
-        }
     }
 }
