@@ -1,17 +1,17 @@
 --employeeID = '0e38af30-7a6a4201-9584-42264f2684fc'
 
 ----- หน้า 24 Profile page -----
---แสดงข้อมูลส่วนตัว
+--แสดงข้อมูลส่วนตัว d
 SELECT employeeID, identificationNo, firstName, lastName, DOB, email, phoneNumber, address, photo FROM Information WHERE employeeID = '..';
---แสดงประวัติการศึกษา
+--แสดงประวัติการศึกษา d
 SELECT * FROM Education WHERE employeeID = '..';
---แสดงประวัติการเลื่อนตำแหน่ง
+--แสดงประวัติการเลื่อนตำแหน่ง d
 SELECT * FROM PromotionHistory WHERE employeeID = '..';
---แสดงจำนวนครั้งการลา แบ่งตามประเภทการลา
+--แสดงจำนวนครั้งการลา แบ่งตามประเภทการลา d
 SELECT status, COUNT(status) FROM LeaveApplication WHERE employeeID = '..' GROUP BY status;
 --แสดงจำนวนครั้งที่ขอคำร้อง เอกสาร แบ่งตามสถานะของคำร้อง
 SELECT status, COUNT(status) FROM DocumentRequest WHERE employeeID = '..' GROUP BY status;
---แสดงสรุปจำนวนวัน เลือกเป็นรายสัปดาห์/เดือน และเวลาเข้าออกงานในวันนั้น ๆ 
+--แสดงสรุปจำนวนวัน เลือกเป็นรายสัปดาห์/เดือน และเวลาเข้าออกงานในวันนั้น ๆ  
 SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = '..' AND date BETWEEN '2022-03-11' AND '2022-03-17' GROUP BY type;
 SELECT date, TIME(clockIn), TIME(clockOut) FROM DailyTime WHERE employeeID = '..' AND date = '..';
 --แสดงรายได้ทั้งหมดต่อเดือน ปี *********
@@ -32,18 +32,18 @@ SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = '..' AND MONTH(clockOut) =
 --แสดงชื่อตำแหน่ง
 
 SELECT positionName FROM PromotionHistory WHERE employeeID = '..' AND stopDate IS NULL;
---แสดงชื่อแผนก
+--แสดงชื่อแผนก d
 SELECT departmentName FROM Department
 INNER JOIN Position ON Department.departmentID = Position.departmentID
 LEFT JOIN PromotionHistory ON Position.positionName = PromotionHistory.positionName
 WHERE PromotionHistory.employeeID = '..' AND PromotionHistory.stopDate IS NULL;
 
 
------ หน้า 27 Nottification -----
+----- หน้า 27 Nottification -----  *****
 -- แท็บ Notification --
 SELECT content, date FROM Notification;
 
--- แท็บ Send Notification (Manager) --
+-- แท็บ Send Notification (Manager) -- 
 INSERT INTO Notification(senderID, status, date, content) VALUES ('[value-1]','waiting',CURRENT_DATE,'[value-4]');
 
 -- แท็บ Request Notification (Admin) --
@@ -53,23 +53,25 @@ UPDATE Notification SET status = 'approved';
 
 ----- หน้า 28 DailyTime page -----
 -- แถบ Summary --
---แสดงเวลาเข้าและออกงานของวันนั้นน ๆ
+--แสดงเวลาเข้าและออกงานของวันนั้นน ๆ d
 SELECT clockIn, clockOut FROM DailyTime WHERE employeeID = '..' AND date = '..';
---สรุปจำนวนการมาทำงาน/มาสายในแต่ละเดือน/ปี
-SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = '..' GROUP BY type;
+--สรุปจำนวนการมาทำงาน/มาสายในแต่ละเดือน/ปี d
+SELECT type, COUNT(type) AS count FROM DailyTime WHERE employeeID = '..' GROUP BY type;
 
--- ตาราง Log
+-- ตาราง Log d
 SELECT date, TIME(clockIn), TIME(clockOut), type, lateHrs FROM DailyTime WHERE employeeID = '..';
 
 
 ----- หน้า 30 Leave page -----
 -- แท็บ Summary --
---สรุปวันลา
+--สรุปวันลา 
+--ยังไม่รู้เอาไปใช้ตรงไหน
 SELECT DATE(leaveapp.startDate) AS startDate, DATE(leaveapp.endDate) AS endDate, LeaveType.leaveName, 
 DATEDIFF(leaveapp.endDate, leaveapp.startDate)+1 AS sumDate FROM LeaveApplication leaveapp 
 INNER JOIN LeaveType ON leaveapp.leaveID = LeaveType.leaveID
 WHERE leaveapp.status = 'approved' AND leaveapp.employeeID = '..'
 GROUP BY leaveapp.leaveID, leaveapp.status;
+
 SELECT COUNT(status) FROM LeaveApplication WHERE status = 'approved' AND employeeID = '..';
 --
 SELECT COUNT(status) FROM LeaveApplication WHERE status = 'waiting' AND employeeID = '..';
@@ -80,15 +82,15 @@ LEFT JOIN LeaveBooking ON LeaveApplication.bookingID = LeaveBooking.bookingID
 WHERE LeaveApplication.status = 'rejected' AND LeaveApplication.employeeID = '..'
 GROUP BY LeaveApplication.leaveID, LeaveApplication.status;
 
---แจ้งวันลาที่เหลืออยู่
+--แจ้งวันลาที่เหลืออยู่ d
 SELECT sickRemain, personalRemain, vacationRemain, maternityRemain FROM information WHERE employeeID = '..';
 
 -- แท็บ Booking --
---ส่งคำขอลางาน
+--ส่งคำขอลางาน not sure
 SELECT leaveName FROM LeaveType;
 INSERT INTO LeaveApplication(bookingID, employeeID, leaveID, bookingDate, reason, document, startDate, endDate, status) VALUES ('[value-1]','[value-2]','[value-3]',CURRENT_TIMESTAMP,'[value-5]','[value-6]','[value-7]','[value-8]','waiting');
 UPDATE Information INNER JOIN LeaveApplication ON Information.employeeID = LeaveApplication.employeeID AND LeaveApplication.status = 'approved' SET sickRemain = sickRemain-1;
---ในแผนกมีคนลาพร้อมกันกี่คน กี่วัน
+--ในแผนกมีคนลาพร้อมกันกี่คน กี่วัน not sure
 SELECT COUNT(LeaveApplication.status), DATEDIFF(LeaveApplication.endDate, LeaveApplication.startDate) FROM LeaveApplication 
 INNER JOIN PromotionHistory ON LeaveApplication.employeeID = PromotionHistory.employeeID AND PromotionHistory.stopDate IS NULL
 LEFT JOIN Position ON PromotionHistory.positionName = Position.positionName
@@ -96,7 +98,7 @@ AND Position.departmentID = '..'
 WHERE LeaveApplication.status = 'approved' GROUP BY LeaveApplication.bookingDate, LeaveApplication.status;
 
 -- แท็บ Status --
---รายละเอียดแต่ละคำขอลา
+--รายละเอียดแต่ละคำขอลา d
 SELECT * FROM LeaveApplication WHERE employeeID = '..';
 
 
@@ -132,7 +134,7 @@ SELECT documentName FROM Document;
 --ส่งคำขอเอกสารจากรายชื่อ เหตุผล
 INSERT INTO DocumentRequest(requestID, documentID, employeeID, purpose, requestDate, status) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]',CURRENT_TIMESTAMP,'waiting');
 
--- แท็บ Status --
+-- แท็บ Status -- ************* ผิด ****************
 SELECT confirmationDate, status, managerNote FROM RequestBooking WHERE employeeID = '..';
 
 
@@ -140,7 +142,7 @@ SELECT confirmationDate, status, managerNote FROM RequestBooking WHERE employeeI
 --แสดงคำขอเอกสาร
 SELECT * FROM DocumentRequest WHERE status = 'waiting';
 INSERT INTO RequestBooking(requestID, confirmationDate, status, managerNote) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]');
-
+-- ไม่แน่ใจว่าต้องมี update กับ delete ต่ออีกไหม
 
 ----- หน้า 35 Payment page -----
 -- แท็บ Banking --
@@ -182,7 +184,7 @@ WHERE pro.stopDate IS NULL AND pro.employeeID = '..';
 
 
 ----- หน้า 38 Promotion History page (ADMIN) -----
---อัพเดตข้อมูลพนักงานปัจจุบัน
+--อัพเดตข้อมูลพนักงานปัจจุบัน เวลา update 
 INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]',NULL,'[value-5]');
 --update ตำแหน่งเก่า
 UPDATE PromotionHistory SET stopDate = '[value-1]' WHERE employeeID = '..';
@@ -193,11 +195,11 @@ UPDATE Information SET roleID = '[value-1]' WHERE employeeID = '..';
 --แท็บ AddEmployee --
 --แอดมินเพิ่มรายละเอียดพนักงานใหม่
 INSERT INTO Information(employeeID, roleID, identificationNo, firstName, lastName, DOB, sex, phoneNumber, email, address, photo, sickRemain, personalRemain, vacationRemain, maternityRemain, passwordHash, bankName, bankAccount) 
-VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]','[value-11]',
+VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]','[value-11]','[value-16]','[value-17]','[value-18]');
 (SELECT dayAvailable FROM LeaveType WHERE leaveName = 'sickRemain'),
 (SELECT dayAvailable FROM LeaveType WHERE leaveName = 'personalRemain'),
 (SELECT dayAvailable FROM LeaveType WHERE leaveName = 'vacationRemain'),
-(SELECT dayAvailable FROM LeaveType WHERE leaveName = 'maternityRemain'),'[value-16]','[value-17]','[value-18]');
+(SELECT dayAvailable FROM LeaveType WHERE leaveName = 'maternityRemain'),
 --
 INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]');
 
@@ -230,6 +232,25 @@ UPDATE PromotionHistory SET stopDate = '..' WHERE employeeID = '..';
 -- สรุปแต่ละ status + type + managernote
 SELECT L.status , Lt.leaveName , COUNT(L.status) AS count, Lb.managerNote AS managerNote FROM LeaveApplication AS L LEFT JOIN LeaveType AS Lt ON L.leaveID = Lt.leaveID  
     LEFT JOIN LeaveBooking AS Lb ON Lb.bookingID = L.bookingID WHERE employeeID = '0e38af30-7a6a4201-9584-42264f2684fc' GROUP BY status;
+-- จำนวนคนในแผนกที่ลาพร้อมกันในช่วงที่เลือก
+
+-- Dashboard ของ manager
+
+-- Pay slip
+
+-- คำนวณการขาดงาน
+
+-- คำนวณการมาสายหรืออกก่อนเวลา
+
+-- คำนวณการลางานเกินวันอนูญาต
+
+
+----------- Complex -----------
+-- ส่งคำขอแจ้งเตือน
+
+-- คำขอลางาน
+
+----------- Advanced -----------
 -- จำนวนคนในแผนกที่ลาพร้อมกันในช่วงที่เลือก
 
 -- Dashboard ของ manager
