@@ -26,7 +26,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.listen(3306, () => console.log("server is running on port 3306"));
+
 app.get("/getLeaveType", (req, res) => {
+    console.log("ข้ าวมั นไก่")
     connection.query("SELECT * FROM LeaveType", (err, result) => {
         if (err) {
             console.log(err);
@@ -50,5 +53,3 @@ app.get("/getLeaveType", (req, res) => {
 //app.get("/getShowPositionName", (req, res) => Controller.ShowPoitionName(req, res, connection));
 //app.get("/getLeaveCount", (req, res) => Controller.CountStatus(req, res, connection));
 //app.get("/geRequestLeave", (req, res) => Controller.RequestLeave(req, res, connection));
-
-app.listen(3306, () => console.log("server is running on port 3306"));
