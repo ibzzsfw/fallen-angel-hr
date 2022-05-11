@@ -5,32 +5,11 @@
     max-width: 100%;
 }
 
-.dailytime__banner {
-    border-bottom-width: 1px;
-    border-bottom-color:  var(--cds-layer-accent-01);
-    border-bottom-style: solid;
-    padding-top: layout.$spacing-06;
-    padding-bottom: layout.$spacing-07 * 2;
-    color: var(--cds-text-01);
-    background-color: var(--cds-layer);
-}
-
-.dailytime__heading {
-    @include type.type-style('productive-heading-05');
-    color: var(--cds-text-01);
-}
-
-.dailytime__r2 {
+.tab-area {
     margin-top: -40px;
 }
 
-.dailytime__tab-content {
+.tab-content {
     padding-top: layout.$spacing-10;
     padding-bottom: layout.$spacing-10;
-}
-
-.dailytime__p {
-    @include type.type-style('body-short-01');
-    margin-top: layout.$spacing-03;
-    color: var(--cds-text-05);
 }
