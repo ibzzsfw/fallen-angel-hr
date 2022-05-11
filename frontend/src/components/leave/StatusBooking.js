@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import styles from '../../scss/status-booking.module.scss';
+import styles from '../../scss/leave/status-booking.module.scss';
 import {
     Button,
     Stack
 } from '@carbon/react';
-import { Table32, Grid32 } from '@carbon/icons-react';
+import { Table, Grid } from '@carbon/icons-react';
 import CardStatus from './CardStatus';
 import TableStatus from './TableStatus';
 
@@ -21,6 +21,7 @@ const StatusBooking = () => {
                 </div>
                 <div className={styles.group}>
                     <Button
+                    renderIcon={Table}
                     className={styles.button + (selectedContent === 'table' ? ' ' + styles.active : '')}
                     kind="ghost"
                     onClick={() => setSelectedContent('table')}
@@ -29,6 +30,7 @@ const StatusBooking = () => {
                 </Button>
                 <div className={styles.vertivalBar} />
                 <Button
+                    renderIcon={Grid}
                     className={styles.button + (selectedContent === 'card' ? ' ' + styles.active : '')}
                     kind="ghost"
                     onClick={() => setSelectedContent('card')}

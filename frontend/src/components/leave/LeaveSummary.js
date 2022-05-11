@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../scss/leave-summary.module.scss';
+import styles from '../../scss/leave/leave-summary.module.scss';
 import {
     ExpandableTile,
     TileAboveTheFoldContent,

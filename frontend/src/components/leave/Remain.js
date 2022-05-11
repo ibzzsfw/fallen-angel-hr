@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../scss/remain-tile.module.scss';
+import styles from '../../scss/leave/remain-tile.module.scss';
 import {
     Stack,
     Tile,

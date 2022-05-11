@@ -9,7 +9,7 @@ import {
     Row,
     Column,
 } from '@carbon/react';
-import styles from '../scss/dailytime.module.scss';
+import styles from '../scss/dailytime/dailytime.module.scss';
 import Summary from '../components/dailytime/Summary';
 import Banner from '../components/Banner';
 import Log from '../components/dailytime/Log';
