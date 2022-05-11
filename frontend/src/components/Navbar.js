@@ -98,6 +98,7 @@ const Navbar = () => {
                         </HeaderMenuItem>
                         <HeaderMenu aria-label="Admin" menuLinkName="Admin">
                             <HeaderMenuItem onClick={() => router.push('/manage')}>Manage employee</HeaderMenuItem>
+                            <HeaderMenuItem onClick={() => router.push('/notification')}>Notification request</HeaderMenuItem>
                             <HeaderMenuItem onClick={() => router.push('/promotion')}>Promotion</HeaderMenuItem>
                         </HeaderMenu>
                     </HeaderNavigation>

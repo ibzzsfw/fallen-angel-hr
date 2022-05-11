@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
     DataTable,
     Table,
@@ -14,12 +14,12 @@ import {
     Pagination,
     FlexGrid,
     Row,
-    Column,
+    Column
 } from '@carbon/react';
-import styles from '../../scss/leave/table-status.module.scss';
+import styles from '../../scss/notification/table-request.module.scss';
 import Offcanvas from "../Offcanvas";
-import { rows } from './LeaveData';
-import LeaveDetails from "./LeaveDetails";
+import { rows } from '../../components/notification/RequestData';
+import RequestDetails from './RequestDetails';
 
 const TableStatus = () => {
 
@@ -45,19 +45,11 @@ const TableStatus = () => {
     const headers = [
         {
             key: 'date',
-            header: 'Booking Date',
+            header: 'Request Date',
         },
         {
-            key: 'type',
-            header: 'Type',
-        },
-        {
-            key: 'start',
-            header: 'Start',
-        },
-        {
-            key: 'end',
-            header: 'End',
+            key: 'content',
+            header: 'Content',
         },
         {
             key: 'status',
@@ -146,7 +138,7 @@ const TableStatus = () => {
             {
                 isOpen &&
                 <Offcanvas isOpen={q => setIsOpen(q)}>
-                    <LeaveDetails />
+                    <RequestDetails />
                 </Offcanvas>
             }
         </FlexGrid>
