@@ -1,0 +1,78 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.payment {
+
+    .section-name {
+        @include type.type-style('productive-heading-01');
+    }
+
+    .wraper {
+
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px dashed var(--cds-border-strong-01);
+
+        .value {
+            @include type.type-style('productive-heading-02');
+        }
+    }
+
+    .Accordion {
+
+        padding-bottom: 3rem;
+    }
+
+
+    .ot {
+
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 6px 0;
+        border-bottom: 1px dashed var(--cds-border-strong-01);
+    }
+
+    .colName {
+
+        font-weight: 600;
+    }
+
+    .stack {
+        height: fit-content;
+        padding-bottom: 3rem;
+    }
+
+    .deduction {
+        width: 100%;
+
+        .aboveFold {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            @include type.type-style('productive-heading-01');
+
+            .value {
+                @include type.type-style('productive-heading-02');
+            }
+        }
+
+        .dec {
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 6px 0;
+            justify-items: center;
+            align-items: center;
+            border-bottom: 1px dashed var(--cds-border-strong-01);
+        }
+    }
+
+    .tag {
+        width: fit-content;
+    }
+}

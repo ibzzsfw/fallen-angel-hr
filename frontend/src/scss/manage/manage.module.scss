@@ -2,20 +2,20 @@
 
     position: relative;
     height: calc(100vh - 3rem);
-    padding-left: 0;
-    padding-right: 0;
+    // padding-left: 0;
+    // padding-right: 0;
 
     .bg {
+        margin-left: -1.5rem;
         height: calc(100vh - 3rem);
         background-image: url('/manage.svg');
         background-repeat: no-repeat;
         background-size: contain;
         background-position-y: center;
+        background-color: var(--cds-field-01);
     }
 
     .mainCol {
-
-        background-color: var(--cds-field-01);
 
         .topRow {
 
@@ -24,10 +24,8 @@
             max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
-            padding: 3rem 0;
+            padding: 2rem 0 1rem 0;
 
-
-            .content-switcher {}
         }
     }
 }

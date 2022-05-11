@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
-import styles from '../../scss/notification.module.scss';
+import styles from '../../scss/notification-panel.module.scss';
 import {
     FlexGrid,
     Row,

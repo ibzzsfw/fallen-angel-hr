@@ -821,6 +821,8 @@ const AddEmployee = (res, req, connection) => {
     });
 }
 
+
+
 //-- พนักงานออก --
 const EmployeeLeft = (res, req, connection) => {
     let employeeID = (req.headers.employeeID || '')
