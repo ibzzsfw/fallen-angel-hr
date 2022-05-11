@@ -10,7 +10,7 @@ import React from 'react';
 import Head from 'next/head';
 import styles from '../scss/dashboard.module.scss';
 import { useThemePreference } from '../components/ThemePreference';
-import Notification from '../components/dashboard/Notification';
+import NotificationPanel from '../components/dashboard/Notification-panel';
 
 const Dashboard = () => {
 
@@ -63,7 +63,7 @@ const Dashboard = () => {
           </Row >
         </Column >
         <Column max={6} xlg={6} className={styles.notification}>
-          <Notification />
+          <NotificationPanel />
         </Column>
       </Row>
     </FlexGrid >

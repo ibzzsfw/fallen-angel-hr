@@ -107,7 +107,7 @@ const Navbar = () => {
                         </HeaderMenuItem>
                         <HeaderMenu aria-label="Admin" menuLinkName="Admin">
                             <HeaderMenuItem onClick={() => router.push('/manage')}>Manage employee</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Sub-link 2</HeaderMenuItem>
+                            <HeaderMenuItem onClick={() => router.push('/notification')}>Notification request</HeaderMenuItem>
                             <HeaderMenuItem href="#">Sub-link 3</HeaderMenuItem>
                         </HeaderMenu>
                     </HeaderNavigation>
