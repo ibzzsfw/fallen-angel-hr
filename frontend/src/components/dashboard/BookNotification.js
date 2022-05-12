@@ -28,12 +28,11 @@ const BookNotification = () => {
                         <Row>
                             <Column max={10} xlg={10} lg={10} md={4} sm={4} style={{ marginBottom: '32px' }}>
                                 <TextInput
+                                    id='senderId'
                                     labelText="Sender ID"
                                     placeholder="039439"
-                                    readonly=''
-                                >
-                                    
-                                </TextInput>
+                                    readOnly
+                                />
                             </Column>
                             <Column max={1} xlg={1} lg={1} md={1} sm={1}     style={{ marginBottom: '32px' }}>
                                 <EditOff aria-label="EditOff" className={styles.edittoff} />

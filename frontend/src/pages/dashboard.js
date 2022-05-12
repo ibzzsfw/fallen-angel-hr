@@ -1,68 +1,117 @@
 import {
   Tile,
-  Button,
   FlexGrid,
-  Grid,
   Row,
   Column,
 } from '@carbon/react';
 import React from 'react';
-import Head from 'next/head';
 import styles from '../scss/dashboard.module.scss';
-import { useThemePreference } from '../components/ThemePreference';
 import NotificationPanel from '../components/dashboard/Notification-panel';
+import { DonutChart } from "@carbon/charts-react";
+import "@carbon/charts/styles.css";
+import "../scss/plex-and-carbon-components.module.css";
 
 const Dashboard = () => {
 
+  const dataCount = [1, 2, 3, 4, 5].map(i => {
+    return {
+      "group": `Position ${i}`,
+      "value": Math.random() * 10
+    }
+  })
+
+  const optionsCount = {
+    "title": "Employee count by position",
+    "resizable": true,
+    "legend": {
+      "alignment": "center"
+    },
+    "donut": {
+      "center": {
+        "label": "Employees"
+      },
+      "alignment": "center"
+    },
+    "height": "350px"
+  }
+
+  const dataPro = [
+    {
+      "group": `Attend`,
+      "value": 29
+    },
+    {
+      "group": `Absent`,
+      "value": 4
+    }
+  ]
+
+  const optionsPro = {
+    "title": "Employee count by status",
+    "resizable": true,
+    "legend": {
+      "alignment": "center"
+    },
+    "donut": {
+      "center": {
+        "label": "Employees"
+      },
+      "alignment": "center"
+    },
+    "height": "350px"
+  }
+
   return (
-    <FlexGrid fullWidth condensed className={styles.dashboard}>
-      <Row condensed> 
-        <Column max={10} xlg={10}>
-          <div className={styles.name}>
-            <Column lg={16}>
-              <h1>Welcome, suppakorn rakna</h1>
-            </Column>
-          </div>
-          <Row className={styles.menu}>
-            <Column>
-              <div className={styles.composer}>
-                <img alt='composer logo' src='https://quantum-computing.ibm.com/_nuxt/img/composer-light.6799b22.svg' />
-                <div className={styles.middle}>
-                  <div className={styles.intro}>Graphically build circuits with</div>
-                  <div className={styles.title}>IBM Quantum Composer</div>
-                </div>
-                <Button className={styles.button}>Launch Composer</Button>
-              </div>
-            </Column>
-            <Column>
-              <Tile />
-            </Column>
-            <Column>
-              <Tile style={{ backgroundColor: 'blue' }} />
-            </Column>
-            <Column>
-              <Tile style={{ backgroundColor: 'yellow' }} />
-            </Column >
-          </Row >
-          <Row className={styles.tiles}>
-            <Column className={styles.left}>
-              <Row className={styles.row}>
-                <Column lg={16}>
-                  <Tile style={{ backgroundColor: 'orange' }} />
-                </Column>
-              </Row >
+    <FlexGrid fullWidth className={styles.dashboard}>
+      <Row className={styles.resetRow}>
+        <Column max={12} xlg={10} className={styles.mainCol}>
+          <Row>
+            <Column max={6}>
               <Row>
-                <Column lg={16}>
-                  <Tile style={{ backgroundColor: 'violet' }} />
+                <h1>Department: <span>Accounting</span></h1>
+              </Row>
+              <Row>
+                <Column>
+                  <Tile />
                 </Column>
-              </Row >
-            </Column >
-            <Column className={styles.right}>
-              <Tile style={{ backgroundColor: 'pink', height: '100%' }} />
+                <Column>
+                  <Tile />
+                </Column>
+              </Row>
+              <Row>
+                <Column>
+                  <Tile />
+                </Column>
+                <Column>
+                  <Tile />
+                </Column>
+              </Row>
             </Column>
-          </Row >
+            <Column max={5}>
+              <Tile>
+                <DonutChart
+                  data={dataPro}
+                  options={optionsPro}>
+                </DonutChart>
+              </Tile>
+            </Column>
+            <Column max={5}>
+              <Tile>
+                <DonutChart
+                  data={dataCount}
+                  options={optionsCount}>
+                </DonutChart>
+              </Tile>
+            </Column>
+          </Row>
+          <Row>
+            <Tile />
+          </Row>
+          <Row>
+            <Tile />
+          </Row>
         </Column >
-        <Column max={6} xlg={6} className={styles.notification}>
+        <Column max={{ span: 3, offset: 1 }} xlg={6} md={8} sm={4} className={styles.notification}>
           <NotificationPanel />
         </Column>
       </Row>
@@ -71,3 +120,55 @@ const Dashboard = () => {
 }
 
 export default Dashboard;
+
+// export const getStaticProps = async () => {
+
+//   const data = [
+//     {
+//       "group": "2V2N 9KYPM version 1",
+//       "value": 20000
+//     },
+//     {
+//       "group": "L22I P66EP L22I P66EP L22I P66EP",
+//       "value": 65000
+//     },
+//     {
+//       "group": "JQAI 2M4L1",
+//       "value": 75000
+//     },
+//     {
+//       "group": "J9DZ F37AP",
+//       "value": 1200
+//     },
+//     {
+//       "group": "YEL48 Q6XK YEL48",
+//       "value": 10000
+//     },
+//     {
+//       "group": "Misc",
+//       "value": 25000
+//     }
+//   ]
+
+//   const options = {
+//     "title": "Donut (centered)",
+//     "resizable": true,
+//     "legend": {
+//       "alignment": "center"
+//     },
+//     "donut": {
+//       "center": {
+//         "label": "Browsers"
+//       },
+//       "alignment": "center"
+//     },
+//     "height": "400px"
+//   }
+
+//   return {
+//     props: {
+//       data,
+//       options
+//     }
+//   }
+// };

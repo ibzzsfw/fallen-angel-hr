@@ -21,16 +21,21 @@ const notificationPanel = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <FlexGrid fullwidth condensed className={styles.notificationPanel}>
+        <FlexGrid fullWidth condensed className={styles.notificationPanel}>
             <Row condensed className={styles.header}>
                 <div className={styles.recent}>Recent notifications</div>
                 <div className={styles.bookNoti}>
                     <Button
+                        kind="tertiary"
+                        hasIconOnly
+                        tooltipPosition="bottom"
+                        tooltipAlignment="end"
+                        iconDescription='Add notification'
                         size='md'
                         renderIcon={!isOpen ? Add : null}
                         onClick={() => setIsOpen(true)}
                     >
-                    {!isOpen ? 'Request now' : 'Requesting...'}    
+                    {!isOpen ? 'Request now' : 'Requesting...'}
                     </Button>
                     {
                         isOpen &&

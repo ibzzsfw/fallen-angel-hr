@@ -2,11 +2,9 @@
 
 .notificationPanel {
     padding: 1.5rem 0;
-    margin-right: 0;
     display: flex;
     flex-direction: column;
     height: calc(100vh - 3rem);
-    width: 320px;
     background-color: rgb(var(--cds-background), 0.7);
     overflow: scroll;
     border-left: solid 1px var(--cds-skeleton-background);
