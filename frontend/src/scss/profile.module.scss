@@ -1,0 +1,51 @@
+@use '@carbon/type';
+
+.profile {
+
+    padding: 4rem 0;
+
+    .stack {
+        max-width: 864px;
+
+        .category {
+
+            .topic {
+
+                border-bottom: 1px solid var(--cds-border-subtle-00);
+
+                .header {
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    div {
+                        @include type.type-style('productive-heading-03');
+                    }
+                }
+            }
+
+            .content {
+
+                padding: 1rem 0 1.5rem 0;
+
+                .wraper {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+
+                    .title {
+                        @include type.type-style('productive-heading-01');
+                        width: 145px;
+                    }
+
+                    .value {
+
+                        color: var(--cds-text-secondary);
+                    }
+                }
+
+            }
+        }
+    }
+}

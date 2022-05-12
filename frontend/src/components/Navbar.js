@@ -67,7 +67,7 @@ const Navbar = () => {
                         onClick={() => setIsSideNavExpanded(!isSideNavExpanded)}
                         isActive={isSideNavExpanded}
                     />
-                    <HeaderName prefix="FallenAngel" onClick={() => router.push('/')}>
+                    <HeaderName prefix="FallenAngel" onClick={() => router.push('/dashboard')}>
                         [Human Resources]
                     </HeaderName>
                     <HeaderNavigation aria-label="FallenAngel [Human Resources]">
@@ -79,15 +79,6 @@ const Navbar = () => {
                             isCurrentPage={currentPage === 'dailytime'}
                         >
                             Daily Time
-                        </HeaderMenuItem>
-                        <HeaderMenuItem
-                            onClick={() => router.push('/deduction')}
-                            // element={Link}
-                            // to='/deduction'
-                            // onClick={() => sessionStorage.setItem('currentPage', 'deduction')}
-                            isCurrentPage={currentPage === 'deduction'}
-                        >
-                            Deduction
                         </HeaderMenuItem>
                         <HeaderMenuItem
                             onClick={() => router.push('/leave')}
@@ -105,10 +96,10 @@ const Navbar = () => {
                         >
                             Payment
                         </HeaderMenuItem>
-                        <HeaderMenu aria-label="Link 4" menuLinkName="Link 4">
-                            <HeaderMenuItem href="#">Sub-link 1</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Sub-link 2</HeaderMenuItem>
-                            <HeaderMenuItem href="#">Sub-link 3</HeaderMenuItem>
+                        <HeaderMenu aria-label="Admin" menuLinkName="Admin">
+                            <HeaderMenuItem onClick={() => router.push('/manage')}>Manage employee</HeaderMenuItem>
+                            <HeaderMenuItem onClick={() => router.push('/notification')}>Notification request</HeaderMenuItem>
+                            <HeaderMenuItem onClick={() => router.push('/promotion')}>Promotion</HeaderMenuItem>
                         </HeaderMenu>
                     </HeaderNavigation>
                     <HeaderGlobalBar>
@@ -118,7 +109,7 @@ const Navbar = () => {
                             onClick={() => {
                                 // sessionStorage.setItem('currentPage', 'profile')
                                 onClickAction('profile')
-                                navigate('/profile', { replace: true })
+                                router.push('/profile')
                             }}
                         >
                             <UserAvatar size={20} />

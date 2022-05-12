@@ -11,7 +11,7 @@ import {
     Row,
     Column
 } from '@carbon/react';
-import styles from '../../scss/summary.module.scss';
+import styles from '../../scss/dailytime/summary.module.scss';
 import { Time, WarningOther } from '@carbon/icons-react';
 
 const Summary = () => {

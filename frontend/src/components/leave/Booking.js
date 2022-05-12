@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../../scss/booking.module.scss';
+import styles from '../../scss/leave/booking.module.scss';
 import {
     FlexGrid,
     Row,
@@ -42,7 +42,7 @@ const Booking = () => {
                                             disabled
                                             hidden
                                             value="placeholder-item"
-                                            text="Choose an option"
+                                            text=""
                                         />
                                         {[1, 2, 3, 4].map(i => <SelectItem value={`option-${i}`} text={`option-${i}`} />)}
                                     </Select>

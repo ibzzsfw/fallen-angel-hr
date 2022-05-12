@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../../scss/leave/card-status.module.scss';
+import styles from '../../scss/notification/card-request.module.scss';
 import {
     FlexGrid,
     Column,
@@ -7,11 +7,11 @@ import {
     ClickableTile,
     Tag,
 } from '@carbon/react';
-import { rows } from './LeaveData';
+import { rows } from './RequestData';
 import Offcanvas from "../Offcanvas";
-import LeaveDetails from './LeaveDetails';
+import RequestDetails from './RequestDetails';
 
-const CardStatus = () => {
+const cardRequest = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [rowID, setRowID] = useState('');
@@ -31,24 +31,14 @@ const CardStatus = () => {
                         <Tag type='purple'>{row.status}</Tag>
                     </div>
                     <div className={styles.wraper}>
-                        <div className={styles.title}>Booking date</div>
+                        <div className={styles.title}>Request date</div>
                         <div className={styles.content}>{row.date}</div>
                     </div>
                     <div className={styles.wraper}>
-                        <div className={styles.title}>Reason</div>
-                        <div className={styles.content}>{row.reason}</div>
+                        <div className={styles.title}>Content</div>
+                        <div className={styles.content}>{row.content}</div>
                     </div>
                     <div className={styles.footer}>
-                        <div className={styles.left}>
-                            <div className={styles.wraper}>
-                                <div className={styles.title}>Start date</div>
-                                <div className={styles.content}>{row.start}</div>
-                            </div>
-                            <div className={styles.wraper}>
-                                <div className={styles.title}>End date</div>
-                                <div className={styles.content}>{row.end}</div>
-                            </div>
-                        </div>
                         <div className={styles.right}>
                             <div className={styles.amount}>{2}</div>
                             <div className={styles.day}>days</div>
@@ -67,11 +57,11 @@ const CardStatus = () => {
             {
                 isOpen &&
                 <Offcanvas isOpen={q => setIsOpen(q)}>
-                    <LeaveDetails/>
+                    <RequestDetails/>
                 </Offcanvas>
             }
         </FlexGrid>
     )
 }
 
-export default CardStatus;
+export default cardRequest;

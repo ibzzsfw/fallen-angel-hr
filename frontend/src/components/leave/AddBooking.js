@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import styles from '../../scss/add-booking.module.scss';
+import styles from '../../scss/leave/add-booking.module.scss';
 import { Button } from '@carbon/react';
 import { CalendarEvent } from '@carbon/pictograms-react';
 import Booking from "./Booking";
 import Offcanvas from "../Offcanvas";
+import { Add } from '@carbon/icons-react';
 
 const AddBooking = () => {
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);     
 
     return (
         <div className={styles['add-booking']}>
@@ -16,10 +17,11 @@ const AddBooking = () => {
                 <div className={styles.intro}>Ask for time off work</div>
                 <div className={styles.title}>Booking new leave request</div>
             </div>
-            <Button
+            <Button        
+                renderIcon={!isOpen ? Add : null}
                 onClick={() => setIsOpen(true)}
             >
-                {!isOpen ? 'Book now' : 'Booking...'}
+                {!isOpen ? 'Book now' : 'Booking...'}    
             </Button>
             {
                 isOpen &&
