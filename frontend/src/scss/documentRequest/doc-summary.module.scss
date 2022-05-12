@@ -1,0 +1,35 @@
+@use '@carbon/type';
+
+.doc-summary {
+
+    .stackVertical {
+
+        height: fit-content;
+        padding-bottom: 2rem;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+
+            .title {
+                @include type.type-style('productive-heading-01');
+            }
+        }
+
+        .current {
+            .amount {
+                @include type.type-style('productive-heading-05');
+            }
+        }
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+
+            .name {
+                @include type.type-style('productive-heading-02');
+                color: var(--cds-support-info);
+            }
+        }
+    }
+}

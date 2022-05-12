@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../scss/notification/request-details.module.scss';
+import styles from '../../scss/documentRequest/doc-details.module.scss';
 import {
     Stack,
     CodeSnippet,
@@ -14,12 +14,12 @@ import {
     Button,
 } from '@carbon/react';
 
-const RequestDetails = () => {
+const DocDetails = () => {
     
     return (
-        <FlexGrid className={styles['request-detail']}>
+        <FlexGrid className={styles['doc-detail']}>
             <Row className={styles.header}>
-                <div className={styles.title}>Notification Details</div>
+                <div className={styles.title}>Document request Details</div>
                 <Stack orientation='horizontal' className={styles.menu}>
                     <div className={styles.item} />
                     <div className={styles.vertical} />
@@ -37,18 +37,18 @@ const RequestDetails = () => {
                         <Column max={10}>
                             <Stack gap='1rem'>
                                 <div className={styles.wraper}>
-                                    <div className={styles.title}>Sender ID</div>
+                                    <div className={styles.title}>Request ID</div>
                                     <div className={styles.content}>
                                         <CodeSnippet type="single" feedback="Copied to clipboard">{'1238384473jdcn'}</CodeSnippet>
                                     </div>
                                 </div>
                                 <div className={styles.wraper}>
-                                    <div className={styles.title}>Request date</div>
+                                    <div className={styles.title}>Requesting date</div>
                                     <div className={styles.content}>{'05/02/2022'}</div>
                                 </div>
                                 <div className={styles.wraper}>
-                                    <div className={styles.title}>Content</div>
-                                    <div className={styles.content}>{'content'}</div>
+                                    <div className={styles.title}>Purpose</div>
+                                    <div className={styles.content}>{'purpose'}</div>
                                 </div>
                             </Stack>
                         </Column>
@@ -80,7 +80,7 @@ const RequestDetails = () => {
                                 />
                                 <ProgressStep
                                     current
-                                    label="Admin"
+                                    label="HR manager"
                                 />
                                 <ProgressStep
                                     label="Complete"
@@ -123,4 +123,4 @@ const RequestDetails = () => {
     )
 }
 
-export default RequestDetails;
+export default DocDetails;
