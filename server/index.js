@@ -12,13 +12,17 @@ import ShowPositionName from './controllers/Controller.js';
 import CountStatus from './controllers/Controller.js';
 import RequestLeave from './controllers/Controller.js';
 import Controller from "./controllers/Controller.js";
+import StatusTab from "./controllers/Controller.js";
+import ShowNotification from './controllers/Controller.js';
+import ShowDocumentName from './controllers/Controller.js';
+import ShowBankAccount from './controllers/Controller.js';
 
 const connection = mysql.createConnection({
-    host: 'SG-fallen-angel-hr-6098-mysql-master.servers.mongodirector.com',
+    host: 'us-cdbr-east-05.cleardb.net',
     port: '3306',
-    user: 'sgroot',
-    password: '9cCzZPgxx,yn3g1B',
-    database: 'fallen-angel-hr',
+    user: 'b3c6b9362228e6',
+    password: '53446057',
+    database: 'heroku_174ba6c18c17d0c',
 });
 
 const app = express();
@@ -28,8 +32,8 @@ app.use(express.json());
 
 app.listen(3306, () => console.log("server is running on port 3306"));
 
+
 app.get("/getLeaveType", (req, res) => {
-    console.log("ข้ าวมั นไก่")
     connection.query("SELECT * FROM LeaveType", (err, result) => {
         if (err) {
             console.log(err);
@@ -39,10 +43,43 @@ app.get("/getLeaveType", (req, res) => {
     });
 });
 
+/*
+app.get("/getBankAccount", (req, res) => {
+    let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
+    connection.query(`SELECT bankName, bankAccount FROM Information WHERE employeeID = ?`, [employeeID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+})
+*/
+
+
+
+app.get('/getBankAccount', (req, res) => Controller.ShowBankAccount(req, res, connection));
+
+
+/*app.get("/ShowNotification", (req, res) => {
+    connection.query(`SELECT content, date FROM Notification;`, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+});*/
+
+
+app.get("/ShowNotification", (req, res) => Controller.ShowNotification(req, res, connection));
+
+//app.get("/getShowNotification", (req, res) => Controller.ShowNotification(req, res, connection));
+//app.get("/getStatusTab", (req, res) => Controller.StatusTab(req, res, connection));
+//app.get("/ShowDocumentName", (req, res, connection) => Controller.ShowDocumentName(req, res, connection));
 //app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));
-
-
-
 
 
 // app.get("/getUserRole", (req, res) => Controller.UserRole(req, res, connection));
