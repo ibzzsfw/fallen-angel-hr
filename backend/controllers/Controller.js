@@ -1,10 +1,4 @@
-import e from "express";
-
-
-
-
-// ส่งคำขอลางาน ดู if else
-
+import express from "express";
 
 const UserRole = (req, res, connection) => {
     connection.query("SELECT * FROM UserRole", (err, result) => {
@@ -31,19 +25,6 @@ const ShowInfo = (req, res, connection) => {
     });
 };
 
-/*
-const ShowInfo = (req, res, connection) => {
-    let employeeID = (req.heders.employeeID || '')
-    connection.query("SELECT * FROM Information WHERE employeeID = employeeID", (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(result);
-            res.send(result);
-        }
-    });
-};
-*/
 //---แสดงประวัติการศึกษา 
 const ShowEducation = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
@@ -58,7 +39,7 @@ const ShowEducation = (req, res, connection) => {
 };
 
 //--แสดงประวัติการเลื่อนตำแหน่ง
-const ShowPromotionHistory = (res, req, connection) => {
+const ShowPromotionHistory = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT * FROM PromotionHistory WHERE employeeID = ?`, [employeeID], (err, result) => {
         if (err) {
@@ -70,25 +51,9 @@ const ShowPromotionHistory = (res, req, connection) => {
     });
 };
 
-/*
-const IncomeByMonth = (res, req, connection) => {
-    let salary = (req.headers.salary || '')
-    let OT = (req.headers.OT || '')
-    let other = (req.headers.other || '')
-    let employeeID = (req.headers.employeeID || '')
-    connection.query("SELECT SUM(? + ? + ?) FROM Income WHERE employeeID = ? GROUP BY month;", [salary, OT, other, employeeID], (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(result);
-            res.send(result);
-        }
-    });
-};*/
-
 
 //--แสดงจำนวนครั้งการลา แบ่งตามประเภทการลา 
-const CountEachTypeOfLeave = (res, req, connection) => {
+const CountEachTypeOfLeave = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT status, COUNT(status) FROM LeaveApplication 
                 WHERE employeeID = ? GROUP BY status;`, [employeeID], (err, result) => {
@@ -102,7 +67,7 @@ const CountEachTypeOfLeave = (res, req, connection) => {
 };
 
 //--แสดงจำนวนครั้งที่ขอคำร้อง เอกสาร แบ่งตามสถานะของคำร้อง /
-const CountEachTypeOfRequest = (res, req, connection) => {
+const CountEachTypeOfRequest = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT status, COUNT(status) FROM DocumentRequest WHERE employeeID = ? GROUP BY status;`, [employeeID], (err, result) => {
         if (err) {
@@ -115,7 +80,7 @@ const CountEachTypeOfRequest = (res, req, connection) => {
 };
 
 //--แสดงสรุปจำนวนวัน เลือกเป็นรายสัปดาห์/เดือน และเวลาเข้าออกงานในวันนั้น ๆ /
-const SummaryClockInOut = (res, req, connection) => {
+const SummaryClockInOut = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
 
     connection.query(`SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = ? AND date BETWEEN '2022-03-11' AND '2022-03-17' GROUP BY type;`, [employeeID, , ], (err, result) => {
@@ -137,8 +102,8 @@ const SummaryClockInOut = (res, req, connection) => {
 };
 
 //--แสดงรายได้ทั้งหมดต่อเดือน ปี /
-const ShowIncomePerMonthYear = (res, req, connection) => {
-
+const ShowIncomePerMonthYear = (req, res, connection) => {
+    let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT PromotionHistory.salary, OTcalculate.OTincome,SUM(PromotionHistory.salary + OTcalculate.OTincome) AS income FROM PromotionHistory
                     INNER JOIN OTcalculate ON PromotionHistory.employeeID = OTcalculate.employeeID 
                     WHERE PromotionHistory.employeeID = ? AND PromotionHistory.stopDate IS NULL 
@@ -153,7 +118,7 @@ const ShowIncomePerMonthYear = (res, req, connection) => {
 };
 
 //--แสดงสรุปจำนวนชั่วโมง/การคำนวณรายได้ ขณะนั้นนับเริ่มจากต้นเดือน /
-const SummaryHoursIncomeFromBeginOfMonth = (res, req, connection) => {
+const SummaryHoursIncomeFromBeginOfMonth = (req, res, connection) => {
     connection.query(`SELECT SUM(OTHrs) FROM OTcalculate WHERE employeeID = ? AND MONTH(clockOut) = '..' 
                 AND YEAR(clockOut) = '..';`, [employeeID, , ], (err, result) => {
         if (err) {
@@ -166,7 +131,7 @@ const SummaryHoursIncomeFromBeginOfMonth = (res, req, connection) => {
 };
 
 //--แสดงชื่อตำแหน่ง /
-const ShowPositionName = (res, req, connection) => {
+const ShowPositionName = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query("SELECT positionName FROM PromotionHistory WHERE employeeID = ? AND stopDate IS NULL;;", [employeeID], (err, result) => {
         if (err) {
@@ -179,7 +144,7 @@ const ShowPositionName = (res, req, connection) => {
 };
 
 //--แสดงชื่อแผนก /
-const ShowDepartmentName = (res, req, connection) => {
+const ShowDepartmentName = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT departmentName FROM Department INNER JOIN Position ON Department.departmentID = Position.departmentID 
                     LEFT JOIN PromotionHistory ON Position.positionName = PromotionHistory.positionName WHERE PromotionHistory.employeeID = ? AND PromotionHistory.stopDate IS NULL;`, [employeeID], (err, result) => {
@@ -192,10 +157,9 @@ const ShowDepartmentName = (res, req, connection) => {
     });
 };
 
-
 //----- หน้า 27 Nottification -----
 //-- แท็บ Notification -- /
-const ShowNotification = (res, connection) => {
+const ShowNotification = (req, connection) => {
     connection.query(`SELECT content, date FROM Notification;`, (err, result) => {
         if (err) {
             console.log(err);
@@ -206,11 +170,10 @@ const ShowNotification = (res, connection) => {
     });
 }
 
-
 //----- หน้า 28 DailyTime page -----
 //-- แถบ Summary --
 //--แสดงเวลาเข้าและออกงานของวันนั้นน ๆ /
-const ShowDailyClockInOut = (res, req, connection) => {
+const ShowDailyClockInOut = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let date = (req.headers.employeeID || '')
     connection.query("SELECT clockIn, clockOut FROM DailyTime WHERE employeeID = ? AND date = ?;", [employeeID, date], (err, result) => {
@@ -224,7 +187,7 @@ const ShowDailyClockInOut = (res, req, connection) => {
 };
 
 //--สรุปจำนวนการมาทำงาน/มาสายในแต่ละเดือน/ปี /
-const SummaryWorkPerMonthYear = (res, req, connection) => {
+const SummaryWorkPerMonthYear = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT type, COUNT(type) FROM DailyTime WHERE employeeID = ? AND date 
                 BETWEEN '2022-03-01' AND '2022-03-31' GROUP BY type ;`, [employeeID], (err, result) => {
@@ -238,7 +201,7 @@ const SummaryWorkPerMonthYear = (res, req, connection) => {
 }
 
 //-- ตาราง Log /
-const ShowLogTable = (res, req, connection) => {
+const ShowLogTable = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let type = (req.headers.type || '')
     connection.query(`SELECT DailyTime_view.date, TIME(DailyTime_view.clockIn) AS clockIn, TIME(DailyTime_view.clockOut) AS clockOut, DailyTime_view.type AS type, 
@@ -259,9 +222,47 @@ const ShowLogTable = (res, req, connection) => {
 //----- หน้า 30 Leave page -----
 //-- แท็บ Summary --
 //--สรุปวันลา /
-
-
-const RequestLeave = (res, req, connection) => {
+const SummaryLeave = (req, res, connection) => {
+    let status = (req.headers.status);
+    if (status == 'approved') {
+        connection.query(`SELECT DATE(leaveapp.startDate) AS startDate, COUNT(status) AS approved ,DATE(leaveapp.endDate) AS endDate, LeaveType.leaveName, 
+                    DATEDIFF(leaveapp.endDate, leaveapp.startDate)+1 AS sumDate FROM LeaveApplication leaveapp 
+                    INNER JOIN LeaveType ON leaveapp.leaveID = LeaveType.leaveID
+                    WHERE leaveapp.status = ? AND leaveapp.employeeID = ?
+                    GROUP BY leaveapp.leaveID, leaveapp.status;`, [status, employeeID], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+                res.send(result);
+            }
+        });
+    } else if (status == 'waiting') {
+        connection.query(`SELECT COUNT(status) AS waiting FROM LeaveApplication WHERE status = ? AND employeeID = ?;`, [status, employeeID], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+                res.send(result);
+            }
+        });
+    } else if (status == 'rejected') {
+        connection.query(`SELECT COUNT(LeaveApplication.status) AS rejected, LeaveType.leaveName, LeaveBooking.managerNote FROM LeaveApplication
+                    INNER JOIN LeaveType ON LeaveApplication.leaveID = LeaveType.leaveID
+                    LEFT JOIN LeaveBooking ON LeaveApplication.bookingID = LeaveBooking.bookingID
+                    WHERE LeaveApplication.status = ? AND LeaveApplication.employeeID = ?
+                    GROUP BY LeaveApplication.leaveID, LeaveApplication.status;`, [status, employeeID], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+                res.send(result);
+            }
+        });
+    }
+};
+//--ส่ งคำขอลางาน /
+const RequestLeave = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let bookingID = (req.headers.bookingID || '')
     let leaveID = (req.headers.leaveID || '')
@@ -282,7 +283,7 @@ const RequestLeave = (res, req, connection) => {
 };
 
 
-const CountAbsentLate = (res, req, connection) => {
+const CountAbsentLate = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query("SELECT type, COUNT(type) AS count FROM DailyTime WHERE employeeID = ? GROUP BY type;", [employeeID], (err, result) => {
         if (err) {
@@ -296,7 +297,7 @@ const CountAbsentLate = (res, req, connection) => {
 
 
 //--แจ้งวันลาที่เหลืออยู่ /
-const ShowLeaveRemain = (res, req, connection) => {
+const ShowLeaveRemain = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query("SELECT sickRemain, personalRemain, vacationRemain, maternityRemain FROM information WHERE employeeID = ?;", [employeeID], (err, result) => {
         if (err) {
@@ -308,32 +309,9 @@ const ShowLeaveRemain = (res, req, connection) => {
     });
 };
 
-const LeaveRequest = async(res, req, connection) => {
-    let employeeID = (req.headers.employeeID || '')
-
-    const r1 = await connection.query({})
-
-    connection.query("", [], (err, result) => {
-
-    });
-    connection.query("", [], (err, result) => {
-
-    });
-    connection.query("", [], (err, result) => {
-
-    });
-};
-
-const ShowDpmLeaveTogether = (res, req, connection) => {
-    connection.query("", [], (err, result) => {
-
-    });
-}
-
-
 //-- แท็บ Status --
 //--รายละเอียดแต่ละคำขอลา /
-const ShowLeaveDeatils = (res, req, connection) => {
+const ShowLeaveDeatils = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query("SELECT * FROM LeaveApplication WHERE employeeID = ?", [employeeID], (err, result) => {
         if (err) {
@@ -347,11 +325,10 @@ const ShowLeaveDeatils = (res, req, connection) => {
 
 //-- -- - หน้ า 32 Manager Home page-- -- -
 // Dashboard Manager
-
 //มีพนักงานในแผนกลากี่คน **ช่วงวันที่ ให้ชื่อแสดงทุกวันที่ยังอยู่ในช่วงลา
 // ใช้ร่วมกัย CountLeaveInDpmAtSameTime
 //มีขอลากี่ booking 
-const CountBooking = (res, req, connection) => {
+const CountBooking = (req, res, connection) => {
     let departmentID = (req.headers.departmentID || '')
     let status = (req.headers.status || '')
     connection.query(`SELECT COUNT(LeaveApplication.status) FROM LeaveApplication INNER JOIN PromotionHistory ON LeaveApplication.employeeID = PromotionHistory.employeeID 
@@ -367,13 +344,14 @@ const CountBooking = (res, req, connection) => {
 };
 
 //มาสายกี่คน
-const CountLate = (res, req, connection) => {
+const CountLate = (req, res, connection) => {
     let type = (req.headers.type || '')
     let departmentID = (req.headers.departmentID || '')
-    connection.query(`SELECT type, COUNT(type) FROM DailyTime 
+    let date = (req.headers.date || '')
+    connection.query(`SELECT type, COUNT(type) FROM DailyTime
                 INNER JOIN PromotionHistory ON DailyTime.employeeID = PromotionHistory.employeeID AND PromotionHistory.stopDate IS NULL
                 LEFT JOIN Position ON PromotionHistory.positionName = Position.positionName 
-                WHERE type = ? AND Position.departmentID = ? AND date BETWEEN '..' AND '..' GROUP BY type;`, [type, departmentID], (err, result) => {
+                WHERE type = ? AND Position.departmentID = ? AND date BETWEEN ? AND ? GROUP BY type;`, [type, departmentID, date, date], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -387,7 +365,7 @@ const CountLate = (res, req, connection) => {
 //----- หน้า 33 Document Request page -----
 // แท็บ LeaveRequest--
 // Document request page
-const ShowDocumentName = (res, connection) => {
+const ShowDocumentName = (req, res, connection) => {
     connection.query(`SELECT documentName FROM Document;`, (err, result) => {
         if (err) {
             console.log(err);
@@ -399,7 +377,7 @@ const ShowDocumentName = (res, connection) => {
 };
 
 // ส่งคำขอเอกสารจากรายชื่อ เหตุผล 
-const LeaveRequestFromNamePurpose = (res, req, connection) => {
+const LeaveRequestFromNamePurpose = (req, res, connection) => {
     let requestID = (req.headers.requestID || '')
     let documentID = (req.headers.documentID || '')
     let employeeID = (req.headers.employeeID || '')
@@ -427,7 +405,7 @@ const LeaveRequestFromNamePurpose = (res, req, connection) => {
 };
 
 //-- แท็บ Status -- /
-const StatusTab = (res, req, connection) => {
+const StatusTab = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT confirmationDate, status, managerNote FROM RequestBooking WHERE employeeID = ?;`, [employeeID], (err, result) => {
         if (err) {
@@ -439,10 +417,9 @@ const StatusTab = (res, req, connection) => {
     });
 }
 
-
 // หน้า 34 HR Document Request page (HR Manager) -----
 //--แสดงคำขอเอกสาร /
-const ShowDocumentRequest = (res, req, connection) => {
+const ShowDocumentRequest = (req, res, connection) => {
     let status = (req.headers.status || '')
     connection.query(`SELECT * FROM DocumentRequest WHERE status = ?;`, [status], (err, result) => {
         if (err) {
@@ -469,8 +446,8 @@ const ShowDocumentRequest = (res, req, connection) => {
 // แท็บ Banking--
 // แสดงรายละเอียดข้ อมูลเกี่ ยวกั บธนาคาร
 
-const ShowBankAccount = (res, req, connection) => {
-    let employeeID = (req.headers.employeeID || '')
+const ShowBankAccount = (req, res, connection) => {
+    let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
     connection.query(`SELECT bankName, bankAccount FROM Information WHERE employeeID = ?`, [employeeID], (err, result) => {
         if (err) {
             console.log(err);
@@ -483,7 +460,7 @@ const ShowBankAccount = (res, req, connection) => {
 
 // แท็บ get PaySlip --
 // ข้อมูลส่วนตัว
-const PaySlipInfo = (res, req, connection) => {
+const PaySlipInfo = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT info.employeeID, info.firstName, info.lastName, info.phoneNumber, info.bankName, info.bankAccount, dpm.departmentName, pro.positionName FROM Information info 
                     INNER JOIN PromotionHistory pro ON info.employeeID = pro.employeeID AND pro.stopDate IS NULL
@@ -500,7 +477,7 @@ const PaySlipInfo = (res, req, connection) => {
 };
 
 // การเงิน
-const PaySlipFinance = (res, req, connection) => {
+const PaySlipFinance = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT MONTH(Monthly.month) AS month, pro.salary, SUM(OTcalculate.OTincome) AS overtime, SUM(OTcalculate.OTHrs) AS OTHrs, 
                 (pro.salary + SUM(OTcalculate.OTincome)) AS incomeTotal,
@@ -512,9 +489,9 @@ const PaySlipFinance = (res, req, connection) => {
                 LEFT JOIN OTcalculate ON Monthly.employeeID = OTcalculate.employeeID
                 LEFT JOIN Deduction_view ON Monthly.employeeID = Deduction_view.employeeID
                 WHERE Monthly.employeeID = ? AND pro.stopDate IS NULL
-                AND MONTH(Monthly.month) = '04' AND YEAR(Monthly.month) = '2022' 
-                AND DATE(OTcalculate.clockOut) BETWEEN '2022-03-25' AND '2022-04-25'
-                AND Deduction_view.date BETWEEN '2022-03-25' AND '2022-04-25';`, [employeeID, month, year], (err, result) => {
+                AND MONTH(Monthly.month) = ? AND YEAR(Monthly.month) = ? 
+                AND DATE(OTcalculate.clockOut) BETWEEN ? AND ?
+                AND Deduction_view.date BETWEEN ? AND ?;`, [employeeID, month, year, month, month, month, month], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -525,7 +502,7 @@ const PaySlipFinance = (res, req, connection) => {
 }
 
 // หน้า 36 Deduction page -----
-const AbsentTab = (res, req, connection) => {
+const AbsentTab = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT date, type, absentDeduct FROM Deduction_view WHERE Deduction_view.type = ?
                 AND employeeID = ? AND date BETWEEN '..' AND '..';`, [type, employeeID], (err, result) => {
@@ -539,7 +516,7 @@ const AbsentTab = (res, req, connection) => {
 }
 
 // แท็บ Late/EarlyLeave --
-const LateEarlyLeaveTab = (res, req, connection) => {
+const LateEarlyLeaveTab = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT Deduction_view.date, TIME(DailyTime_view.clockIn), TIME(DailyTime_view.clockOut), Deduction_view.type, Deduction_view.lateEarlyDeduct 
                 FROM Deduction_view
@@ -557,7 +534,7 @@ const LateEarlyLeaveTab = (res, req, connection) => {
 };
 
 //-- แท็บ OverLeave -- 
-const OverLeaveTab = (res, req, connection) => {
+const OverLeaveTab = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT leaveName, overLeaveDeduct FROM OverLeave WHERE employeeID = ?;`, [employeeID], (err, result) => {
         if (err) {
@@ -571,7 +548,7 @@ const OverLeaveTab = (res, req, connection) => {
 
 // หน้า 38 Promotion History page (ADMIN) -----
 // อัพเดตข้อมูลพนักงานปัจจุบัน
-const UpdateEmployeeInfo = (res, req, connection) => {
+const UpdateEmployeeInfo = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let positionName = (req.headers.positionName || '')
     let startDate = (req.headers.startDate || '')
@@ -589,7 +566,7 @@ const UpdateEmployeeInfo = (res, req, connection) => {
 }
 
 // update ตำแหน่งเก่า
-const UpdateOldPosition = (res, req, connection) => {
+const UpdateOldPosition = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let stopDate = (req.headers.stopDate || '')
     connection.query(`UPDATE PromotionHistory SET stopDate = ? WHERE employeeID = ?;`, [stopDate, employeeID], (err, result) => {
@@ -603,7 +580,7 @@ const UpdateOldPosition = (res, req, connection) => {
 }
 
 // update role ใหม่ (ถ้าเลื่อนยศ)
-const UpdateRole = (res, req, connection) => {
+const UpdateRole = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let roleID = (req.headers.roleID || '')
     connection.query(`UPDATE Information SET roleID = ? WHERE employeeID = ?;`, [roleID, employeeID], (err, result) => {
@@ -619,18 +596,13 @@ const UpdateRole = (res, req, connection) => {
 // หน้า 40 Manage Employee page (ADMIN) -----
 // แท็บ AddEmployee --
 // แอดมินเพิ่มรายละเอียดพนักงานใหม่
+// ใช้ร่วมกับ AddEmployee
 
 
 // แท็บ RemoveEmployee --
-/*const RemoveEmployee = async(res, req, connection) => {
+const RemoveEmployee = async(req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
-    const result1 = await connection.query({
-
-    });
-}*/
-const RemoveEmployee = (res, req, connection) => {
-    let employeeID = (req.headers.employeeID || '')
-    connection.query(`DELETE * WHERE employeeID = ?;`, [employeeID], (err, result) => {
+    const Remove1 = connection.query(`DELETE * WHERE employeeID = ?;`, [employeeID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -638,8 +610,7 @@ const RemoveEmployee = (res, req, connection) => {
             res.send(result);
         }
     });
-    connection.query(`INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) 
-                VALUES (?,?,?,?,?);`, [employeeID, positionName, startDate, stopDate, salary], (err, result) => {
+    const Remove2 = connection.query(`INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) VALUES (?,?,?,?,?);`, [employeeID, positionName, startDate, stopDate, salary], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -653,11 +624,11 @@ const RemoveEmployee = (res, req, connection) => {
 //----------- Complex -----------
 //-- ส่งคำขอแจ้งเตือน --
 //--Manager
-const ManageRequestSendNotification = (res, req, connection) => {
-    let senderID = (req.headers.senderID || '')
-    let status = (req.headers.status || '')
-    let date = (req.headers.date || '')
-    let content = (req.headers.content || '')
+const ManageRequestSendNotification = (req, res, connection) => {
+    let senderID = (req.headers.senderID || '');
+    let status = 'waiting';
+    let date = (req.headers.date || '');
+    let content = (req.headers.content || '');
     connection.query(`INSERT INTO Notification(senderID, status, date, content) VALUES (?,?,?,?);`, [senderID, status, date, content], (err, result) => {
         if (err) {
             console.log(err);
@@ -668,8 +639,8 @@ const ManageRequestSendNotification = (res, req, connection) => {
     });
 };
 //--Admin
-const AdminRequestSendNotification = (res, req, connection) => {
-    let status = (req.headers.status || '')
+const AdminRequestSendNotification = (req, res, connection) => {
+    let status = 'waiting'
     let notifficationID = (req.headers.notifficationID || '')
     connection.query(`SELECT * FROM Notification WHERE status = ?;`, [status], (err, result) => {
         if (err) {
@@ -693,7 +664,7 @@ const AdminRequestSendNotification = (res, req, connection) => {
 
 //-- คำขอลางาน --
 // ใช้ร่วมกับ LeaveRequestFromNamePurpose
-const RequestLeave2 = (res, req, connection) => {
+const RequestLeaveBooking = (req, res, connection) => {
     let requestID = (req.headers.requestID || '')
     let documentID = (req.headers.documentID || '')
     let employeeID = (req.headers.employeeID || '')
@@ -701,29 +672,10 @@ const RequestLeave2 = (res, req, connection) => {
     let requestDate = new Date();
     //let requestDate = (req.headers.requestDate || '')
     let confirmationDate = new Date();
-    let status = (req.headers.status || '')
+    let status = 'waiting';
     let bookingID = (req.headers.status || '')
-        /*connection.query(`INSERT INTO DocumentRequest(requestID, documentID, employeeID, purpose, requestDate, status) 
+    connection.query(`INSERT INTO DocumentRequest(requestID, documentID, employeeID, purpose, requestDate, status) 
                     VALUES (?,?,?,?,?,?);`, [requestID, documentID, employeeID, purpose, requestDate, status], (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(result);
-                res.send(result);
-            }
-        });
-        connection.query(`INSERT INTO RequestBooking(requestID, confirmationDate, status) 
-                    VALUES (?,?,?);`, [requestID, confirmationDate, status], (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(result);
-                res.send(result);
-            }
-        });*/
-    AddEmployee(res, req, connection);
-    connection.query(`UPDATE Information INNER JOIN LeaveApplication ON Information.employeeID = LeaveApplication.employeeID 
-                AND LeaveApplication.status = ?`, [status], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -731,20 +683,46 @@ const RequestLeave2 = (res, req, connection) => {
             res.send(result);
         }
     });
-    connection.query(`SET sickRemain = sickRemain - (SELECT DATEDIFF(DATE(endDate),DATE(startDate)) 
-                FROM LeaveApplication WHERE bookingID = ?);`, [bookingID], (err, result) => {
+    connection.query(`INSERT INTO RequestBooking(requestID, confirmationDate, status) 
+                    VALUES (?,?,?);`, [requestID, confirmationDate, status], (err, result) => {
         if (err) {
             console.log(err);
         } else {
             console.log(result);
             res.send(result);
+        }
+    });
+};
+
+//--ลบวันลา
+const ReduceDayRemain = async(req, res, connection) => {
+    let status = (req.headers.status || '')
+    let bookingID = (req.headers.bookingID || '')
+    const RDRM1 = await connection.query(`UPDATE Information INNER JOIN LeaveApplication ON Information.employeeID = LeaveApplication.employeeID 
+                    AND LeaveApplication.status = ?`, [status], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(RDRM1);
+            res.send(RDRM1);
+        }
+    });
+    const RDRM2 = await connection.query(`SET sickRemain = sickRemain - (SELECT DATEDIFF(DATE(endDate),DATE(startDate)) 
+                    FROM LeaveApplication WHERE bookingID = ?);`, [bookingID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(RDRM2);
+            res.send(RDRM2);
         }
     });
 
 }
 
+
+
 //-- เลื่อนตำแหน่ง --
-const Promote = (res, req, connection) => { //เปลี่ยนเป็นของ manager แทน
+const Promote = (req, res, connection) => { //เปลี่ยนเป็นของ manager แทน
     let employeeID = (req.headers.employeeID || '')
     let positionName = (req.headers.positionName || '')
     let startDate = (req.headers.startDate || '')
@@ -778,77 +756,87 @@ const Promote = (res, req, connection) => { //เปลี่ยนเป็น�
 }
 
 //-- เพิ่มพนักงาน --
-const AddEmployee = (res, req, connection) => {
+const AddEmployee = async(req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let roleID = (req.headers.roleID || '')
     let identificationNo = (req.headers.identificationNo || '')
     let firstName = (req.headers.firstName || '')
     let lastName = (req.headers.lastName || '')
-    let DOB = (req.headers.DOB || '')
     let sex = (req.headers.sex || '')
-    let phoneNumber = (req.headers.phoneNumber || '')
     let email = (req.headers.email || '')
-    let address = (req.headers.address || '')
-    let photo = (req.headers.photo || '')
-    let sickRemain = (req.headers.sickRemain || '')
-    let personalRemain = (req.headers.personalRemain || '')
-    let vacationRemain = (req.headers.vacationRemain || '')
-    let maternityRemain = (req.headers.maternityRemain || '')
-    let passwordHash = (req.headers.passwordHash || '')
     let bankName = (req.headers.bankName || '')
     let bankAccount = (req.headers.bankAccount || '')
+    let passwordHash = (req.headers.passwordHash || '')
         // roleid identri firstname  alstname sex email bankaccount bank
         //defaurlt pasword as identification no
-    connection.query(`INSERT INTO Information(employeeID, roleID, identificationNo, firstName, lastName, DOB, sex, phoneNumber, email, address, photo, 
-                sickRemain, personalRemain, vacationRemain, maternityRemain, passwordHash, bankName, bankAccount) 
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);`, [employeeID, roleID, identificationNo, firstName, lastName, DOB, sex, phoneNumber, email, address, photo,
-        sickRemain, personalRemain, vacationRemain, maternityRemain, passwordHash, bankName, bankAccount
-    ], (err, result) => {
+    const AddEmployee1 = await connection.query(`INSERT INTO Information(employeeID, roleID, identificationNo, firstName, lastName, sex, email, passwordHash, bankName, bankAccount) 
+                VALUES (?,?,?,?,?,?,?,?,?,?);`, [employeeID, roleID, identificationNo, firstName, lastName, sex, email, passwordHash, bankName, bankAccount], (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
-            res.send(result);
+            console.log(AddEmployee1);
+            res.send(AddEmployee1);
         }
     });
-    //SELECT dayAvailable
-    connection.query(``, [], (err, result) => {
-
-    });
-    //Insert into PromotionHistory
-    connection.query(``, [], (err, result) => {
-
+    if (sex == 'M') {
+        let maternityRemain = NULL;
+        const AddEmployee2 = await connection.query(`SELECT dayAvailable FROM LeaveType WHERE leaveName = 'sickRemain' AND leaveName = 'personalRemain' 
+            AND leaveName = 'vacationRemain' AND leaveName = ?`, [maternityRemain], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(AddEmployee2);
+                res.send(AddEmployee2);
+            }
+        });
+    } else if (sex == 'W') {
+        const AddEmployee2 = await connection.query(`SELECT dayAvailable FROM LeaveType WHERE leaveName = 'sickRemain' AND leaveName = 'personalRemain' 
+            AND leaveName = 'vacationRemain' AND leaveName = 'maternityRemain'`, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(AddEmployee2);
+                res.send(AddEmployee2);
+            }
+        });
+    }
+    const AddEmployee3 = await connection.query(`INSERT INTO PromotionHistory(employeeID, positionName, startDate, stopDate, salary) 
+                VALUES (?,?,?, NULL ,?);`, [employeeID, positionName, startDate, salary], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(AddEmployee3);
+            res.send(AddEmployee3);
+        }
     });
 }
 
-
-
 //-- พนักงานออก --
-const EmployeeLeft = (res, req, connection) => {
+const EmployeeLeftJob = async(req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let stopDate = (req.headers.employeeID || '')
-    connection.query(`UPDATE Information SET SickRemain = ?, personalRemain = ?, vacationRemain = ?, 
+    const result1 = await connection.query(`UPDATE Information SET SickRemain = ?, personalRemain = ?, vacationRemain = ?, 
                 maternityRemain = ?, roleID = ?, passwordHash = ? WHERE employeeID = ?;`, [NULL, NULL, NULL, NULL, NULL, NULL, employeeID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
-            res.send(result);
+            console.log(result1);
+            res.send(result1);
         }
-    });
-    connection.query(`UPDATE PromotionHistory SET stopDate = ? WHERE employeeID = ?;`, [stopDate, employeeID], (err, result) => {
+    })
+    const result2 = await connection.query(`UPDATE PromotionHistory SET stopDate = ? WHERE employeeID = ?;`, [stopDate, employeeID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
-            res.send(result);
+            console.log(result2);
+            res.send(result2);
         }
-    });
+    })
 }
 
 //----------- Advanced -----------
 //-- สรุปแต่ละ status + type + managernote
-const SummaryStatusTypeManagernote = (res, req, connection) => {
+const SummaryStatusTypeManagernote = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     let status = (req.headers.status || '')
     connection.query(`SELECT DATE(leaveapp.startDate) AS startDate, DATE(leaveapp.endDate) AS endDate, LeaveType.leaveName, 
@@ -866,7 +854,7 @@ const SummaryStatusTypeManagernote = (res, req, connection) => {
 }
 
 //-- จำนวนคนในแผนกที่ลาพร้อมกันในช่วงที่เลือก --
-const CountLeaveInDpmAtSameTime = (res, req, connection) => {
+const CountLeaveInDpmAtSameTime = (req, res, connection) => {
     let departmentID = (req.headers.departmentID || '')
     let status = (req.headers.status || '')
     connection.query(`SELECT COUNT(LeaveApplication.status) AS approved, DATEDIFF(LeaveApplication.endDate, LeaveApplication.startDate) AS day FROM LeaveApplication 
@@ -881,12 +869,13 @@ const CountLeaveInDpmAtSameTime = (res, req, connection) => {
         }
     });
 };
+
 //-- จำนวนคนในแผนกที่ลาพร้อมกันในช่วงที่เลือก --
 // ใช้ร่วมกับ CountLeaveInDpmAtSameTime
 
 //-- Dashboard ของ manager
 //--มีพนักงานในแผนกลากี่คน 
-const CountLeaveInDpm = (res, req, connection) => {
+const CountLeaveInDpm = (req, res, connection) => {
     let status = (req.headers.status || '')
     let departmentID = (req.headers.departmentID || '')
     connection.query(`SELECT DATE(LeaveApplication.startDate), info.firstName, info.lastName, Position.positionID, COUNT(Position.positionID) AS amount FROM LeaveApplication 
@@ -904,8 +893,8 @@ const CountLeaveInDpm = (res, req, connection) => {
 }
 
 //--มีขอลากี่ booking 
-const CountWaitingBooking = (res, req, connection) => {
-    let status = (req.headers.status || '')
+const CountWaitingBooking = (req, res, connection) => {
+    let status = 'waiting';
     let departmentID = (req.headers.departmentID || '')
     connection.query(`SELECT status, COUNT(LeaveApplication.status) FROM LeaveApplication 
                 INNER JOIN PromotionHistory ON LeaveApplication.employeeID = PromotionHistory.employeeID AND PromotionHistory.stopDate IS NULL
@@ -921,7 +910,7 @@ const CountWaitingBooking = (res, req, connection) => {
 }
 
 //--มาสายกี่คน 
-const CountLateDuring = (res, req, connection) => {
+const CountLateDuring = (req, res, connection) => {
     let status = (req.headers.status || '')
     let departmentID = (req.headers.departmentID || '') // เติมส่วนของ Date
         //let date = (req.headers.)
@@ -939,18 +928,19 @@ const CountLateDuring = (res, req, connection) => {
 }
 
 //-- Pay slip
-//--ข้อมูลส่วนตัว  ใช้ร่วมกับ PaySlipInfo อย่าลืมเช็ค date
-
+//--ข้อมูลส่วนตัว  ใช้ร่วมกับ PaySlipInfo 
 //การเงิน ใช้ร่วมกับ PaySlipFinance อย่าลืมเช็ค date
 
 //-- คำนวณการขาดงาน ติดปัญหาเรื่อง date
-const CalculateAbsent = (res, req, connection) => {
+const CalculateAbsent = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
+    let startDate = (req.headers.date || '')
+    let endDate = (req.headers.date || '')
     connection.query(`SELECT DailyTime_view.employeeID, DailyTime_view.date, DailyTime_view.type, ((pro.salary/30) * COUNT(DailyTime_view.date)) AS absentDeduct 
                 FROM PromotionHistory pro 
                 INNER JOIN DailyTime_view ON pro.employeeID = DailyTime_view.employeeID
                 WHERE pro.stopDate IS NULL AND DailyTime_view.type = 'absent'
-                AND pro.employeeID = ? AND date BETWEEN ? AND ?;`, [employeeID, , ], (err, result) => {
+                AND pro.employeeID = ? AND date BETWEEN ? AND ?;`, [employeeID, startDate, endDate], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -961,11 +951,11 @@ const CalculateAbsent = (res, req, connection) => {
 }
 
 //-- คำนวณการมาสายหรืออกก่อนเวลา
-const CalculateLeaveEarlyLate = (res, req, connection) => {
+const CalculateLeaveEarlyLate = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT daily.*,((((pro.salary/30)/8)/60) * daily.lateHrs) AS lateEarlyDeduct FROM PromotionHistory pro
                 INNER JOIN DailyTime daily ON pro.employeeID = daily.employeeID
-                WHERE pro.stopDate IS NULL AND pro.employeeID = ?;`, [], (err, result) => {
+                WHERE pro.stopDate IS NULL AND pro.employeeID = ?;`, [employeeID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -976,21 +966,9 @@ const CalculateLeaveEarlyLate = (res, req, connection) => {
 }
 
 //-- คำนวณการลางานเกินวันอนูญาต
-const CalculateExcessLEave = (res, req, connection) => {
+const CalculateExcessLeave = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
-    connection.query(`SELECT LeaveType.leaveName, 
-                (CASE
-                    WHEN LeaveType.leaveName = 'sick leave' AND info.sickRemain < 0 THEN
-                        CAST(ABS(((pro.salary/30) * info.sickRemain)) AS DECIMAL(10,2))
-                    WHEN LeaveType.leaveName = 'personal leave' AND info.personalRemain < 0 THEN
-                        CAST(ABS(((pro.salary/30) * info.personalRemain)) AS DECIMAL(10,2))
-                    WHEN LeaveType.leaveName = 'vacation leave' AND info.vacationRemain < 0 THEN
-                        CAST(ABS(((pro.salary/30) * info.vacationRemain)) AS DECIMAL(10,2))
-                    WHEN LeaveType.leaveName = 'maternity leave' AND info.maternityRemain < 0 THEN
-                        CAST(ABS(((pro.salary/30) * info.maternityRemain)) AS DECIMAL(10,2))
-                END) AS overLeaveDeduct FROM LeaveType, Information info
-                INNER JOIN PromotionHistory pro ON info.employeeID = pro.employeeID
-                WHERE info.employeeID = ?;`, [employeeID], (err, result) => {
+    connection.query(`SELECT leaveName, overLeaveDeduct FROM OverLeave WHERE employeeID = ?;`, [employeeID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -1001,60 +979,56 @@ const CalculateExcessLEave = (res, req, connection) => {
 }
 
 export default {
-    UserRole,
+    // total 52
     ShowInfo,
-    ShowEducation,
-    ShowPromotionHistory,
-    CountEachTypeOfLeave,
-    CountEachTypeOfRequest,
-    //IncomeByMonth,
-    ShowPositionName,
-    CountStatus,
+    UserRole,
     RequestLeave,
-    ShowNotification,
-    SummaryClockInOut,
-    ShowIncomePerMonthYear,
-    ShowDepartmentName,
-    ShowDailyClockInOut,
-    SummaryWorkPerMonthYear,
+    ShowEducation,
+    ShowPositionName,
+    CountEachTypeOfLeave,
+    ShowPromotionHistory,
+    CountEachTypeOfRequest,
     SummaryHoursIncomeFromBeginOfMonth,
-    CountLate,
-    CountAbsentLate,
-    ShowLogTable,
-    ShowLeaveRemain,
-    LeaveRequest, // not sure
-    CountLeaveInDpmAtSameTime,
-    ShowLeaveDeatils,
-    CountBooking,
     LeaveRequestFromNamePurpose,
+    CountLeaveInDpmAtSameTime,
+    SummaryWorkPerMonthYear,
+    ShowIncomePerMonthYear,
+    CountWaitingBooking,
     ShowDocumentRequest,
-    StatusTab,
-    ShowDocumentName,
-    ShowBankAccount,
-    PaySlipInfo,
-    PaySlipFinance,
-    AbsentTab,
-    LateEarlyLeaveTab,
-    OverLeaveTab,
+    ShowDailyClockInOut,
     UpdateEmployeeInfo,
+    ShowDepartmentName,
+    LateEarlyLeaveTab,
+    SummaryClockInOut,
+    ShowDocumentName,
+    ShowNotification,
+    ShowLeaveDeatils,
+    CountAbsentLate,
+    ShowLeaveRemain,
+    ShowBankAccount,
+    PaySlipFinance,
+    CountBooking,
+    SummaryLeave,
+    ShowLogTable,
+    OverLeaveTab,
+    PaySlipInfo,
+    CountLate,
+    StatusTab,
+    AbsentTab,
     UpdateOldPosition,
     UpdateRole,
+    ReduceDayRemain,
     RemoveEmployee,
-    //complex
     ManageRequestSendNotification,
     AdminRequestSendNotification,
-    RequestLeave2,
+    RequestLeaveBooking,
     Promote,
     AddEmployee,
-    EmployeeLeft,
-    CountLeaveInDpmTogether,
+    EmployeeLeftJob,
     CountLeaveInDpm,
     CountLateDuring,
     CalculateAbsent,
     CalculateLeaveEarlyLate,
-    CalculateExcessLEave,
-    //Advanced
+    CalculateExcessLeave,
     SummaryStatusTypeManagernote,
-
-
 }
