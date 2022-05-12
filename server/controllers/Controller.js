@@ -1,4 +1,3 @@
-
 import express from "express";
 
 const UserRole = (req, res, connection) => {
@@ -11,7 +10,6 @@ const UserRole = (req, res, connection) => {
         }
     });
 };
-
 
 //----- หน้า 24 Profile page -----
 //--แสดงข้อมูลส่วนตัว /
@@ -52,6 +50,8 @@ const ShowPromotionHistory = (req, res, connection) => {
         }
     });
 };
+
+
 //--แสดงจำนวนครั้งการลา แบ่งตามประเภทการลา 
 const CountEachTypeOfLeave = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
@@ -104,47 +104,10 @@ const SummaryClockInOut = (req, res, connection) => {
 //--แสดงรายได้ทั้งหมดต่อเดือน ปี /
 const ShowIncomePerMonthYear = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
-    let startDate = (req.headers.date || '')
-    let endDate = (req.headers.date || '')
     connection.query(`SELECT PromotionHistory.salary, OTcalculate.OTincome,SUM(PromotionHistory.salary + OTcalculate.OTincome) AS income FROM PromotionHistory
                     INNER JOIN OTcalculate ON PromotionHistory.employeeID = OTcalculate.employeeID 
                     WHERE PromotionHistory.employeeID = ? AND PromotionHistory.stopDate IS NULL 
-                    AND DATE(OTcalculate.clockOut) BETWEEN ? AND ?;`, [employeeID, startDate, endDate], (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(result);
-            res.send(result);
-        }
-    });
-};
-
-//แสดงผลหน้า leae Booking ส่วนที่เป็น Table
-const TableBookingStatus = (req, res, connection) => {
-    //let employeeID = (req.headers.employeeID || '')
-    let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
-    connection.query(`SELECT bookingDate, leaveName, DATE(leaveapp.startDate) AS Start, DATE(leaveapp.endDate) AS End, status FROM LeaveApplication leaveapp 
-                INNER JOIN LeaveType ON leaveapp.leaveID = LeaveType.leaveID
-                WHERE leaveapp.employeeID = ? ORDER BY Start`, [employeeID], (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("Hello")
-            console.log(result);
-            res.send(result);
-        }
-    });
-};
-
-//แสดงผลหน้า leae Booking ส่วนที่เป็น Card
-const CardBookingStatus = (req, res, connection) => {
-    //let employeeID = (req.headers.employeeID || '');
-    let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
-    console.log("employeeID", employeeID)
-    connection.query(`SELECT bookingDate, DATE(leaveapp.startDate) AS startDate, DATE(leaveapp.endDate) AS endDate, reason AS Reason,LeaveType.leaveName, status,
-                DATEDIFF(leaveapp.endDate, leaveapp.startDate)+1 AS sumDate FROM LeaveApplication leaveapp 
-                INNER JOIN LeaveType ON leaveapp.leaveID = LeaveType.leaveID
-                WHERE leaveapp.employeeID = ?`, [employeeID], (err, result) => {
+                    AND DATE(OTcalculate.clockOut) BETWEEN '..' AND '..';`, [employeeID, , ], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -260,13 +223,10 @@ const ShowLogTable = (req, res, connection) => {
 //-- แท็บ Summary --
 //--สรุปวันลา /
 const SummaryLeave = (req, res, connection) => {
-    let status = (req.headers.status || '');
-    //let status = 'waiting';
-    //let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
-    let employeeID = (req.headers.employeeID || '');
-    console.log("status", status);
-    console.log("employeeID", employeeID);
-    let status = (req.headers.status);
+    //let status = (req.headers.status);
+    let status = 'approved'
+        //let employeeID = (req.headers.employeeID || '')
+    let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc'
     if (status == 'approved') {
         connection.query(`SELECT DATE(leaveapp.startDate) AS startDate, COUNT(status) AS approved ,DATE(leaveapp.endDate) AS endDate, LeaveType.leaveName, 
                     DATEDIFF(leaveapp.endDate, leaveapp.startDate)+1 AS sumDate FROM LeaveApplication leaveapp 
@@ -280,7 +240,8 @@ const SummaryLeave = (req, res, connection) => {
                 res.send(result);
             }
         });
-    } else if (status == 'waiting') {
+    } else
+    if (status == 'waiting') {
         connection.query(`SELECT COUNT(status) AS waiting FROM LeaveApplication WHERE status = ? AND employeeID = ?;`, [status, employeeID], (err, result) => {
             if (err) {
                 console.log(err);
@@ -341,8 +302,6 @@ const CountAbsentLate = (req, res, connection) => {
 
 //--แจ้งวันลาที่เหลืออยู่ /
 const ShowLeaveRemain = (req, res, connection) => {
-    //let employeeID = (req.headers.employeeID || '')
-    let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
     let employeeID = (req.headers.employeeID || '')
     connection.query("SELECT sickRemain, personalRemain, vacationRemain, maternityRemain FROM information WHERE employeeID = ?;", [employeeID], (err, result) => {
         if (err) {
@@ -485,9 +444,12 @@ const ShowDocumentRequest = (req, res, connection) => {
     });
 }
 
+
+
 // หน้า 35 Payment page -----
 // แท็บ Banking--
 // แสดงรายละเอียดข้ อมูลเกี่ ยวกั บธนาคาร
+
 const ShowBankAccount = (req, res, connection) => {
     let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
     connection.query(`SELECT bankName, bankAccount FROM Information WHERE employeeID = ?`, [employeeID], (err, result) => {
@@ -545,13 +507,9 @@ const PaySlipFinance = (req, res, connection) => {
 
 // หน้า 36 Deduction page -----
 const AbsentTab = (req, res, connection) => {
-    let employeeID = '1ac39e28-8e18-4a54-b56a-14a53fac104c';
-    let type = 'late';
-    let startDate = '2022-03-02'
-    let endDate = '2022-03-10'
-    //let employeeID = (req.headers.employeeID || '')
+    let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT date, type, absentDeduct FROM Deduction_view WHERE Deduction_view.type = ?
-                AND employeeID = ? AND date BETWEEN ? AND ?;`, [type, employeeID, startDate, endDate], (err, result) => {
+                AND employeeID = ? AND date BETWEEN '..' AND '..';`, [type, employeeID], (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -1041,12 +999,10 @@ export default {
     ShowIncomePerMonthYear,
     CountWaitingBooking,
     ShowDocumentRequest,
-    TableBookingStatus,
     ShowDailyClockInOut,
     UpdateEmployeeInfo,
     ShowDepartmentName,
     LateEarlyLeaveTab,
-    CardBookingStatus,
     SummaryClockInOut,
     ShowDocumentName,
     ShowNotification,
