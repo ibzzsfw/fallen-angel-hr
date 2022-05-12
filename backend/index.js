@@ -3,15 +3,19 @@ import mysql from 'mysql2';
 import cors from "cors";
 
 // controllers import
-// import UserRole from './controllers/Controller.js';
-// import ShowInfo from './controllers/Controller.js';
-// import ShowEducation from './controllers/Controller.js';
-// import ShowPromotionHistory from './controllers/Controller.js';
-// import IncomeByMonth from './controllers/Controller.js';
-// import ShowPositionName from './controllers/Controller.js';
-// import CountStatus from './controllers/Controller.js';
-// import RequestLeave from './controllers/Controller.js';
-// import Controller from "./controllers/Controller.js";
+import UserRole from './controllers/Controller.js';
+import ShowInfo from './controllers/Controller.js';
+import ShowEducation from './controllers/Controller.js';
+import ShowPromotionHistory from './controllers/Controller.js';
+import IncomeByMonth from './controllers/Controller.js';
+import ShowPositionName from './controllers/Controller.js';
+import CountStatus from './controllers/Controller.js';
+import RequestLeave from './controllers/Controller.js';
+import Controller from "./controllers/Controller.js";
+import StatusTab from "./controllers/Controller.js";
+import ShowNotification from './controllers/Controller.js';
+import ShowDocumentName from './controllers/Controller.js';
+import ShowBankAccount from './controllers/Controller.js';
 
 const connection = mysql.createConnection({
     host: 'us-cdbr-east-05.cleardb.net',
@@ -28,19 +32,26 @@ app.use(express.json());
 
 app.listen(3306, () => console.log("server is running on port 3306"));
 
-app.get("/getLeaveType", (req, res) => {
 
+app.get("/getLeaveType", (req, res) => {
     connection.query("SELECT * FROM LeaveType", (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            // console.log(result);
             res.send(result);
         }
     });
 });
 
+app.get('/getBankAccount', (req, res) => Controller.ShowBankAccount(req, res, connection));
+
+app.get("/ShowNotification", (req, res) => Controller.ShowNotification(req, res, connection));
+
+//app.get("/getShowNotification", (req, res) => Controller.ShowNotification(req, res, connection));
+//app.get("/getStatusTab", (req, res) => Controller.StatusTab(req, res, connection));
+//app.get("/ShowDocumentName", (req, res, connection) => Controller.ShowDocumentName(req, res, connection));
 //app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));
+
 
 // app.get("/getUserRole", (req, res) => Controller.UserRole(req, res, connection));
 //app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));
