@@ -16,22 +16,6 @@ import StatusTab from "./controllers/Controller.js";
 import ShowNotification from './controllers/Controller.js';
 import ShowDocumentName from './controllers/Controller.js';
 import ShowBankAccount from './controllers/Controller.js';
-import ShowLeaveRemain from './controllers/Controller.js';
-import SummaryLeave from './controllers/Controller.js';
-import AbsentTab from './controllers/Controller.js';
-import TableBookingStatus from './controllers/Controller.js';
-
-
-// import UserRole from './controllers/Controller.js';
-// import ShowInfo from './controllers/Controller.js';
-// import ShowEducation from './controllers/Controller.js';
-// import ShowPromotionHistory from './controllers/Controller.js';
-// import IncomeByMonth from './controllers/Controller.js';
-// import ShowPositionName from './controllers/Controller.js';
-// import CountStatus from './controllers/Controller.js';
-// import RequestLeave from './controllers/Controller.js';
-// import Controller from "./controllers/Controller.js";
-
 
 const connection = mysql.createConnection({
     host: 'us-cdbr-east-05.cleardb.net',
@@ -58,14 +42,6 @@ app.get("/getLeaveType", (req, res) => {
         }
     });
 });
-
-
-app.get('/ShowCardBookingStatus', (req, res) => Controller.CardBookingStatus(req, res, connection));
-app.get('/ShowTableBookingStatus', (req, res) => Controller.TableBookingStatus(req, res, connection));
-app.get('/ShowAbsentTab', (req, res) => Controller.AbsentTab(req, res, connection));
-app.get('/ShowLeaveRemain', (req, res) => Controller.ShowLeaveRemain(req, res, connection));
-app.get('/getBankAccount', (req, res) => Controller.ShowBankAccount(req, res, connection));
-app.get('/ShowSummaryLeave', (req, res) => Controller.SummaryLeave(req, res, connection));
 
 app.get('/getBankAccount', (req, res) => Controller.ShowBankAccount(req, res, connection));
 
