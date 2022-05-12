@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styles from '../scss/notification.module.scss';
 import Banner from '../components/Banner';
-import CardRequest from '../components/notification/cardRequest';
-import TableRequest from '../components/notification/tableRequest';
+import CardRequest from '../components/notification/CardRequest';
+import TableRequest from '../components/notification/TableRequest';
 import { 
     FlexGrid,
     Stack,

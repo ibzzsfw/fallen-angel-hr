@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {
     Tabs,
     Tab,
@@ -14,7 +15,7 @@ import Summary from '../components/dailytime/Summary';
 import Banner from '../components/Banner';
 import Log from '../components/dailytime/Log';
 
-const DailyTime = () => {
+const DailyTime = (props) => {
 
     return (
         <>
@@ -30,7 +31,7 @@ const DailyTime = () => {
                             </TabList>
                             <TabPanels className={styles['tab-content']}>
                                 <TabPanel>
-                                    <Summary />
+                                    <Summary clock={props.clock}/>
                                 </TabPanel>
                                 <TabPanel>
                                     <Log />
@@ -45,3 +46,15 @@ const DailyTime = () => {
 }
 
 export default DailyTime;
+
+export const getStaticProps = async () => {
+
+    const res = await axios.get('http://localhost:3000/api/dailytime/getDailyClock')
+    const clock = await res.data;
+
+    return {
+        props: {
+            clock: clock
+        }
+    }
+}

@@ -1,0 +1,40 @@
+@use '@carbon/type';
+
+.bookdocument {
+
+    width: 100%;
+
+    .header {
+        margin: 0 -2.5rem;
+        padding: 1rem 0 1rem 1.5rem;
+        border-bottom: 1px solid var(--cds-border-subtle-00);
+        @include type.type-style('productive-heading-04');
+    }
+
+    .form {
+        margin-top: 1rem;
+        padding-left: 1.5rem;
+        width: 100%;
+
+        .edittoff {
+            margin-top: 2.3rem;
+        }
+
+        .button-row {
+            .button-col {
+                padding: 0;
+
+                .button {
+                    width: 100%;
+                    max-width: none;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1584px) {
+        .stack {
+            padding-right: 0;
+        }
+    }
+}

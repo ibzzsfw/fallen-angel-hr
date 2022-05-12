@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import styles from '../../scss/notification/card-request.module.scss';
+import React, { useState } from "react";
+import styles from '../../scss/documentRequest/card-document.module.scss';
 import {
     FlexGrid,
-    Column,
     Row,
+    Column,
     ClickableTile,
-    Tag,
+    Tag
 } from '@carbon/react';
-import { rows } from './RequestData';
+import DocDetails from './DocDetails'
+import { rows } from "../documentRequest/DocData";
 import Offcanvas from "../Offcanvas";
-import RequestDetails from './RequestDetails';
 
-const cardRequest = () => {
+const CardDocument = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [rowID, setRowID] = useState('');
@@ -27,16 +27,16 @@ const cardRequest = () => {
                     }}
                 >
                     <div className={styles.header}>
-                        <div className={styles.head}>{row.head}</div>
+                        <div className={styles.type}>{row.type}</div>
                         <Tag type='purple'>{row.status}</Tag>
                     </div>
                     <div className={styles.wraper}>
-                        <div className={styles.title}>Request date</div>
+                        <div className={styles.title}>Requesting date</div>
                         <div className={styles.content}>{row.date}</div>
                     </div>
                     <div className={styles.wraper}>
-                        <div className={styles.title}>Content</div>
-                        <div className={styles.content}>{row.content}</div>
+                        <div className={styles.title}>Purpose</div>
+                        <div className={styles.content}>{row.purpose}</div>
                     </div>
                 </ClickableTile>
             </Column>
@@ -51,11 +51,11 @@ const cardRequest = () => {
             {
                 isOpen &&
                 <Offcanvas isOpen={q => setIsOpen(q)}>
-                    <RequestDetails/>
+                    <DocDetails />
                 </Offcanvas>
             }
         </FlexGrid>
     )
 }
 
-export default cardRequest;
+export default CardDocument;

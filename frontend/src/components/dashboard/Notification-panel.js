@@ -30,7 +30,7 @@ const notificationPanel = () => {
                         renderIcon={!isOpen ? Add : null}
                         onClick={() => setIsOpen(true)}
                     >
-                    {!isOpen ? 'Book now' : 'Booking...'}    
+                    {!isOpen ? 'Request now' : 'Requesting...'}    
                     </Button>
                     {
                         isOpen &&

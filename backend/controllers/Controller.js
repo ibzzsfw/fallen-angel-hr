@@ -1,4 +1,5 @@
-import e from "express";
+
+import express from "express";
 
 const UserRole = (req, res, connection) => {
     connection.query("SELECT * FROM UserRole", (err, result) => {
@@ -39,7 +40,7 @@ const ShowEducation = (req, res, connection) => {
     });
 };
 
-//--แสดงประวัติการเลื่อนตำแหน่งT
+//--แสดงประวัติการเลื่อนตำแหน่ง
 const ShowPromotionHistory = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT * FROM PromotionHistory WHERE employeeID = ?`, [employeeID], (err, result) => {
@@ -51,11 +52,6 @@ const ShowPromotionHistory = (req, res, connection) => {
         }
     });
 };
-
-
-
-
-
 //--แสดงจำนวนครั้งการลา แบ่งตามประเภทการลา 
 const CountEachTypeOfLeave = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '')
@@ -270,6 +266,7 @@ const SummaryLeave = (req, res, connection) => {
     let employeeID = (req.headers.employeeID || '');
     console.log("status", status);
     console.log("employeeID", employeeID);
+    let status = (req.headers.status);
     if (status == 'approved') {
         connection.query(`SELECT DATE(leaveapp.startDate) AS startDate, COUNT(status) AS approved ,DATE(leaveapp.endDate) AS endDate, LeaveType.leaveName, 
                     DATEDIFF(leaveapp.endDate, leaveapp.startDate)+1 AS sumDate FROM LeaveApplication leaveapp 
@@ -346,6 +343,7 @@ const CountAbsentLate = (req, res, connection) => {
 const ShowLeaveRemain = (req, res, connection) => {
     //let employeeID = (req.headers.employeeID || '')
     let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
+    let employeeID = (req.headers.employeeID || '')
     connection.query("SELECT sickRemain, personalRemain, vacationRemain, maternityRemain FROM information WHERE employeeID = ?;", [employeeID], (err, result) => {
         if (err) {
             console.log(err);
@@ -487,12 +485,9 @@ const ShowDocumentRequest = (req, res, connection) => {
     });
 }
 
-
-
 // หน้า 35 Payment page -----
 // แท็บ Banking--
 // แสดงรายละเอียดข้ อมูลเกี่ ยวกั บธนาคาร
-
 const ShowBankAccount = (req, res, connection) => {
     let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
     connection.query(`SELECT bankName, bankAccount FROM Information WHERE employeeID = ?`, [employeeID], (err, result) => {
@@ -554,6 +549,7 @@ const AbsentTab = (req, res, connection) => {
     let type = 'late';
     let startDate = '2022-03-02'
     let endDate = '2022-03-10'
+    //let employeeID = (req.headers.employeeID || '')
     connection.query(`SELECT date, type, absentDeduct FROM Deduction_view WHERE Deduction_view.type = ?
                 AND employeeID = ? AND date BETWEEN ? AND ?;`, [type, employeeID, startDate, endDate], (err, result) => {
         if (err) {
@@ -860,8 +856,6 @@ const AddEmployee = async(req, res, connection) => {
         }
     });
 }
-
-
 
 //-- พนักงานออก --
 const EmployeeLeftJob = async(req, res, connection) => {

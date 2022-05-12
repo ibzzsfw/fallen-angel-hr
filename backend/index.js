@@ -32,6 +32,7 @@ import TableBookingStatus from './controllers/Controller.js';
 // import RequestLeave from './controllers/Controller.js';
 // import Controller from "./controllers/Controller.js";
 
+
 const connection = mysql.createConnection({
     host: 'us-cdbr-east-05.cleardb.net',
     port: '3306',
@@ -53,11 +54,11 @@ app.get("/getLeaveType", (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            // console.log(result);
             res.send(result);
         }
     });
 });
+
 
 app.get('/ShowCardBookingStatus', (req, res) => Controller.CardBookingStatus(req, res, connection));
 app.get('/ShowTableBookingStatus', (req, res) => Controller.TableBookingStatus(req, res, connection));
@@ -65,12 +66,16 @@ app.get('/ShowAbsentTab', (req, res) => Controller.AbsentTab(req, res, connectio
 app.get('/ShowLeaveRemain', (req, res) => Controller.ShowLeaveRemain(req, res, connection));
 app.get('/getBankAccount', (req, res) => Controller.ShowBankAccount(req, res, connection));
 app.get('/ShowSummaryLeave', (req, res) => Controller.SummaryLeave(req, res, connection));
+
+app.get('/getBankAccount', (req, res) => Controller.ShowBankAccount(req, res, connection));
+
 app.get("/ShowNotification", (req, res) => Controller.ShowNotification(req, res, connection));
 
 //app.get("/getShowNotification", (req, res) => Controller.ShowNotification(req, res, connection));
 //app.get("/getStatusTab", (req, res) => Controller.StatusTab(req, res, connection));
 //app.get("/ShowDocumentName", (req, res, connection) => Controller.ShowDocumentName(req, res, connection));
 //app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));
+
 
 // app.get("/getUserRole", (req, res) => Controller.UserRole(req, res, connection));
 //app.get("/getShowInfo", (req, res) => Controller.ShowInfo(req, res, connection));

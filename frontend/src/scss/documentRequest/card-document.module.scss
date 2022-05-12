@@ -15,7 +15,7 @@
             align-items: center;
             margin-bottom: 1rem;
 
-            .head {
+            .type {
                 @include type.type-style('productive-heading-01');
             }
 
@@ -33,6 +33,7 @@
             }
 
             .content {
+                margin-left: 1rem;
                 @include type.type-style('body-long-01');
             }
         }

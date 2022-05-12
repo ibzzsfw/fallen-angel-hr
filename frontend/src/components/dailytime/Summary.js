@@ -13,13 +13,14 @@ import {
 } from '@carbon/react';
 import styles from '../../scss/dailytime/summary.module.scss';
 import { Time, WarningOther } from '@carbon/icons-react';
+import { timeFormat, monthNames, dayNames } from '../../../utils/utils';
 
-const Summary = () => {
+const Summary = ({ clock }) => {
 
-    const [clock, setClock] = useState(new Date())
+    const [realTimeClock, setRealTimeClock] = useState(new Date())
 
     useEffect(() => {
-        const timerID = setInterval(() => setClock(new Date()), 1000);
+        const timerID = setInterval(() => setRealTimeClock(new Date()), 1000);
 
         return function cleanup() {
             clearInterval(timerID);
@@ -49,27 +50,18 @@ const Summary = () => {
         );
     }
 
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
     return (
         <FlexGrid className={styles.summary}>
             <Row>
                 <Column max={4} md={4} sm={4} className={styles.left}>
                     <div className={styles.datetime}>
                         <div className={styles.date}>{
-                            `${dayNames[clock.getDay()]}, ${monthNames[clock.getMonth()]} ${clock.getDate()}, ${clock.getFullYear()}`
+                            `${dayNames[realTimeClock.getDay()]}, ${monthNames[realTimeClock.getMonth()]} ${realTimeClock.getDate()}, ${realTimeClock.getFullYear()}`
                         }</div>
-                        <div className={styles.time}>{
-                            clock.getHours().toString().padStart(2, '0')
-                            + ' : ' +
-                            clock.getMinutes().toString().padStart(2, '0')
-                            + ' : ' +
-                            clock.getSeconds().toString().padStart(2, '0')
-                        }</div>
+                        <div className={styles.time}>{timeFormat(realTimeClock).replaceAll(':', ' : ')}</div>
                     </div>
-                    {clockElement('Clock-in', '08:34:30')}
-                    {clockElement('Clock-out', '16:12:51')}
+                    {clockElement('Clock-in', timeFormat(clock[0].clockIn))}
+                    {clockElement('Clock-out', timeFormat(clock[0].clockOut))}
                 </Column>
                 <Column max={5} md={4} sm={4}>
                     <Tile className={styles.right}>

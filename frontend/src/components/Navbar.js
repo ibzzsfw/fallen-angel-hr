@@ -40,6 +40,7 @@ const Navbar = () => {
         // sessionStorage.setItem('login', 'false')
         // sessionStorage.setItem('currentPage', 'login')
         setCurrentAction('login')
+        router.push('/')
         // navigate('/', { replace: true })
     }, []);
 
@@ -97,9 +98,12 @@ const Navbar = () => {
                             Payment
                         </HeaderMenuItem>
                         <HeaderMenu aria-label="Admin" menuLinkName="Admin">
-                            <HeaderMenuItem onClick={() => router.push('/manage')}>Manage employee</HeaderMenuItem>
                             <HeaderMenuItem onClick={() => router.push('/notification')}>Notification request</HeaderMenuItem>
+                            <HeaderMenuItem onClick={() => router.push('/manage')}>Manage employee</HeaderMenuItem>
                             <HeaderMenuItem onClick={() => router.push('/promotion')}>Promotion</HeaderMenuItem>
+                        </HeaderMenu>
+                        <HeaderMenu aria-label="Manager" menuLinkName="Manager">
+                            <HeaderMenuItem onClick={() => router.push('/document')}>Document</HeaderMenuItem>
                         </HeaderMenu>
                     </HeaderNavigation>
                     <HeaderGlobalBar>
@@ -134,6 +138,7 @@ const Navbar = () => {
                                 <HeaderMenuItem element={Link} to='/dailytime'>Daily Time</HeaderMenuItem>
                                 <HeaderMenuItem element={Link} to='/deduction'>Deduction</HeaderMenuItem>
                                 <HeaderMenuItem element={Link} to='/dailytime'>Leave</HeaderMenuItem>
+                                <HeaderMenuItem element={Link} to='/document'>Document</HeaderMenuItem>
                                 <HeaderMenuItem href="#">Payment</HeaderMenuItem>
                                 <HeaderMenu aria-label="Link 4" menuLinkName="Link 4">
                                     <HeaderMenuItem href="#">Sub-link 1</HeaderMenuItem>
