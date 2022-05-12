@@ -1,29 +1,31 @@
 import React from "react";
-import styles from '../../scss/notification/book-notification.module.scss';
+import styles from '../../scss/documentRequest/book-document.module.scss';
 import { 
     FlexGrid, 
     Row, 
     Column,
     Form,
     TextInput,
+    Select,
+    SelectItem,
     TextArea,
     Button,
     Stack
 } from '@carbon/react';
 import { EditOff } from '@carbon/icons-react';
 
-const BookNotification = () => {
+const BookDocument = () => {
 
     return (
-        <FlexGrid fullWidth condensed className={styles.booknoti}>
+        <FlexGrid fullWidth condensed className={styles.bookdocument}>
             <Row className={styles.header}>
-                <Column>Send a notification request here</Column>
+                <Column>Send a document request here</Column>
             </Row>
             <Row narrow>
                 <Form className={styles.form}>
                     <FlexGrid fullWidth>
                         <Row>
-                            <p className="cds--file--label" style={{marginBottom: '1rem'}}>Notification details</p>
+                            <p className="cds--file--label" style={{marginBottom: '1rem'}}>Document request details</p>
                         </Row>
                         <Row>
                             <Column max={10} xlg={10} lg={10} md={4} sm={4} style={{ marginBottom: '32px' }}>
@@ -32,18 +34,32 @@ const BookNotification = () => {
                                     placeholder="039439"
                                     readonly=''
                                 >
-                                    
                                 </TextInput>
                             </Column>
                             <Column max={1} xlg={1} lg={1} md={1} sm={1}     style={{ marginBottom: '32px' }}>
                                 <EditOff aria-label="EditOff" className={styles.edittoff} />
                             </Column>
+                            <Column max={10} xlg={10} lg={10} md={4} sm={4} style={{ marginBottom: '32px' }}>
+                                    <Select
+                                        id='ddocument-type'
+                                        defaultValue="placeholder-item"
+                                        labelText="Document type"
+                                    >
+                                        <SelectItem
+                                            disabled
+                                            hidden
+                                            value="placeholder-item"
+                                            text=""
+                                        />
+                                        {[1, 2, 3].map(i => <SelectItem value={`option-${i}`} text={`option-${i}`} />)}
+                                    </Select>
+                                </Column>
                         </Row>
                         <Row>
                             <Column max={10} xlg={10} lg={10} md={4} sm={4} style={{ marginBottom: '32px' }}>
                             <Stack gap='32px'>
                                 <TextArea
-                                    labelText="Content"
+                                    labelText="Purpose"
                                     maxCount={500}
                                     row={5}
                                     helperText='max 500 characters'
@@ -76,7 +92,7 @@ const BookNotification = () => {
                 </Form>
             </Row>
         </FlexGrid>
-    );
+    )
 }
 
-export default BookNotification;
+export default BookDocument;
