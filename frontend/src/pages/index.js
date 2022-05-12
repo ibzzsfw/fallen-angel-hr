@@ -87,6 +87,7 @@ const Login = () => {
                                 <Column max={5} xlg={5} lg={5} md={3} className={styles.container}>
                                     <Dropdown
                                         className={styles.select}
+                                        size='lg'
                                         defaultValue='email'
                                         id='login-select'
                                         items={items}
@@ -101,6 +102,7 @@ const Login = () => {
                                     <TextInput
                                         className={styles['text-input']}
                                         id='email'
+                                        size='lg'
                                         invalid={isInvalidEmail}
                                         // invalidText='Invalid Email'
                                         // labelText='Email'
@@ -116,14 +118,16 @@ const Login = () => {
                             labelText={forgot('Password')}
                             onChange={(e) => setPassword(e.target.value)}
                         /> */}
-                                <Column max={16} xlg={16} lg={16} md={8} sm={4} className={styles.buttonContainer}>
-                                    <Button
-                                        className={styles.button}
-                                        renderIcon={ArrowRight}
-                                        kind="primary"
-                                        tabIndex={0}
-                                        onClick={onClickLogin}
-                                    >Continue</Button>
+                                <Column max={16} xlg={16} lg={16} md={8} sm={4}>
+                                    <div className={styles.buttonContainer}>
+                                        <Button
+                                            className={styles.button}
+                                            renderIcon={ArrowRight}
+                                            kind="primary"
+                                            tabIndex={0}
+                                            onClick={onClickLogin}
+                                        >Continue</Button>
+                                    </div>
                                 </Column>
                                 <Link className={styles['forgot-id']} to='/'>Forgot ID?</Link>
                             </Row>
