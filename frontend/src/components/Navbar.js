@@ -40,6 +40,7 @@ const Navbar = () => {
         // sessionStorage.setItem('login', 'false')
         // sessionStorage.setItem('currentPage', 'login')
         setCurrentAction('login')
+        router.push('/')
         // navigate('/', { replace: true })
     }, []);
 

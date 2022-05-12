@@ -5,14 +5,40 @@ import {
     Column,
     Tile,
     Button,
-    Stack
+    Stack,
+    PasswordInput,
+    CodeSnippet
 } from "@carbon/react";
 import { Edit } from "@carbon/icons-react";
+import Image from "next/image";
 import styles from "../scss/profile.module.scss";
 
 const Profile = () => {
 
-    const category = (cat) => {
+    const renderValue = item => {
+
+        if (item.key === 'Employee ID') {
+            return (
+                <CodeSnippet type='inline' feedback="Copied to clipboard">
+                    {item.value}
+                </CodeSnippet>
+            )
+        }
+        if (item.key === 'Password') {
+            return (
+                <PasswordInput
+                    readOnly
+                    defaultValue={item.value}
+                    hidePasswordLabel="Hide password"
+                    showPasswordLabel="Show password"
+                />
+            )
+        }
+
+        return <div className={styles.value}>{item.value}</div>
+    }
+
+    const category = cat => {
 
         let title = cat.title;
         let edit = cat.edit;
@@ -44,7 +70,7 @@ const Profile = () => {
                                 return (
                                     <div className={styles.wraper} key={index}>
                                         <div className={styles.title}>{item.key}</div>
-                                        <div className={styles.value}>{item.value}</div>
+                                        {renderValue(item)}
                                     </div>
                                 )
                             })
@@ -56,10 +82,13 @@ const Profile = () => {
     }
 
     return (
-        <FlexGrid fullWidth className={styles.profile}>
+        <FlexGrid className={styles.profile}>
             <Row>
-                <Column max={4}>
-                    <Tile />
+                <Column max={4} className={styles.picContainer}>
+                    <img
+                        src="/profile.jpeg"
+                        className={styles.Image}
+                    />
                 </Column>
                 <Column max={{ span: 11, offset: 1 }}>
                     <Stack gap='32px' className={styles.stack}>
@@ -79,6 +108,7 @@ export default Profile;
 // personal
 // work
 // contact and address
+// education
 //bank
 // password
 
@@ -126,7 +156,7 @@ const profile = [
         title: 'Password',
         edit: true,
         arr: [
-            { key: 'Password', value: '********' }
+            { key: 'Password', value: 'P@ssword' }
         ],
         modal: null
     }
