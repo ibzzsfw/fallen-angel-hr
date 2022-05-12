@@ -43,36 +43,7 @@ app.get("/getLeaveType", (req, res) => {
     });
 });
 
-/*
-app.get("/getBankAccount", (req, res) => {
-    let employeeID = '0e38af30-7a6a-4201-9584-42264f2684fc';
-    connection.query(`SELECT bankName, bankAccount FROM Information WHERE employeeID = ?`, [employeeID], (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(result);
-            res.send(result);
-        }
-    });
-})
-*/
-
-
-
 app.get('/getBankAccount', (req, res) => Controller.ShowBankAccount(req, res, connection));
-
-
-/*app.get("/ShowNotification", (req, res) => {
-    connection.query(`SELECT content, date FROM Notification;`, (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(result);
-            res.send(result);
-        }
-    });
-});*/
-
 
 app.get("/ShowNotification", (req, res) => Controller.ShowNotification(req, res, connection));
 
