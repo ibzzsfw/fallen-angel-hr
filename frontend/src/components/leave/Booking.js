@@ -13,9 +13,9 @@ import {
     DatePicker,
     DatePickerInput,
     TextArea,
-    Button
+    Button,
+    Tile
 } from '@carbon/react';
-import { Tile } from "@carbon/react";
 
 const Booking = () => {
 
