@@ -1,0 +1,31 @@
+@use '@carbon/type';
+
+.remain-tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 214px;
+    .header {
+        .intro {
+            @include type.type-style('body-short-01');
+            color: var(--cds-text-secondary);
+        }
+
+        .title {
+            @include type.type-style('productive-heading-03');
+            color: var(--cds-text-primary);
+        }
+    }
+
+    .remain {
+        .amount {
+            @include type.type-style('productive-heading-05');
+        }
+
+        .description {
+            @include type.type-style('label-01');
+            color: var(--cds-text-secondary);
+        }
+    }
+}

@@ -1,0 +1,15 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.dailytime__illo {
+    max-width: 100%;
+}
+
+.tab-area {
+    margin-top: -40px;
+}
+
+.tab-content {
+    padding-top: layout.$spacing-10;
+    padding-bottom: layout.$spacing-10;
+}

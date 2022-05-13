@@ -1,0 +1,27 @@
+.log {
+
+    .empty-state {
+        width: inherit;
+        margin: 48px auto 96px 40px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+        // background-color: #f6f6f6;
+
+        img {
+            width: 80px;
+            height: 80px;
+            background-size: 80px 80px;
+        }
+
+        .title {
+            @include carbon--type-style('productive-heading-03');
+            color: var(--cds-text-01, #161616);
+        }
+
+        .description {
+            @include carbon--type-style('body-long-01');
+            color: var(--cds-text-05, #6f6f6f);
+        }
+    }
+}

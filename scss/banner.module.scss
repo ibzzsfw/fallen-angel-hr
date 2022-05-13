@@ -1,0 +1,26 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.banner {
+    border-bottom: 1px solid var(--cds-layer-accent-01);
+    padding-top: layout.$spacing-06;
+    padding-bottom: layout.$spacing-07;
+    color: var(--cds-text-01);
+    background-color: var(--cds-layer);
+
+    .heading {
+        @include type.type-style('productive-heading-05');
+        color: var(--cds-text-01);
+    }
+
+    .p {
+        @include type.type-style('body-short-01');
+        margin-top: layout.$spacing-03;
+        color: var(--cds-text-05);
+    }
+}
+
+.tabs {
+    padding-bottom: layout.$spacing-07 * 2;
+    margin-bottom: -40px;
+}

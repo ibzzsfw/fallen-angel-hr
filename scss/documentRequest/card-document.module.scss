@@ -1,0 +1,64 @@
+@use '@carbon/type';
+
+.card {
+
+    padding: 0;
+
+    .tile {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+        .header {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+
+            .type {
+                @include type.type-style('productive-heading-01');
+            }
+
+        }
+
+        .wraper {
+            height: 20px;
+            width: auto;
+            display: flex;
+
+            .title {
+                width: 6rem;
+                color: var(--cds-text-helper);
+                @include type.type-style('label-01');
+            }
+
+            .content {
+                margin-left: 1rem;
+                @include type.type-style('body-long-01');
+            }
+        }
+
+        .footer {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+
+            .right {
+
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+
+                .amount {
+                    @include type.type-style('productive-heading-05');
+                }
+
+                .day {
+                    color: var(--cds-text-helper);
+                    @include type.type-style('label-01');
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,119 @@
+.login {
+    position: relative;
+    height: calc(100vh - 3rem);
+    width: 100vw;
+    background-image: url('https://cloud.ibm.com/login/static/cache/2710b-1194401830/img/login_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    img {
+        width: 56px;
+    }
+
+    .header-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding-top: 142px;
+        white-space: nowrap;
+
+        .title {
+            margin-top: 24px;
+            font-size: 2rem;
+            color: #f4f4f4;
+
+            .span {
+                font-weight: 600;
+            }
+
+            @media (max-width: 672px) {
+                span {
+                    display: none;
+                }
+            }
+        }
+
+        .help {
+            color: #8d8d8d;
+            font-size: .875rem;
+            margin-top: 8px;
+
+            .link {
+                margin-left: 8px;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .form {
+        margin-top: 56px;
+        position: relative;
+
+        .option {
+            color: #8d8d8d;
+        }
+
+        // .bx--list-box {
+        //     background-color: #262626;
+        //     border-bottom: 1px solid #6f6f6f;
+        //     color: #f4f4f4;
+
+        // }
+
+        .buttonContainer {
+
+            width: 100%;;
+
+            .button {
+
+                margin-top: 16px;
+                padding-left: 1rem;
+                width: 100%;
+            }
+        }
+
+        .notification {
+            margin-top: -56px;
+        }
+
+        .container {
+
+            margin-top: 12px;
+        }
+
+        .bx--form-item {
+
+            .bx--label {
+                width: 100%;
+
+                .forgot {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }
+
+        .forgot-id {
+            margin-top: 18px;
+            padding-bottom: 2px;
+        }
+    }
+}
+
+@media (min-width: 1921px) {
+    .login .wrap {
+        margin-left: 25%;
+    }
+}
+
+@media (max-width: 672px) {
+    .login {
+        padding: 0 3rem;
+    }
+}
