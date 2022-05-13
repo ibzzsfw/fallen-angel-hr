@@ -5,7 +5,7 @@ import {
     Toggle,
 } from '@carbon/react';
 import { useThemePreference } from '../components/ThemePreference'
-import styles from '../../src/scss/banner.module.scss';
+import styles from '../scss/banner.module.scss';
 
 const Banner = ({ heading, p, tabs }) => {
 

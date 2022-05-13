@@ -1,4 +1,4 @@
-import excuteQuery from '../../../../config/db';
+import excuteQuery from '../../../config/db';
 
 export default async (req, res) => {
     try {

@@ -13,7 +13,7 @@ import {
 } from '@carbon/react';
 import styles from '../../scss/dailytime/summary.module.scss';
 import { Time, WarningOther } from '@carbon/icons-react';
-import { timeFormat, monthNames, dayNames } from '../../../utils/utils';
+import { timeFormat, monthNames, dayNames } from '../../utils/utils';
 
 const Summary = ({ clock }) => {
 
@@ -60,8 +60,8 @@ const Summary = ({ clock }) => {
                         }</div>
                         <div className={styles.time}>{timeFormat(realTimeClock).replaceAll(':', ' : ')}</div>
                     </div>
-                    {clockElement('Clock-in', timeFormat(clock[0].clockIn))}
-                    {clockElement('Clock-out', timeFormat(clock[0].clockOut))}
+                    {clock[0] && clockElement('Clock-in', timeFormat(clock[0].clockIn))}
+                    {clock[0] && clockElement('Clock-out', timeFormat(clock[0].clockOut))}
                 </Column>
                 <Column max={5} md={4} sm={4}>
                     <Tile className={styles.right}>

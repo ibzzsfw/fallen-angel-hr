@@ -100,6 +100,7 @@ const Login = () => {
                                 </Column>
                                 <Column max={11} xlg={11} lg={11} md={5} className={styles.container}>
                                     <TextInput
+                                        labelText=''
                                         className={styles['text-input']}
                                         id='email'
                                         size='lg'

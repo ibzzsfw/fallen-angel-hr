@@ -7,9 +7,9 @@ import {
 import React from 'react';
 import styles from '../scss/dashboard.module.scss';
 import NotificationPanel from '../components/dashboard/Notification-panel';
-import { DonutChart } from "@carbon/charts-react";
-import "@carbon/charts/styles.css";
-import "../scss/plex-and-carbon-components.module.css";
+// import { DonutChart } from "@carbon/charts-react";
+// import "@carbon/charts/styles.css";
+// import "../scss/plex-and-carbon-components.module.css";
 
 const Dashboard = () => {
 
