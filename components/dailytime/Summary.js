@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
     Tabs,
     Tab,
@@ -6,10 +7,12 @@ import {
     TabPanels,
     TabPanel,
     Tile,
-    Link,
     FlexGrid,
     Row,
-    Column
+    Column,
+    Tag,
+    Accordion,
+    AccordionItem,
 } from '@carbon/react';
 import styles from '../../scss/dailytime/summary.module.scss';
 import { Time, WarningOther } from '@carbon/icons-react';
@@ -17,6 +20,76 @@ import { timeFormat, monthNames, dayNames } from '../../utils/utils';
 
 const Summary = ({ clock }) => {
 
+    const element = <>
+        <div className={styles.dec}>
+            <div className={styles.date}>25/05</div>
+            <div className={styles.clock}>-</div>
+            <Tag
+                className={styles["tag"]}
+                size="sm"
+                type="purple"
+            >
+                Absent
+            </Tag>
+        </div>
+        <div className={styles.dec}>
+            <div className={styles.date}>25/05</div>
+            <div className={styles.clock}>-</div>
+            <Tag
+                className={styles["tag"]}
+                size="sm"
+                type="blue"
+            >
+                Over leave
+            </Tag>
+        </div>
+        <div className={styles.dec}>
+            <div className={styles.date}>23/05</div>
+            <div className={styles.clock}>08.39</div>
+            <Tag
+                className={styles["tag"]}
+                size="sm"
+                type="red"
+            >
+                Late
+            </Tag>
+        </div>
+        <div className={styles.dec}>
+            <div className={styles.date}>24/05</div>
+            <div className={styles.clock}>10.00</div>
+            <Tag
+                className={styles["tag"]}
+                size="sm"
+                type="magenta"
+            >
+                Early
+            </Tag>
+        </div>
+        <div className={styles.dec}>
+            <div className={styles.date}>25/05</div>
+            <div className={styles.clock}>-</div>
+            <Tag
+                className={styles["tag"]}
+                size="sm"
+                type="purple"
+            >
+                Absent
+            </Tag>
+        </div>
+        <div className={styles.dec}>
+            <div className={styles.date}>25/05</div>
+            <div className={styles.clock}>-</div>
+            <Tag
+                className={styles["tag"]}
+                size="sm"
+                type="blue"
+            >
+                Over leave
+            </Tag>
+        </div>
+    </>
+
+    const router = useRouter();
     const [realTimeClock, setRealTimeClock] = useState(new Date())
 
     useEffect(() => {
@@ -70,7 +143,7 @@ const Summary = ({ clock }) => {
                                 <WarningOther size={32} />
                                 <div className={styles.title}>Late/Early/Absent</div>
                             </div>
-                            <Link to='/deduction' className={styles.link}>View deduction</Link>
+                            <div onClick={() => router.push('/payment')} className={styles.link}>View payment</div>
                         </div>
                         <Tabs aria-label='summary tab' className={styles.tabs}>
                             <TabList className={styles.tablist}>
@@ -78,11 +151,48 @@ const Summary = ({ clock }) => {
                                 <Tab className={styles.tab}>{TabLabel('Year', 16)}</Tab>
                             </TabList>
                             <TabPanels>
-                                <TabPanel>
-                                    <div className={styles.no_data}>No records</div>
+                                <TabPanel className={styles['tab-panel']}>
+                                    {/* <div className={styles.no_data}>No records</div> */}
+                                    {element}
                                 </TabPanel>
-                                <TabPanel>
-                                    working on this...
+                                <TabPanel className={styles['tab-panel']}>
+                                    <div className={styles.dec + ' ' + styles.four}>
+                                        <div className={styles.colName}>Month</div>
+                                        <Tag
+                                            className={styles["tag"]}
+                                            size="sm"
+                                            type="purple"
+                                        >
+                                            Absent
+                                        </Tag>
+                                        <Tag
+                                            className={styles["tag"]}
+                                            size="sm"
+                                            type="magenta"
+                                        >
+                                            Early
+                                        </Tag>
+                                        <Tag
+                                            className={styles["tag"]}
+                                            size="sm"
+                                            type="purple"
+                                        >
+                                            Absent
+                                        </Tag>
+                                    </div>
+                                    {
+                                        monthNames.map(month => {
+
+                                            return (
+                                                <div className={styles.dec + ' ' + styles.four} key={month}>
+                                                    <div className={styles.date}>{month}</div>
+                                                    <div className={styles.clock}>5</div>
+                                                    <div className={styles.clock}>5</div>
+                                                    <div className={styles.clock}>5</div>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>

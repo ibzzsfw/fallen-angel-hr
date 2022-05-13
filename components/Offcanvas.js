@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import styles from "../scss/offcanvas.module.scss";
-import { Button } from "@carbon/react";
-import { Close32 } from "@carbon/icons-react";
 
-const Offcanvas = ({ isOpen, children }) => {
+const Offcanvas = ({ isOpen, width, children }) => {
+
+    width = width || 'xl';
 
     return (
         <div className={styles.offcanvas}>
@@ -11,13 +10,7 @@ const Offcanvas = ({ isOpen, children }) => {
                 className={styles.overlay}
                 onClick={() => isOpen(false)}
             />
-            <div className={styles.content}>
-                <Button
-                    kind="ghost"
-                    className={styles.close}
-                    onClick={() => isOpen(false)}
-                    renderIcon={Close32}
-                >close</Button>
+            <div className={styles.content + ' ' + styles[`${width}`]}>
                 {children}
             </div>
         </div>

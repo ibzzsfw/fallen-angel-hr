@@ -48,17 +48,6 @@ const Log = () => {
                                     <TableToolbarContent>
                                         {/* pass in `onInputChange` change here to make filtering work */}
                                         <TableToolbarSearch onChange={onInputChange} placeholder={'Search something'} />
-                                        <TableToolbarMenu>
-                                            <TableToolbarAction >
-                                                Action 1
-                                            </TableToolbarAction>
-                                            <TableToolbarAction >
-                                                Action 2
-                                            </TableToolbarAction>
-                                            <TableToolbarAction >
-                                                Action 3
-                                            </TableToolbarAction>
-                                        </TableToolbarMenu>
                                         <Button onClick={console.log('Button click')}>Primary Button</Button>
                                     </TableToolbarContent>
                                 </TableToolbar>

@@ -17,7 +17,6 @@ import Banner from '../components/Banner';
 import LeaveSummary from "../components/leave/LeaveSummary";
 import AddBooking from "../components/leave/AddBooking";
 import Remain from "../components/leave/Remain";
-import { Beta32 } from '@carbon/icons-react'
 import StatusBooking from "../components/leave/StatusBooking";
 
 const Leave = () => {

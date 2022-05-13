@@ -1,5 +1,5 @@
 {
-  "name": "fallen-angel",
+  "name": "fallen-angel-hr",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@carbon/charts-react": "^0.57.1",
     "@carbon/layout": "^11.1.0",
     "@carbon/pictograms-react": "^11.26.2",
     "@carbon/react": "^1.2.0",
     "@carbon/styles": "^1.2.0",
     "@carbon/type": "^11.2.0",
+    "d3": "^7.4.4",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",

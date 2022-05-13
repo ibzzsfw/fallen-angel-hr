@@ -14,7 +14,7 @@ import {
     TabPanel
 } from "@carbon/react";
 import AddBookDoc from "../components/documentRequest/AddBookingDoc";
-//import DocSummary from "../components/documentRequest/DocSummary";
+import DocSummary from "../components/documentRequest/DocSummary";
 import DocStatus from "../components/documentRequest/DocStatus";
 
 const Document = () => {
@@ -35,6 +35,7 @@ const Document = () => {
                                     <Column max={5} className={styles.left}>
                                         <Stack gap='32px' className={styles.stack}>
                                             <AddBookDoc />
+                                            <DocSummary />
                                         </Stack>
                                     </Column>
                                 </Row>

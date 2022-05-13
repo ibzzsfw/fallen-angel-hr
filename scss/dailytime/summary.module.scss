@@ -91,11 +91,12 @@
 
             .link {
                 text-decoration: none;
-                color: var(--cds-link-01, #0f62fe);
+                color: var(--cds-link-primary);
                 transition: color 70ms cubic-bezier(.2, 0, .38, .9);
 
                 &:hover {
                     text-decoration: underline;
+                    color: var(--cds-link-primary-hover);
                     cursor: pointer;
                 }
             }
@@ -135,6 +136,36 @@
             text-align: center;
             padding: 40px 24px;
             @include type.type-style('body-long-01');
+        }
+
+        .tab-panel {
+
+            overflow: scroll;
+            position: relative;
+        }
+
+
+        .dec {
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 6px 2rem;
+            justify-items: flex-start;
+            align-items: center;
+            border-bottom: 1px dashed var(--cds-border-strong-01);
+
+            .colName {
+
+                font-weight: 600;
+            }
+
+            .tag {
+                width: fit-content;
+            }
+        }
+
+        .four {
+            grid-template-columns: repeat(4, 1fr);
         }
     }
 

@@ -30,6 +30,28 @@
                 @include type.type-style('productive-heading-02');
                 color: var(--cds-support-info);
             }
+
+            .amountType {
+
+                display: flex;
+                column-gap: 1rem;
+            }
+
+            svg.inprogress {
+                fill: var(--cds-support-info)
+            }
+
+            svg.checkmark {
+                fill: var(--cds-support-success);
+            }
+
+            svg.close {
+                fill: var(--cds-support-error);
+            }
+
+            svg.help {
+                fill: var(--cds-support-warning);
+            }
         }
     }
 }

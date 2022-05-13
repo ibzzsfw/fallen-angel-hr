@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
-import styles from '../../scss/notification-panel.module.scss';
+import styles from '../../scss/dashboard/notification-panel.module.scss';
 import {
     FlexGrid,
     Row,
@@ -13,12 +13,25 @@ import NotificationItem from './NotificationItem';
 import BookNotification from './BookNotification';
 import { Add } from '@carbon/icons-react';
 import Offcanvas from "../Offcanvas";
+import NotificationDetail from "./NotificationDetail";
 
 
 const notificationPanel = () => {
 
-    const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenDetail, setIsOpenDetail] = useState(false);
+    const [selectedNotification, setSelectedNotification] = useState('');
+
+    const getNotification = [...Array(15).keys()].map(i => {
+
+        return {
+            id: i,
+            type: ((i + 1) % 3).toString(),
+            title: `The IBM Quantum Spring Challenge is coming!${i}`,
+            content: `Quantum News${i}`,
+            date: new Date(`2022/04/${i + 1}`),
+        }
+    })
 
     return (
         <FlexGrid fullWidth condensed className={styles.notificationPanel}>
@@ -35,7 +48,7 @@ const notificationPanel = () => {
                         renderIcon={!isOpen ? Add : null}
                         onClick={() => setIsOpen(true)}
                     >
-                    {!isOpen ? 'Request now' : 'Requesting...'}
+                        {!isOpen ? 'Request now' : 'Requesting...'}
                     </Button>
                     {
                         isOpen &&
@@ -48,21 +61,29 @@ const notificationPanel = () => {
             <Row condensed className={styles['stack-container']}>
                 <Stack gap='2rem'>
                     {
-                        [...Array(15).keys()].map(i => {
-
-                            let item = {
-                                type: ((i + 1) % 3).toString(),
-                                title: `The IBM Quantum Spring Challenge is coming!${i}`,
-                                content: `Quantum News${i}`,
-                                date: new Date(`2022/04/${i}`),
-                                link: `link${i}`,
-                            }
-                            console.log(item)
-                            return <NotificationItem key={i} item={item} />
+                        getNotification.map((item, index) => {
+                            return (
+                                <NotificationItem
+                                    key={index}
+                                    item={item}
+                                    isOpenDetail={e => setIsOpenDetail(e)}
+                                    selectedNotification={id => setSelectedNotification(id)}
+                                />
+                            )
                         })
                     }
                 </Stack>
             </Row>
+            {
+                isOpenDetail &&
+                <Offcanvas setIsOpenDetail={q => setIsOpenDetail(q)} width={'md'}>
+                    <NotificationDetail
+                        notification={getNotification[selectedNotification]}
+                        isOpenDetail={q => setIsOpenDetail(q)}
+                        selectedNotification={e => setSelectedNotification(e)}
+                    />
+                </Offcanvas>
+            }
         </FlexGrid>
     )
 }

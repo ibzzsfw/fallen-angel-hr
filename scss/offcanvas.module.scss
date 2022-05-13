@@ -36,6 +36,22 @@
         }
     }
 
+    .xl {
+        width: 70%;
+    }
+
+    .l {
+        width: 40%;
+    }
+
+    .md {
+        width: 30%;
+    }
+
+    .sm {
+        width: 20%;
+    }
+
     @media (max-width: 820px) {
         .content {
             width: 100%;

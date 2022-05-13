@@ -28,6 +28,7 @@ const Banner = ({ heading, p, tabs }) => {
                     labelA="Light"
                     labelB="Dark"
                     id="toggle-1"
+                    labelText='switching theme'
                 />
             </Column>
         </Row>

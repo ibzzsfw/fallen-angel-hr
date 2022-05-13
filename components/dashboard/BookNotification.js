@@ -10,7 +10,6 @@ import {
     Button,
     Stack
 } from '@carbon/react';
-import { EditOff } from '@carbon/icons-react';
 
 const BookNotification = () => {
 
@@ -33,9 +32,6 @@ const BookNotification = () => {
                                     placeholder="039439"
                                     readOnly
                                 />
-                            </Column>
-                            <Column max={1} xlg={1} lg={1} md={1} sm={1}     style={{ marginBottom: '32px' }}>
-                                <EditOff aria-label="EditOff" className={styles.edittoff} />
                             </Column>
                         </Row>
                         <Row>

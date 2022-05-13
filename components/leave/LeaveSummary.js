@@ -5,9 +5,9 @@ import {
     TileAboveTheFoldContent,
     TileBelowTheFoldContent,
     Stack,
-    Link,
     Button
 } from '@carbon/react';
+import { CheckmarkFilled, InProgress, CloseFilled, HelpFilled } from '@carbon/icons-react';
 
 const LeaveSummary = () => {
 
@@ -27,7 +27,16 @@ const LeaveSummary = () => {
                             return (
                                 <div className={styles.detail}>
                                     <div className={styles.name}>Type {i}</div>
-                                    <div className={styles.amountType}>{Math.floor(Math.random() * 100) % 20}</div>
+                                    <div className={styles.amountType}>
+                                        <InProgress size={16} className={styles.inprogress} />
+                                        <div className={styles.amount}>4</div>
+                                        <CheckmarkFilled size={16} className={styles.checkmark} />
+                                        <div className={styles.amount}>2</div>
+                                        <CloseFilled size={16} className={styles.close} />
+                                        <div className={styles.amount}>6</div>
+                                        <HelpFilled size={16} className={styles.help} />
+                                        <div className={styles.amount}>10</div>
+                                    </div>
                                 </div>
                             )
                         })
@@ -44,7 +53,16 @@ const LeaveSummary = () => {
                             return (
                                 <div className={styles.detail}>
                                     <div className={styles.name}>Type {i}</div>
-                                    <div className={styles.amountType}>{Math.floor(Math.random() * 100) % 50}</div>
+                                    <div className={styles.amountType}>
+                                        <InProgress size={16} className={styles.inprogress} />
+                                        <div className={styles.amount}>4</div>
+                                        <CheckmarkFilled size={16} className={styles.checkmark} />
+                                        <div className={styles.amount}>2</div>
+                                        <CloseFilled size={16} className={styles.close} />
+                                        <div className={styles.amount}>6</div>
+                                        <HelpFilled size={16} className={styles.help} />
+                                        <div className={styles.amount}>10</div>
+                                    </div>
                                 </div>
                             )
                         })

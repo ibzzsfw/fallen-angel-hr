@@ -46,6 +46,16 @@ $type-color : ('t0': var(--cds-support-success),
             @include type.type-style('body-short-01');
             font-size: 13px;
 
+            .more {
+                color: var(--cds-link-primary);
+
+                &:hover {
+                    text-decoration: underline;
+                    color: var(--cds-link-primary-hover);
+                    cursor: pointer;
+                }
+            }
+
             .date {
                 color: var(--cds-text-helper);
 

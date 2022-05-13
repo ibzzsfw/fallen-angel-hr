@@ -25,7 +25,7 @@ const DailyTime = (props) => {
                 <Row className={styles['tab-area']}>
                     <Column >
                         <Tabs aria-label="Tab navigation">
-                            <TabList scrollIntoView style={{ justifyContent: 'flex-end' }}>
+                            <TabList aria-label='navigate' scrollIntoView style={{ justifyContent: 'flex-end' }}>
                                 <Tab >Summary</Tab>
                                 <Tab >Log</Tab>
                             </TabList>
