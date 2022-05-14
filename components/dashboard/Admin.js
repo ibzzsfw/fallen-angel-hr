@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Tile,
     Row,
@@ -5,8 +6,8 @@ import {
     Stack
 } from '@carbon/react';
 import styles from '../../scss/dashboard/admin.module.scss';
-import { DonutChart, StackedBarChart } from "@carbon/charts-react";
 import { Person_03, Person_04 } from '@carbon/pictograms-react'
+import { DonutChart, StackedBarChart } from "@carbon/charts-react";
 import "@carbon/charts/styles.css";
 import "../../scss/plex-and-carbon-components.module.css";
 

@@ -12,7 +12,7 @@ import {
     Button,
     Stack
 } from '@carbon/react';
-import { EditOff } from '@carbon/icons-react';
+import { EditOff } from '@carbon/react/icons';
 
 const BookDocument = () => {
 

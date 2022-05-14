@@ -17,6 +17,13 @@
         }
     }
 
+    @media (max-width: 1312px) {
+        .picContainer {
+            justify-content: center;
+        }
+    }
+
+
     .stack {
         max-width: 864px;
 

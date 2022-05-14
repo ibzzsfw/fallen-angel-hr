@@ -15,7 +15,7 @@ import {
     AccordionItem,
 } from '@carbon/react';
 import styles from '../../scss/dailytime/summary.module.scss';
-import { Time, WarningOther } from '@carbon/icons-react';
+import { Time, WarningOther } from '@carbon/react/icons';
 import { timeFormat, monthNames, dayNames } from '../../utils/utils';
 
 const Summary = ({ clock }) => {

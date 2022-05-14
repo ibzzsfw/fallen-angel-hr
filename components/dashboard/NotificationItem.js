@@ -1,5 +1,5 @@
+import React from 'react';
 import styles from "../../scss/dashboard/notificationItem.module.scss";
-
 export default function NotificationItem({ item, isOpenDetail, selectedNotification }) {
 
     const id = item.id;

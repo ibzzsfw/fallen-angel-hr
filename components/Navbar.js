@@ -18,13 +18,12 @@ import {
     Theme,
     Link
 } from '@carbon/react';
-
 import {
     Switcher,
     UserAvatar,
     Logout
-} from '@carbon/icons-react';
 // import { useThemePreference } from './ThemePreference.js'
+} from '@carbon/react/icons';
 
 const Navbar = () => {
 

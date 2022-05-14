@@ -4,7 +4,7 @@ import {
     Button,
     Stack
 } from '@carbon/react';
-import { Table, Grid } from '@carbon/icons-react';
+import { Table, Grid } from '@carbon/react/icons';
 import CardStatus from './CardStatus';
 import TableStatus from './TableStatus';
 

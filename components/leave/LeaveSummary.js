@@ -7,7 +7,7 @@ import {
     Stack,
     Button
 } from '@carbon/react';
-import { CheckmarkFilled, InProgress, CloseFilled, HelpFilled } from '@carbon/icons-react';
+import { CheckmarkFilled, InProgress, CloseFilled, HelpFilled } from '@carbon/react/icons';
 
 const LeaveSummary = () => {
 

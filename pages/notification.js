@@ -8,7 +8,7 @@ import {
     Stack,
     Button
 } from "@carbon/react";
-import { Table, Grid } from '@carbon/icons-react';
+import { Table, Grid } from '@carbon/react/icons';
 
 const Notification = () => {
 
