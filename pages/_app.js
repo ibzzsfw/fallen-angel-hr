@@ -15,8 +15,8 @@ const _app = ({ Component, pageProps }) => {
       <Head>
         <title>FallenAngel HR</title>
       </Head>
-      < Navbar />
       <ThemePreference>
+        < Navbar />
         <Component {...pageProps} />
       </ThemePreference>
     </div>

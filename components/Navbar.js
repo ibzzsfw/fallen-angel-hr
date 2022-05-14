@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router'
-
 import {
     Header,
     SkipToContent,
@@ -10,27 +9,23 @@ import {
     HeaderMenuItem,
     HeaderGlobalBar,
     HeaderGlobalAction,
-    HeaderSideNavItems,
     HeaderPanel,
-    SideNav,
-    SideNavItems,
     HeaderMenu,
     Theme,
-    Link
 } from '@carbon/react';
 import {
-    Switcher,
     UserAvatar,
-    Logout
-// import { useThemePreference } from './ThemePreference.js'
+    Light,
+    Asleep
 } from '@carbon/react/icons';
+import styles from '../scss/navbar.module.scss';
+import { useThemePreference } from './ThemePreference.js'
 
 const Navbar = () => {
 
-    // const navigate = useNavigate();
     const router = useRouter()
 
-    // const { theme, setTheme } = useThemePreference();
+    const { theme, setTheme } = useThemePreference();
     const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
     const [currentAction, setCurrentAction] = useState('login');
     const [currentPage, setCurrentPage] = useState('currentPage');
@@ -52,7 +47,7 @@ const Navbar = () => {
     // useEffect(() => setCurrentPage(sessionStorage.getItem('currentPage')), [sessionStorage.getItem('currentPage')])
 
     const onClickAction = action => setCurrentAction(
-        action === currentAction && action !== 'profile'
+        action === currentAction
             ? ''
             : action
     )
@@ -107,28 +102,13 @@ const Navbar = () => {
                     </HeaderNavigation>
                     <HeaderGlobalBar>
                         <HeaderGlobalAction
-                            aria-label="User Avatar"
+                            aria-label="Profile"
                             isActive={currentAction === 'profile'}
-                            onClick={() => {
-                                // sessionStorage.setItem('currentPage', 'profile')
-                                onClickAction('profile')
-                                router.push('/profile')
-                            }}
-                        >
+                            onClick={() => onClickAction('profile')}>
                             <UserAvatar size={20} />
                         </HeaderGlobalAction>
-                        <HeaderGlobalAction
-                            aria-label="App Switcher"
-                            isActive={currentAction === 'switcher'}
-                            onClick={() => onClickAction('switcher')}
-                        >
-                            <Switcher size={20} />
-                        </HeaderGlobalAction>
-                        <HeaderGlobalAction aria-label="Log out" onClick={onClickLogOut}>
-                            <Logout size={20} />
-                        </HeaderGlobalAction>
                     </HeaderGlobalBar>
-                    <SideNav
+                    {/* <SideNav
                         aria-label="Side navigation"
                         expanded={isSideNavExpanded}
                         isPersistent={false}>
@@ -146,9 +126,44 @@ const Navbar = () => {
                                 </HeaderMenu>
                             </HeaderSideNavItems>
                         </SideNavItems>
-                    </SideNav>
-                    <HeaderPanel aria-label="Notifications" expanded={currentAction === 'notifications'}>Notifications</HeaderPanel>
-                    <HeaderPanel aria-label="Switcher" expanded={currentAction === 'switcher'}>Switcher</HeaderPanel>
+                    </SideNav> */}
+                    <HeaderPanel aria-label="Profile" expanded={currentAction === 'profile'} className={styles.panel}>
+                        <div className={styles.profilePanel}>
+                            <div className={styles.row}>
+                                <div className={styles.label}>Signed in as:</div>
+                                <div className={styles.value}>Suppakorn Rakna</div>
+                                <div className={styles.value}>example@angel.com</div>
+                            </div>
+                            <div className={styles.row + ' ' + styles.setting}>
+                                <div onClick={() => router.push('/profile')}>
+                                    <a>Account setting</a>
+                                </div>
+                            </div>
+                            <div className={styles.row}>
+                                <div className={styles.option}>
+                                    <div className={styles.value}>Theme</div>
+                                    <div
+                                        className={styles.tileGroup}
+                                        defautlSelected='g10'
+                                        name='radio theme group'>
+                                        <div
+                                            className={styles.radioTile + ' ' + (theme === 'g10' ? styles.selected : '')}
+                                            onClick={() => setTheme('g10')} >
+                                            <Light size={20} />
+                                            Light
+                                        </div>
+                                        <div
+                                            className={styles.radioTile + ' ' + (theme === 'g100' ? styles.selected : '')}
+                                            onClick={() => setTheme('g100')} >
+                                            <Asleep size={20} />
+                                            Dark
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.signout}>Sign out</div>
+                        </div>
+                    </HeaderPanel>
                 </Header>
             </Theme> :
             <Theme theme={'g100'}>

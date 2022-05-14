@@ -29,6 +29,10 @@ body {
   outline: none;
 }
 
+.cds--date-picker--range .cds--date-picker-container, .cds--date-picker--range .cds--date-picker__input {
+  width: 100%;
+}
+
 .cds--header-panel {
   width: 16rem;
   height: 0;
@@ -37,10 +41,6 @@ body {
 }
 
 .cds--header-panel--expanded {
-  height: 50%;
+  height: 368px;
   border: 1px solid var(--cds-border-subtle);
-}
-
-.cds--date-picker--range .cds--date-picker-container, .cds--date-picker--range .cds--date-picker__input {
-  width: 100%;
 }

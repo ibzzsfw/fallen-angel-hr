@@ -1,0 +1,80 @@
+@use '@carbon/type';
+
+.profilePanel {
+
+    display: flex;
+    flex-direction: column;
+
+    .row {
+        width: 100%;
+        height: fit-content;
+        padding: 1.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5rem;
+        border-bottom: 1px solid var(--cds-border-subtle-00);
+
+        .label {
+            color: var(--cds-text-color--secondary);
+            @include type.type-style('label-01');
+        }
+
+        .value,
+        a {
+            color: var(--cds-focus);
+            @include type.type-style('body-short-01');
+        }
+
+        .tileGroup {
+            display: flex;
+            width: 100%;
+            margin-top: 1rem;
+
+            .radioTile {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 50%;
+                padding: 0.5rem 0.25rem 0.25rem 0.25rem;
+                border: 1px solid var(--cds-border-strong-02);
+                @include type.type-style('label-01');
+                color: var(--cds-focus);
+
+                svg {
+                    margin-bottom: 8px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    transition: outline 70ms cubic-bezier(.2, 0, .38, .9);
+                    outline-offset: -2px;
+                    background-color: var(--cds-layer-accent-hover-03);
+                }
+            }
+
+            .selected {
+                border: 1px solid var(--cds-border-strong-02);
+                background-color: var(--cds-layer-accent-hover-03);
+            }
+        }
+    }
+
+    .signout {
+        width: 100%;
+        background-color: var(--cds-field-02);
+        padding: 0.8rem 0 0.8rem 1rem;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--cds-layer-accent-hover-03);
+        }
+    }
+
+    .setting {
+        &:hover {
+            cursor: pointer;
+            background-color: var(--cds-layer-accent-hover-03);
+        }
+    }
+}
