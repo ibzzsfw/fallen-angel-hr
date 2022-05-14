@@ -4,7 +4,7 @@ import { Button } from '@carbon/react';
 import { CalendarEvent } from '@carbon/pictograms-react';
 import Booking from "./Booking";
 import Offcanvas from "../Offcanvas";
-import { Add } from '@carbon/icons-react';
+import { Add } from '@carbon/react/icons';
 
 const AddBooking = () => {
 
@@ -25,7 +25,7 @@ const AddBooking = () => {
             </Button>
             {
                 isOpen &&
-                <Offcanvas isOpen={q => setIsOpen(q)}>
+                <Offcanvas isOpen={q => setIsOpen(q)} width='l'>
                     <Booking />
                 </Offcanvas>
             }

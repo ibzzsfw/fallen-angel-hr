@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
-import Link from 'next/link';
 import styles from '../../scss/dashboard/notification-panel.module.scss';
 import {
     FlexGrid,
@@ -11,7 +10,7 @@ import {
 } from '@carbon/react';
 import NotificationItem from './NotificationItem';
 import BookNotification from './BookNotification';
-import { Add } from '@carbon/icons-react';
+import { Add } from '@carbon/react/icons';
 import Offcanvas from "../Offcanvas";
 import NotificationDetail from "./NotificationDetail";
 

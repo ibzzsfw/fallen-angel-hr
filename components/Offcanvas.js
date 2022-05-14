@@ -2,7 +2,7 @@ import styles from "../scss/offcanvas.module.scss";
 
 const Offcanvas = ({ isOpen, width, children }) => {
 
-    width = width || 'xl';
+    width = width || 'max';
 
     return (
         <div className={styles.offcanvas}>

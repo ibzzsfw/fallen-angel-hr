@@ -11,7 +11,7 @@ import {
     Link,
     Theme
 } from '@carbon/react';
-import { ArrowRight } from '@carbon/icons-react';
+import { ArrowRight } from '@carbon/react/icons';
 import styles from '../scss/login.module.scss';
 
 const Login = () => {

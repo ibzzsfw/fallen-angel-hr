@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Stack,
     FlexGrid,
@@ -5,7 +6,7 @@ import {
     Tile,
 } from '@carbon/react';
 import styles from '../../scss/dashboard/notification-detail.module.scss';
-import { CaretLeft, CaretRight, Close } from '@carbon/icons-react'
+import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
 
 const NotificationDetail = ({ notification, isOpenDetail, selectedNotification }) => {
 

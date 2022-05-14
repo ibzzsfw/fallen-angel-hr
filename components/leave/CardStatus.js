@@ -66,7 +66,7 @@ const CardStatus = () => {
             </Row>
             {
                 isOpen &&
-                <Offcanvas isOpen={q => setIsOpen(q)}>
+                <Offcanvas isOpen={q => setIsOpen(q)} width='l'>
                     <LeaveDetails/>
                 </Offcanvas>
             }

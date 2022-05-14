@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from '../../scss/documentRequest/doc-status.module.scss';
 import CardDocument from './CardDocument';
 import TableDocument from './TableDocument';
-import { Table, Grid } from '@carbon/icons-react';
+import { Table, Grid } from '@carbon/react/icons';
 import { 
     Stack,
     Button 
