@@ -20,7 +20,7 @@ import axios from 'axios'
 
 const Payment = (props) => {
 
-    //console.log(props);
+    console.log(props);
 
     useEffect(() => {
         console.log(props.getIncomeByMonth);
@@ -41,6 +41,8 @@ const Payment = (props) => {
     }, [now.getUTCMonth()])
 
     const sectionTitle = title => <p>{title}</p>
+
+    const deductdate = new Date(props.log.date).getUTCDate().toString().padStart(2, '0') + '/' + new Date(props.log.date).getUTCMonth().toString().padStart(2, '0')
 
     return (
         <FlexGrid fullWidth className={styles.payment}>
@@ -74,11 +76,11 @@ const Payment = (props) => {
                                     <div className={styles['section-name']}>Income</div>
                                     <div className={styles.wraper}>
                                         <div className={styles.title}>Salary</div>
-                                        <div className={styles.value}>฿100000</div>
+                                        <div className={styles.value}>฿{props.getIncomeByMonth[0].salary}</div>
                                     </div>
                                     <div className={styles.wraper}>
                                         <div className={styles.title}>Overtime</div>
-                                        <div className={styles.value}>฿3400</div>
+                                        <div className={styles.value}>฿{props.getIncomeByMonth[0].overtime}</div>
                                     </div>
                                 </Stack>
                             </TileAboveTheFoldContent>
@@ -91,9 +93,9 @@ const Payment = (props) => {
                                             <div className={styles.colName}>Income</div>
                                         </div>
                                         <div className={styles.ot}>
-                                            <div className={styles.date}>23/05</div>
-                                            <div className={styles.clock}>18.30</div>
-                                            <div className={styles.value}>360</div>
+                                            <div className={styles.date}>{dateFormat(props.getIncomeByMonth[0].date)}</div>
+                                            <div className={styles.clock}>{props.getIncomeByMonth[0].clockOut}</div>
+                                            <div className={styles.value}>{props.getIncomeByMonth[0].OTincome}</div>
                                         </div>
                                         <div className={styles.ot}>
                                             <div className={styles.date}>24/05</div>
@@ -126,9 +128,9 @@ const Payment = (props) => {
                                         <div className={styles.colName}>Type</div>
                                     </div>
                                     <div className={styles.dec}>
-                                        <div className={styles.date}>23/05</div>
-                                        <div className={styles.clock}>08.39</div>
-                                        <div className={styles.value}>-360</div>
+                                        <div className={styles.date}>{deductdate}</div>
+                                        <div className={styles.clock}>08.00</div>
+                                        <div className={styles.value}>{props.log.lateEarlyDeduct ? 0 : props.log.lateEarlyDeduct}</div>
                                         <Tag
                                             className={styles["tag"]}
                                             size="sm"
@@ -192,15 +194,15 @@ const Payment = (props) => {
                                     <div className={styles.earn} style={{ color: 'green' }}>Earning</div>
                                     <div className={styles.wraperS}>
                                         <div className={styles.title}>Salary</div>
-                                        <div className={styles.value}>฿100000</div>
+                                        <div className={styles.value}>฿{props.getIncomeByMonth[0].salary}</div>
                                     </div>
                                     <div className={styles.wraperS}>
                                         <div className={styles.title}>Overtime</div>
-                                        <div className={styles.value}>฿1000</div>
+                                        <div className={styles.value}>฿{props.getIncomeByMonth[0].overtime}</div>
                                     </div>
                                     <div className={styles.totalS}>
                                         <div className={styles.title}>Total</div>
-                                        <div className={styles.value}>฿101000</div>
+                                        <div className={styles.value}>฿{props.getIncomeByMonth[0].sumIncome}</div>
                                     </div>
                                 </Tile>
                                 <Tile className={styles.Tile}>
@@ -228,45 +230,37 @@ const Payment = (props) => {
                                     <div className={styles.title}>1. Employee Information</div>
                                     <div className={styles.infoW}>
                                         <div className={styles.infoName}>Name</div>
-                                        <div className={styles.infoVal}>Suppakorn</div>
+                                        <div className={styles.infoVal}>{props.getProfile[0].firstName} {props.getProfile[0].LastName}</div>
                                     </div>
                                     <div className={styles.infoW}>
                                         <div className={styles.infoName}>ID</div>
-                                        <div className={styles.infoVal}>IT007</div>
+                                        <div className={styles.infoVal}>{props.getProfile[0].employeeID}</div>
                                     </div>
                                     <div className={styles.infoW}>
                                         <div className={styles.infoName}>Phone</div>
-                                        <div className={styles.infoVal}>(+66)954205601</div>
+                                        <div className={styles.infoVal}>{props.getProfile[0].phoneNumber}</div>
                                     </div>
                                 </div>
                                 <div className={styles.info}>
-                                    <div className={styles.title}>1. Employee Information</div>
+                                    <div className={styles.title}>2. Company</div>
                                     <div className={styles.infoW}>
-                                        <div className={styles.infoName}>Name</div>
-                                        <div className={styles.infoVal}>Suppakorn</div>
+                                        <div className={styles.infoName}>Department</div>
+                                        <div className={styles.infoVal}>accounting and finance</div>
                                     </div>
                                     <div className={styles.infoW}>
-                                        <div className={styles.infoName}>ID</div>
-                                        <div className={styles.infoVal}>IT007</div>
-                                    </div>
-                                    <div className={styles.infoW}>
-                                        <div className={styles.infoName}>Phone</div>
-                                        <div className={styles.infoVal}>(+66)954205601</div>
+                                        <div className={styles.infoName}>Designation</div>
+                                        <div className={styles.infoVal}>controller</div>
                                     </div>
                                 </div>
                                 <div className={styles.info}>
-                                    <div className={styles.title}>1. Employee Information</div>
+                                    <div className={styles.title}>3. Payment account</div>
                                     <div className={styles.infoW}>
-                                        <div className={styles.infoName}>Name</div>
-                                        <div className={styles.infoVal}>Suppakorn</div>
+                                        <div className={styles.infoName}>Bank name</div>
+                                        <div className={styles.infoVal}>{props.getProfile[0].bankName}</div>
                                     </div>
                                     <div className={styles.infoW}>
-                                        <div className={styles.infoName}>ID</div>
-                                        <div className={styles.infoVal}>IT007</div>
-                                    </div>
-                                    <div className={styles.infoW}>
-                                        <div className={styles.infoName}>Phone</div>
-                                        <div className={styles.infoVal}>(+66)954205601</div>
+                                        <div className={styles.infoName}>Bank account</div>
+                                        <div className={styles.infoVal}>{props.getProfile[0].bankAccount}</div>
                                     </div>
                                 </div>
                             </div>
@@ -286,14 +280,21 @@ export const getStaticProps = async () => {
         { headers: { employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c" } })
     const getIncomeByMonth = await res1.data;
 
-    /*     const res2 = await axios.get('http://localhost:3000/api/dailytime/getLog',
-                            {headers: {employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c"}})
-        const getDeductionByMonth = await res2.data; */
+    const res2 = await axios.get('http://localhost:3000/api/dailytime/log', 
+                        {headers: {employeeid: '1ac39e28-8e18-4a54-b56a-14a53fac104c', 
+                                    type: 'absent'}})
+    const log = await res2.data;
+
+    const res3 = await axios.get('http://localhost:3000/api/profile/getProfile',
+                        {headers: {employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c"}})
+    const getProfile = await res3.data;
+
 
     return {
         props: {
             getIncomeByMonth: getIncomeByMonth,
-            /* getDeductionByMonth: getDeductionByMonth */
+            log: log,
+            getProfile: getProfile
         }
     }
 }
