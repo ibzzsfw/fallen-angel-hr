@@ -73,7 +73,7 @@ export const getStaticProps = async () => {
         headers: {
             status: 'waiting'
         }
-
+    })
     const getNotificationRequest = res.data;
 
     return {

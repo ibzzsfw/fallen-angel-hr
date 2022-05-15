@@ -5,7 +5,7 @@ import excuteQuery from '../../../config/db';
 export default async(req, res) => {
     try {
         const results = await excuteQuery({
-            query: `SELECT requestDate, documentName AS DocumentType, purpose, status FROM documentrequest 
+            query: `SELECT requestid, requestDate, documentName AS DocumentType, purpose, status FROM documentrequest 
             INNER JOIN document ON documentrequest.documentID = document.documentID ORDER BY requestDate;`,
             values: [],
         });
