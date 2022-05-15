@@ -21,7 +21,9 @@ import Offcanvas from "../Offcanvas";
 import { rows } from '../../components/notification/RequestData';
 import RequestDetails from './RequestDetails';
 
-const TableStatus = () => {
+const TableStatus = ({ getNotificationRequest }) => {
+
+    console.log(getNotificationRequest)
 
     const [totalItems, setTotalItems] = useState(0);
     const [firstRowIndex, setFirstRowIndex] = useState(0);

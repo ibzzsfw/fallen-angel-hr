@@ -6,27 +6,27 @@ import Booking from "./Booking";
 import Offcanvas from "../Offcanvas";
 import { Add } from '@carbon/react/icons';
 
-const AddBooking = () => {
+const AddBooking = ({ leaveType }) => {
 
-    const [isOpen, setIsOpen] = useState(false);     
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <div className={styles['add-booking']}>
-            <CalendarEvent className={styles.calendarEvent}/>
+            <CalendarEvent className={styles.calendarEvent} />
             <div className={styles.middle}>
                 <div className={styles.intro}>Ask for time off work</div>
                 <div className={styles.title}>Booking new leave request</div>
             </div>
-            <Button        
+            <Button
                 renderIcon={!isOpen ? Add : null}
                 onClick={() => setIsOpen(true)}
             >
-                {!isOpen ? 'Book now' : 'Booking...'}    
+                {!isOpen ? 'Book now' : 'Booking...'}
             </Button>
             {
                 isOpen &&
                 <Offcanvas isOpen={q => setIsOpen(q)} width='l'>
-                    <Booking />
+                    <Booking leaveType={leaveType} />
                 </Offcanvas>
             }
         </div>
