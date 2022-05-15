@@ -9,6 +9,7 @@ import {
     Button
 } from "@carbon/react";
 import { Table, Grid } from '@carbon/react/icons';
+import axios from 'axios'
 
 const Notification = () => {
 
@@ -56,3 +57,7 @@ const Notification = () => {
 }
 
 export default Notification;
+
+export const getStaticProps = async () => {
+
+}

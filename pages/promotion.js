@@ -267,7 +267,6 @@ export const getStaticProps = async () => {
 
 }*/
 
-
 export const getStaticProps = async () => {
      
         const res = await axios.get('http://localhost:3000/api/profile/getDepartment');

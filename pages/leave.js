@@ -56,3 +56,21 @@ const Leave = () => {
 }
 
 export default Leave;
+
+/*
+export const getStaticProps = async () => {
+       
+    const res = await axios.get('http://localhost:3000/api/leave/getLeaveBookingStatus')
+    const getLeaveBookingStatus = await res.data;
+
+    /*
+    const res1 = await axios.put('http://localhost:3000/api/profile/editPersonalInfo')
+    const editProfile = await res1.data;*/
+
+    /*
+    return {
+        props: {
+            getLeaveBookingStatus: getLeaveBookingStatus,
+        },
+    }
+} */

@@ -4,7 +4,7 @@ export default async(req, res) => {
     try {
         const result = await excuteQuery({
             query: `SELECT * FROM department`,
-            values: [employeeid],
+            values: [],
         });
         res.status(200).json(result);
     } catch (error) {

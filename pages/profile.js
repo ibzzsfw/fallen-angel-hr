@@ -15,12 +15,25 @@ import { Edit } from '@carbon/react/icons';
 import styles from "../scss/profile.module.scss";
 import axios from 'axios';
 
-const Profile = (props) => {
+const Profile = ({getProfile, getDepartment}) => {
 
     const [modalPersonal, setModalPersonal] = useState(false);
     const [modalContact, setModalContact] = useState(false);
     const [modalBank, setModalBank] = useState(false);
     const [modalPassword, setModalPassword] = useState(false);
+
+    //Contact Modal
+    const [newEmail, setNewEmail] = useState('')
+    const [newPhoneNumber, setNewPhoneNumber] = useState('')
+    const [newAddress, setNewAddress] = useState('')
+
+    const editContact = () => {
+        axios.post('http://localhost:3000/api/profile/editContact', {
+            email: newEmail ? newEmail : getProfile.email,
+            phonenumber: newPhoneNumber? newPhoneNumber : getProfile.phonenumber,
+            address: newAddress ? newAddress : getProfile.address
+        })
+    }
 
     const renderValue = item => {
 
@@ -236,7 +249,10 @@ const Profile = (props) => {
                 secondaryButtonText="Cancel"
                 onRequestClose={() => {
                     setModalContact(false);
-                }}>
+                }}
+                onRequestSubmit={editContact}
+                >
+
                 <TextInput
                     data-modal-primary-focus
                     size='lg'
@@ -245,6 +261,7 @@ const Profile = (props) => {
                     placeholder={'current'}
                     labelText='Email'
                     styles={{ marginBottom: '1rem' }}
+                    onChange = {e=>setNewEmail(e.target.value)}
                 />
                 <TextInput
                     size='lg'
@@ -252,6 +269,7 @@ const Profile = (props) => {
                     placeholder={'current'}
                     labelText='Phone'
                     styles={{ marginBottom: '1rem' }}
+                    onChange = {e=>setNewPhoneNumber(e.target.value)}
                 />
                 <TextInput
                     size='lg'
@@ -259,6 +277,7 @@ const Profile = (props) => {
                     placeholder={'current'}
                     labelText='Address'
                     styles={{ marginBottom: '1rem' }}
+                    onChange = {e=>setNewAddress(e.target.value)}
                 />
             </Modal>
             <Modal
@@ -317,19 +336,33 @@ export default Profile;
 // education
 //bank
 // password
+
+
 export const getStaticProps = async () => {
        
     const res = await axios.get('http://localhost:3000/api/profile/showProfile',
                 {headers: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
     const getProfile = await res.data;
 
-    const res1 = await axios.put('http://localhost:3000/api/profile/editPersonalInfo')
-    const editProfile = await res1.data;
+    // const res1 = await axios.put('http://localhost:3000/api/profile/editPersonalInfo')
+    // const editPersonalInfo = await res1.data;
+    
+    // const res2 = await axios.put('http://localhost:3000/api/profile/editContact',
+    //             {body: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
+    // const editContact = await res2.data;
+ 
+
+    // const res3 = await axios.put('http://localhost:3000/api/profile/editBankInfo',
+    //             {body: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
+    // const editBankInfo = await res3.data;
+
+    const res4 = await axios.get('http://localhost:3000/api/profile/getDepartment')
+    const getDepartment = await res4.data;
 
     return {
         props: {
             getProfile: getProfile,
-            editProfile: editProfile,
+            getDepartment: getDepartment,
         },
     }
 } 
