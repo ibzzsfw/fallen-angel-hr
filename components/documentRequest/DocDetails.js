@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../scss/documentRequest/doc-details.module.scss';
 import {
     Stack,
@@ -13,11 +13,36 @@ import {
     TextArea,
     Button,
 } from '@carbon/react';
+import { dateFormat } from '../../utils/utils';
 
-const DocDetails = () => {
-    
+
+const DocDetails = ({ detail, isOpen, selected }) => {
+
+    const [note, setNote] = useState('');
+
+    const POSTresponse = confirmation => {
+
+        console.log('body', {
+        requestid: getDocBookingStatus.requestid,
+        requestDate: getDocBookingStatus.requestdate,
+        purpose: getDocBookingStatus.purpose,
+        })
+
+        // axios.post('http://localhost:3000/api/manager/responseLeave', {
+        //     bookingid: detail.bookingID,
+        //     employeeid: detail.employeeID,
+        //     leaveid: detail.leaveID,
+        //     startdate: detail.startDate,
+        //     enddate: detail.endDate,
+        //     managernote: note,
+        //     confirmation: confirmation
+        // })
+    }
+
+
     return (
-        <FlexGrid className={styles['doc-detail']}>
+
+        <FlexGrid className={styles['doc-detail']} key={detail.requestid}>
             <Row className={styles.header}>
                 <div className={styles.title}>Document request Details</div>
                 <Stack orientation='horizontal' className={styles.menu}>
@@ -39,31 +64,17 @@ const DocDetails = () => {
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Request ID</div>
                                     <div className={styles.content}>
-                                        <CodeSnippet type="single" feedback="Copied to clipboard">{'1238384473jdcn'}</CodeSnippet>
+                                        <CodeSnippet type="single" feedback="Copied to clipboard">{detail.requestid}</CodeSnippet>
                                     </div>
                                 </div>
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Requesting date</div>
-                                    <div className={styles.content}>{'05/02/2022'}</div>
+                                    <div className={styles.content}>{dateFormat(detail.requestDate)}</div>
                                 </div>
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Purpose</div>
-                                    <div className={styles.content}>{'purpose'}</div>
+                                    <div className={styles.content}>{detail.purpose}</div>
                                 </div>
-                            </Stack>
-                        </Column>
-                        <Column max={6}>
-                            <Stack gap='1rem'>
-                                <Tile light className={styles.tile}>
-                                    <div className={styles.wraper}>
-                                        <div className={styles.title}>Department</div>
-                                        <div className={styles.content}>Human resources</div>
-                                    </div>
-                                    <div className={styles.wraper}>
-                                        <div className={styles.title}>Position</div>
-                                        <div className={styles.content}>Secretary</div>
-                                    </div>
-                                </Tile>
                             </Stack>
                         </Column>
                     </Row>
