@@ -10,6 +10,7 @@ import {
     Button
 } from "@carbon/react";
 import { Table, Grid } from '@carbon/react/icons';
+import axios from 'axios'
 
 const Notification = ({ getNotificationRequest }) => {
 
@@ -59,7 +60,6 @@ const Notification = ({ getNotificationRequest }) => {
 export default Notification;
 
 export const getStaticProps = async () => {
-
     const res = await axios.get('http://localhost:3000/api/admin/getNotificationRequest');
     const getNotificationRequest = res.data;
 

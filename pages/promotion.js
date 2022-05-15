@@ -312,5 +312,4 @@ export const getStaticProps = async () => {
             getDepartment: getDepartment,
         },
     }
-
 }
