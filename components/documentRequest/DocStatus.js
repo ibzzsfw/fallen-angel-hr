@@ -8,10 +8,9 @@ import {
     Button 
 } from "@carbon/react";
 
-const DocStatus = () => {
+const DocStatus = ({getDocBookingStatus}) => {
 
     const [selectedContent, setSelectedContent] = useState('card');
-
     return (
         <Stack className={styles['status-bookingdoc']}>
             <div className={styles.swticher}>
@@ -40,11 +39,7 @@ const DocStatus = () => {
                 </div>
             </div>
             <div className={styles.content}>
-                {
-                    selectedContent==='table'
-                    ? <TableDocument />
-                    : <CardDocument />
-                }
+                     <CardDocument getDocBookingStatus={getDocBookingStatus}/>
             </div>
         </Stack>
     )

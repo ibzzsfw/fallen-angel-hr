@@ -18,8 +18,8 @@ import DocStatus from "../components/documentRequest/DocStatus";
 import stylesBanner from '../scss/banner.module.scss';
 import axios from "axios";
 
-const Document = () => {
-
+const Document = (props) => {
+    console.log(props)
     return (
         <FlexGrid fullWidth className={styles.document}>
             <Row className={stylesBanner.banner + ' ' + stylesBanner.tabs}>
@@ -47,7 +47,7 @@ const Document = () => {
                                 </Row>
                             </TabPanel>
                             <TabPanel>
-                                <DocStatus />
+                                <DocStatus getDocBookingStatus = {props.getDocBookingStatus} />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
@@ -64,14 +64,14 @@ export const getStaticProps = async () => {
     const res = await axios.get('http://localhost:3000/api/document/getDocBookingStatus')
     const getDocBookingStatus = await res.data;
 
-    const res1 = await axios.get('http://localhost:3000/api/document/getDocBookingStatus')
-    const addDocumentRequest = await res1.data;
+    const res1 = await axios.get('http://localhost:3000/api/document/getDocumentSummary')
+    const getDocumentSummary = await res1.data;
 
 
     return {
         props: {
             getDocBookingStatus: getDocBookingStatus,
-            addDocumentRequest: addDocumentRequest,
+            getDocumentSummary: getDocumentSummary,
         },
     }
 } 
