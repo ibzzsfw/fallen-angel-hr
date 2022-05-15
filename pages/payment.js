@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Banner from '../components/banner';
 import styles from '../scss/payment/payment.module.scss';
 import {
     FlexGrid,

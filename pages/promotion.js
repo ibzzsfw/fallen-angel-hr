@@ -11,6 +11,7 @@ import {
     Accordion,
     AccordionItem,
     SelectableTile,
+    RadioTile,
     NumberInput,
 } from '@carbon/react';
 import axios from 'axios';
@@ -18,27 +19,29 @@ import styles from '../scss/manage/manage-employee.module.scss';
 
 const Manage = ({ getDepartment }) => {
 
-    // console.log(getDepartment)
-
     const [getPosition, setGetPosition] = useState([]);
     const [getEmployee, setGetEmployee] = useState([]);
-    const [temp, setTemp] = useState([]);
 
     const [department, setDepartment] = useState('');
     const [position, setPosition] = useState('');
-    const [employee, setEmployee] = useState('');
+    const [employeeid, setEmployeeID] = useState('');
+    const [employee, setEmployee] = useState([]);
     const [openEmployeeInfo, setOpenEmployeeInfo] = useState(false);
-    const [promoteRole, setPromoteRole] = useState(false);
     const [promotePosition, setPromotePosition] = useState(false);
     const [promoteSalary, setPromoteSalary] = useState(false);
-    const [newRole, setNewRole] = useState('');
-    const [newPosition, setNewPosition] = useState('');
+    const [newPosition, setNewPosition] = useState(0);
     const [newSalary, setNewSalary] = useState(-1);
 
     useEffect(() => setOpenEmployeeInfo(department && position), [department, position]);
-    useEffect(() => setPromoteRole(newRole !== ''), [newRole]);
     useEffect(() => setPromotePosition(newPosition !== ''), [newPosition]);
     useEffect(() => setPromoteSalary(newSalary != -1), [newSalary]);
+    useEffect(() => {
+
+        let arr = getEmployee.filter(e => e.employeeID === employeeid)
+        // console.log(arr)
+        setEmployee(arr[0])
+
+    }, [employeeid]);
 
     useEffect(() => {
 
@@ -47,7 +50,7 @@ const Manage = ({ getDepartment }) => {
                 departmentid: department
             }
         }).then(response => {
-            console.log(response.data)
+            // console.log(response.data)
             setGetPosition(response.data)
         });
 
@@ -55,38 +58,52 @@ const Manage = ({ getDepartment }) => {
 
     useEffect(() => {
 
-        axios.get(`http://localhost:3000/api/profile/getEmployee`, {
+        // console.log(position)
+
+        axios.get(`http://localhost:3000/api/profile/getEmployeeByPosition`, {
             headers: {
                 positionid: position
             }
-        }).then(response => setTemp(response.data));
-
-    }, [position])
-
-    useEffect(() => {
-
-        console.log(temp.map(e => e.employeeID))
-
-        axios.get(`http://localhost:3000/api/profile/getEmployee`, {
-            headers: {
-                employeeid: (temp.map(e => e.employeeID))
-            }
         }).then(response => {
-            console.log('tap', response.data)
+            // console.log(response.data)
             setGetEmployee(response.data)
         });
 
-    }, [temp])
+    }, [position])
 
     const sectionTitle = title => <p>{title}</p>
 
     const defaultFormState = () => {
         setDepartment('')
         setPosition('')
-        setEmployee('')
-        setNewRole('')
+        setEmployeeID('')
         setNewPosition('')
         setNewSalary(-1)
+    }
+
+    const POSTpromotion = () => {
+
+        console.log('body', {
+            employeeid: employeeid,
+            positionid: newPosition,
+            salary: newSalary
+        })
+
+
+        if (promotePosition === true && promoteSalary !== true) {
+            axios.post(`http://localhost:3000/api/manager/promotionPosition`, {
+                employeeid: employeeid,
+                positionid: newPosition
+            })
+        }
+        if (promotePosition !== true && promoteSalary === true) {
+            axios.post(`http://localhost:3000/api/manager/promotionSalary`, {
+                employeeid: employeeid,
+                salary: newSalary
+            })
+        }
+
+        defaultFormState()
     }
 
     return (
@@ -162,7 +179,7 @@ const Manage = ({ getDepartment }) => {
                                     id="select-1"
                                     // inline
                                     size="md"
-                                    onChange={(e) => setEmployee(e.target.value)}
+                                    onChange={(e) => setEmployeeID(e.target.value)}
                                 >
                                     <SelectItem
                                         disabled
@@ -171,9 +188,8 @@ const Manage = ({ getDepartment }) => {
                                         value="placeholder-item"
                                     />
                                     {
-                                        getEmployee ?
+                                        getEmployee.length > 0 ?
                                             getEmployee.map(e => {
-                                                console.log(e)
                                                 return (
                                                     <SelectItem
                                                         text={`${e.firstName} ${e.lastName}`}
@@ -185,55 +201,16 @@ const Manage = ({ getDepartment }) => {
                                 </Select>
                             </AccordionItem>
                             <AccordionItem
-                                disabled={!employee}
-                                open={employee}
+                                disabled={!employeeid}
+                                open={employeeid}
                                 title={sectionTitle('Promote')}
                                 className={styles.AccordionItem}
                             >
                                 <SelectableTile
-                                    id='role'
-                                    name='Role'
-                                    selected={promoteRole}
-                                    disabled={!employee}
-                                >
-                                    <Select
-                                        inline
-                                        labelText="Role"
-                                        defaultValue="placeholder-item"
-                                        id="select-1"
-                                        size="md"
-                                        disabled={!employee}
-                                        onChange={(e) => setNewRole(e.target.value)}
-                                    >
-                                        <SelectItem
-                                            disabled
-                                            hidden
-                                            text=""
-                                            value="placeholder-item"
-                                        />
-                                        <SelectItem
-                                            text="Employee"
-                                            value="employeeid"
-                                        />
-                                        <SelectItem
-                                            text="Manager"
-                                            value="managerid"
-                                        />
-                                        <SelectItem
-                                            text="HR Employee"
-                                            value="hrmanagerid"
-                                        />
-                                        <SelectItem
-                                            text="Admin"
-                                            value="adminid"
-                                        />
-                                    </Select>
-                                </SelectableTile>
-                                <SelectableTile
                                     selected={promotePosition}
                                     id='position'
                                     name='Position'
-                                    disabled={!employee}
+                                    disabled={!employeeid}
                                 >
                                     <Select
                                         inline
@@ -241,8 +218,12 @@ const Manage = ({ getDepartment }) => {
                                         defaultValue="placeholder-item"
                                         id="select-1"
                                         size="md"
-                                        disabled={!employee}
-                                        onChange={(e) => setNewPosition(e.target.value)}
+                                        disabled={!employeeid}
+                                        onChange={(e) => {
+                                            setNewPosition(e.target.value)
+                                            setPromotePosition(true)
+                                            setPromoteSalary(false)
+                                        }}
                                     >
                                         <SelectItem
                                             disabled
@@ -250,32 +231,38 @@ const Manage = ({ getDepartment }) => {
                                             text=""
                                             value="placeholder-item"
                                         />
-                                        <SelectItem
-                                            text="position1"
-                                            value="position1"
-                                        />
-                                        <SelectItem
-                                            text="position2"
-                                            value="position2"
-                                        />
-                                        <SelectItem
-                                            text="position3"
-                                            value="position3"
-                                        />
+                                        {
+                                            getPosition &&
+                                            getPosition.map(e => {
+                                                return (
+                                                    <SelectItem
+                                                        //disabled
+                                                        //hidden
+                                                        text={e.positionName}
+                                                        key={e.positionID}
+                                                        value={e.positionID}
+                                                    />
+                                                )
+                                            })
+                                        }
                                     </Select>
                                 </SelectableTile>
                                 <SelectableTile
                                     id='salary'
                                     name='Salary'
                                     selected={promoteSalary}
-                                    disabled={!employee}
+                                    disabled={!employeeid}
                                 >
                                     <NumberInput
-                                        onChange={(e) => setNewSalary(e.target.value)}
+                                        onChange={(e) => {
+                                            setNewSalary(e.target.value)
+                                            setPromoteSalary(true)
+                                            setPromotePosition(false)
+                                        }}
                                         id='salary'
                                         min={1}
-                                        value={51000}
-                                        disabled={!employee}
+                                        value={employee ? employee.salary : 0}
+                                        disabled={!employeeid}
                                         labelText="Salary"
                                     />
                                 </SelectableTile>
@@ -291,7 +278,7 @@ const Manage = ({ getDepartment }) => {
                             >
                                 Clear
                             </Button>
-                            <Button className={styles.button} type='reset' size='lg' >Promote</Button>
+                            <Button className={styles.button} size='lg' onClick={POSTpromotion}>Promote</Button>
                         </div>
                     </Form>
                 </Column>

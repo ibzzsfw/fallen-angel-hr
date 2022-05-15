@@ -16,12 +16,18 @@ import {
 import AddBookDoc from "../components/documentRequest/AddBookingDoc";
 import DocSummary from "../components/documentRequest/DocSummary";
 import DocStatus from "../components/documentRequest/DocStatus";
+import stylesBanner from '../scss/banner.module.scss';
 
 const Document = () => {
 
     return (
         <FlexGrid fullWidth className={styles.document}>
-            < Banner heading="Document request" p="Self-Requesting documents" tabs={true} />
+            <Row className={stylesBanner.banner}>
+                <Column lg={16}>
+                    <h1 className={stylesBanner.heading}>{'Document request'}</h1>
+                    <p className={stylesBanner.p}>{'Self-Requesting documents'}</p>
+                </Column>
+            </Row>
             <Row>
                 <Column >
                     <Tabs aria-label="Tab navigation">

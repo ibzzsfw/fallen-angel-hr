@@ -1,13 +1,12 @@
 import { db } from '../../../config/db';
 
 export default async (req, res) => {
-    let employeeid = req.body.employeeid
-    let positionname = req.body.positionname
+  let employeeid = req.body.employeeid
 
     try {
         let result = await db.transaction()
-            .query('INSERT INTO PromotionHistory(employeeID, positionName, stopDate) VALUES (?,?,NOW());', [employeeid, positionname])
-            .query('DELETE * FROM Informaion WHERE employeeID = ?;', [employeeid])
+            .query('UPDATE PromotionHistory SET stopDate = NOW() WHERE employeeID = ? AND ISNULL(stopDate)', [employeeid])
+            .query('UPDATE Information SET sickRemain = NULL, personalRemain = NULL, vacationRemain = NULL, maternityRemain = NULL, roleID = NULL, passwordHash = NULL WHERE employeeID = ?;', [employeeid])
             .commit()
         res.status(200).json(result);
     } catch (error) {

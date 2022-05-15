@@ -12,7 +12,6 @@ import {
     Stack,
 } from '@carbon/react';
 import styles from '../scss/leave/leave.module.scss';
-import Banner from '../components/Banner';
 import LeaveSummary from "../components/leave/LeaveSummary";
 import AddBooking from "../components/leave/AddBooking";
 import Remain from "../components/leave/Remain";
@@ -73,7 +72,7 @@ export const getStaticProps = async () => {
 
     const res1 = await axios.get('http://localhost:3000/api/leave/remain', {
         headers: {
-            employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'
+            employeeid: '1ac39e28-8e18-4a54-b56a-14a53fac104c'
         }
     })
     const remain = await res1.data

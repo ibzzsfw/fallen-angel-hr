@@ -24,7 +24,7 @@ const Manage = (props) => {
                 content = <NewEmployee getRole={props.getRole} getDepartment={props.getDepartment}/>
                 break;
             case 2:
-                content = <RemoveEmployee />
+                content = <RemoveEmployee getDepartment={props.getDepartment}/>
                 break;
             default:
                 content = <NewEmployee getRole={props.getRole} getDepartment={props.getDepartment}/>

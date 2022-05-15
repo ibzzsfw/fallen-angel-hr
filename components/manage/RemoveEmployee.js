@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from '../../scss/manage/manage-employee.module.scss';
 import {
     Form,
@@ -9,21 +10,64 @@ import {
     AccordionItem,
 } from '@carbon/react';
 
-const RemoveEmployee = () => {
+const RemoveEmployee = ({ getDepartment }) => {
 
     const [department, setDepartment] = useState('');
     const [position, setPosition] = useState('');
     const [employee, setEmployee] = useState('');
     const [openEmployeeInfo, setOpenEmployeeInfo] = useState(false);
 
+    const [getPosition, setGetPosition] = useState([]);
+    const [getEmployee, setGetEmployee] = useState([]);
+
     useEffect(() => setOpenEmployeeInfo(department && position), [department, position]);
 
     const sectionTitle = title => <p>{title}</p>
+
+    useEffect(() => {
+
+        axios.get(`http://localhost:3000/api/profile/getPosition`, {
+            headers: {
+                departmentid: department
+            }
+        }).then(response => {
+            // console.log(response.data)
+            setGetPosition(response.data)
+        });
+
+    }, [department])
+
+    useEffect(() => {
+
+        console.log(position)
+
+        axios.get(`http://localhost:3000/api/profile/getEmployeeByPosition`, {
+            headers: {
+                positionid: position
+            }
+        }).then(response => {
+            console.log(response.data)
+            setGetEmployee(response.data)
+        });
+
+    }, [position])
 
     const defaultFormState = () => {
         setDepartment('')
         setPosition('')
         setEmployee('')
+    }
+
+    const POSTremove = () => {
+
+        if(employee) {
+            axios.post(`http://localhost:3000/api/manager/removeEmployee`, {
+                employeeid: employee
+            }).then(response => {
+                console.log(response.data)
+                defaultFormState()
+            });
+        }
     }
 
     return (
@@ -40,28 +84,20 @@ const RemoveEmployee = () => {
                             size="md"
                             onChange={(e) => setDepartment(e.target.value)}
                         >
-                            <SelectItem
-                                disabled
-                                hidden
-                                text=""
-                                value="placeholder-item"
-                            />
-                            <SelectItem
-                                text="Employee"
-                                value="employeeid"
-                            />
-                            <SelectItem
-                                text="Manager"
-                                value="managerid"
-                            />
-                            <SelectItem
-                                text="HR Employee"
-                                value="hrmanagerid"
-                            />
-                            <SelectItem
-                                text="Admin"
-                                value="adminid"
-                            />
+                            {
+                                getDepartment &&
+                                getDepartment.map(e => {
+                                    return (
+                                        <SelectItem
+                                            //disabled
+                                            //hidden
+                                            text={e.departmentName}
+                                            key={e.departmentID}
+                                            value={e.departmentID}
+                                        />
+                                    )
+                                })
+                            }
                         </Select>
                         <Select
                             disabled={!department}
@@ -73,24 +109,20 @@ const RemoveEmployee = () => {
                             size="md"
                             onChange={(e) => setPosition(e.target.value)}
                         >
-                            <SelectItem
-                                disabled
-                                hidden
-                                text=""
-                                value="placeholder-item"
-                            />
-                            <SelectItem
-                                text="position1"
-                                value="position1"
-                            />
-                            <SelectItem
-                                text="position2"
-                                value="position2"
-                            />
-                            <SelectItem
-                                text="position3"
-                                value="position3"
-                            />
+                            {
+                                getPosition &&
+                                getPosition.map(e => {
+                                    return (
+                                        <SelectItem
+                                            //disabled
+                                            //hidden
+                                            text={e.positionName}
+                                            key={e.positionID}
+                                            value={e.positionID}
+                                        />
+                                    )
+                                })
+                            }
                         </Select>
                     </div>
                 </AccordionItem>
@@ -115,15 +147,15 @@ const RemoveEmployee = () => {
                             value="placeholder-item"
                         />
                         {
-                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => {
-
-                                return (
-                                    <SelectItem
-                                        text={`Employee ${i}`}
-                                        value={i}
-                                    />
-                                )
-                            })
+                            getEmployee.length > 0 ?
+                                getEmployee.map(e => {
+                                    return (
+                                        <SelectItem
+                                            text={`${e.firstName} ${e.lastName}`}
+                                            value={e.employeeID}
+                                        />
+                                    )
+                                }) : <SelectItem text="No employee" />
                         }
                     </Select>
                 </AccordionItem>
@@ -138,7 +170,7 @@ const RemoveEmployee = () => {
                 >
                     Clear
                 </Button>
-                <Button className={styles.button} type='reset' size='lg' >Remove</Button>
+                <Button className={styles.button} size='lg' onClick={POSTremove}>Remove</Button>
             </div>
         </Form>
     )

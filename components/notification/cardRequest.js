@@ -7,7 +7,6 @@ import {
     ClickableTile,
     Tag,
 } from '@carbon/react';
-import { rows } from './RequestData';
 import Offcanvas from "../Offcanvas";
 import RequestDetails from './RequestDetails';
 
@@ -48,7 +47,13 @@ const cardRequest = ({ getNotificationRequest }) => {
     return (
         <FlexGrid fullWidth className={styles['card']}>
             <Row>
-                {rows.map(row => card(row))}
+                {
+                    getNotificationRequest && 
+                    getNotificationRequest.map(row => {
+                        console.log(row)
+                        return card(row)
+                    })
+                }
             </Row>
             {
                 isOpen &&

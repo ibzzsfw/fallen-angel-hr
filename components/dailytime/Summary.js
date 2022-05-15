@@ -16,78 +16,18 @@ import {
 } from '@carbon/react';
 import styles from '../../scss/dailytime/summary.module.scss';
 import { Time, WarningOther } from '@carbon/react/icons';
-import { timeFormat, monthNames, dayNames } from '../../utils/utils';
+import { timeFormat, monthNames, dayNames, dateFormat } from '../../utils/utils';
 
-const Summary = ({ clock }) => {
+const Summary = ({ clock, log }) => {
 
-    const element = <>
-        <div className={styles.dec}>
-            <div className={styles.date}>25/05</div>
-            <div className={styles.clock}>-</div>
-            <Tag
-                className={styles["tag"]}
-                size="sm"
-                type="purple"
-            >
-                Absent
-            </Tag>
-        </div>
-        <div className={styles.dec}>
-            <div className={styles.date}>25/05</div>
-            <div className={styles.clock}>-</div>
-            <Tag
-                className={styles["tag"]}
-                size="sm"
-                type="blue"
-            >
-                Over leave
-            </Tag>
-        </div>
-        <div className={styles.dec}>
-            <div className={styles.date}>23/05</div>
-            <div className={styles.clock}>08.39</div>
-            <Tag
-                className={styles["tag"]}
-                size="sm"
-                type="red"
-            >
-                Late
-            </Tag>
-        </div>
-        <div className={styles.dec}>
-            <div className={styles.date}>24/05</div>
-            <div className={styles.clock}>10.00</div>
-            <Tag
-                className={styles["tag"]}
-                size="sm"
-                type="magenta"
-            >
-                Early
-            </Tag>
-        </div>
-        <div className={styles.dec}>
-            <div className={styles.date}>25/05</div>
-            <div className={styles.clock}>-</div>
-            <Tag
-                className={styles["tag"]}
-                size="sm"
-                type="purple"
-            >
-                Absent
-            </Tag>
-        </div>
-        <div className={styles.dec}>
-            <div className={styles.date}>25/05</div>
-            <div className={styles.clock}>-</div>
-            <Tag
-                className={styles["tag"]}
-                size="sm"
-                type="blue"
-            >
-                Over leave
-            </Tag>
-        </div>
-    </>
+    const [monthSum, setMonthSum] = useState([]);
+
+    useEffect(() => {
+        console.log(log);
+        let arr = log.filter(l => l.type != 'normal')
+        setMonthSum(arr)
+
+    }, [log])
 
     const router = useRouter();
     const [realTimeClock, setRealTimeClock] = useState(new Date())
@@ -147,13 +87,62 @@ const Summary = ({ clock }) => {
                         </div>
                         <Tabs aria-label='summary tab' className={styles.tabs}>
                             <TabList className={styles.tablist}>
-                                <Tab className={styles.tab}>{TabLabel('Month', 0)}</Tab>
-                                <Tab className={styles.tab}>{TabLabel('Year', 16)}</Tab>
+                                <Tab className={styles.tab}>Month {monthSum.length}</Tab>
+                                <Tab className={styles.tab}>Year 16</Tab>
                             </TabList>
                             <TabPanels>
                                 <TabPanel className={styles['tab-panel']}>
                                     {/* <div className={styles.no_data}>No records</div> */}
-                                    {element}
+                                    {
+                                        monthSum.map(element => {
+
+                                            if (element.type == 'late') {
+                                                return (
+                                                    <div className={styles.dec}>
+                                                        <div className={styles.date}>{dateFormat(element.date)}</div>
+                                                        <div className={styles.clock}>{(element.clockIn)}</div>
+                                                        <Tag
+                                                            className={styles["tag"]}
+                                                            size="sm"
+                                                            type="red"
+                                                        >
+                                                            Late
+                                                        </Tag>
+                                                    </div>
+                                                )
+                                            }
+                                            if (element.type == 'absent') {
+                                                return (
+                                                    <div className={styles.dec}>
+                                                        <div className={styles.date}>{dateFormat(element.date)}</div>
+                                                        <div className={styles.clock}>{'-'}</div>
+                                                        <Tag
+                                                            className={styles["tag"]}
+                                                            size="sm"
+                                                            type="purple"
+                                                        >
+                                                            Absent
+                                                        </Tag>
+                                                    </div>
+                                                )
+                                            }
+                                            if (element.type == 'earlyLeave') {
+                                                return (
+                                                    <div className={styles.dec}>
+                                                        <div className={styles.date}>{dateFormat(element.date)}</div>
+                                                        <div className={styles.clock}>{(element.clockOut)}</div>
+                                                        <Tag
+                                                            className={styles["tag"]}
+                                                            size="sm"
+                                                            type="purple"
+                                                        >
+                                                            Early leave
+                                                        </Tag>
+                                                    </div>
+                                                )
+                                            }
+                                        })
+                                    }
                                 </TabPanel>
                                 <TabPanel className={styles['tab-panel']}>
                                     <div className={styles.dec + ' ' + styles.four}>
