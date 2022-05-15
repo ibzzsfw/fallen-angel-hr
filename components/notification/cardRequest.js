@@ -9,31 +9,45 @@ import {
 } from '@carbon/react';
 import Offcanvas from "../Offcanvas";
 import RequestDetails from './RequestDetails';
+import { dateFormat } from '../../utils/utils';
 
 const cardRequest = ({ getNotificationRequest }) => {
 
     console.log(getNotificationRequest)
 
     const [isOpen, setIsOpen] = useState(false);
-    const [rowID, setRowID] = useState('');
+    const [index, setIndex] = useState(-1);
 
-    const card = (row) => {
+    const tag = (status) => {
+        switch (status) {
+            case 'waiting':
+                return <Tag type='blue'>Waiting</Tag>;
+            case 'approved':
+                return <Tag type='green'>Approved</Tag>;
+            case 'rejected':
+                return <Tag type='red'>Rejected</Tag>;
+            default:
+                <></>
+        }
+    }
+
+    const card = (row, index) => {
         return (
-            <Column max={4} key={row.id}>
+            <Column max={4} key={row.notificationID}>
                 <ClickableTile
                     className={styles.tile}
                     onClick={() => {
                         setIsOpen(true);
-                        setRowID(row.id);
+                        setIndex(index);
                     }}
                 >
                     <div className={styles.header}>
                         <div className={styles.type}>{row.title}</div>
-                        <Tag type='purple'>{row.status}</Tag>
+                        {tag(row.status)}
                     </div>
                     <div className={styles.wraper}>
                         <div className={styles.title}>Request date</div>
-                        <div className={styles.content}>{row.date}</div>
+                        <div className={styles.content}>{dateFormat(row.date)}</div>
                     </div>
                     <div className={styles.wraper}>
                         <div className={styles.title}>Content</div>
@@ -46,19 +60,19 @@ const cardRequest = ({ getNotificationRequest }) => {
 
     return (
         <FlexGrid fullWidth className={styles['card']}>
-            <Row>
-                {
-                    getNotificationRequest && 
-                    getNotificationRequest.map(row => {
-                        console.log(row)
-                        return card(row)
-                    })
-                }
-            </Row>
+            <Row>{getNotificationRequest.map((row, index) => card(row, index))}</Row>
             {
                 isOpen &&
-                <Offcanvas isOpen={q => setIsOpen(q)}>
-                    <RequestDetails />
+                <Offcanvas isOpen={q => setIsOpen(q)} width='l'>
+                    <RequestDetails detail={getNotificationRequest[index]} isOpen={q => setIsOpen(q)} selected={e => {
+                        if (index + e === getNotificationRequest.length) {
+                            setIndex(0)
+                        } else if (index + e < 0) {
+                            setIndex(getNotificationRequest.length - 1)
+                        } else {
+                            setIndex(index + e)
+                        }
+                    }} />
                 </Offcanvas>
             }
         </FlexGrid>
