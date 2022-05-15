@@ -1,11 +1,11 @@
 import excuteQuery from '../../../config/db';
+
 export default async (req, res) => {
 
-    let status = req.headers.status;
     try {
         const result = await excuteQuery({
-            query: "SELECT * FROM Notification WHERE status = ?",
-            values: [status],
+            query: "SELECT employeeID, salary FROM promotionhistory WHERE stopDate IS NULL",
+            values: [], 
         });
         res.status(200).json(result);
     } catch (error) {

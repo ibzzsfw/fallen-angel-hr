@@ -1,4 +1,3 @@
-import serverlessMysql from 'serverless-mysql';
 import excuteQuery from '../../../config/db';
 
 

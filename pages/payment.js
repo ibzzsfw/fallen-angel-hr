@@ -17,7 +17,13 @@ import {
 import stylesBanner from '../scss/banner.module.scss';
 import { monthNames } from '../utils/utils'
 
-const Payment = () => {
+const Payment = (props) => {
+
+    //console.log(props);
+
+    useEffect(() => {
+        console.log(props.getIncomeByMonth);
+    }, [getStaticProps])
 
     const [now, setNow] = useState(new Date());
     const [availableMonth, setAvailableMonth] = useState([]);
@@ -272,3 +278,21 @@ const Payment = () => {
 }
 
 export default Payment;
+
+export const getStaticProps = async () => {
+
+    const res1 = await axios.get('http://localhost:3000/api/payment/getIncomeByMonth',
+                        {headers: {employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c"}})
+    const getIncomeByMonth = await res1.data;
+
+/*     const res2 = await axios.get('http://localhost:3000/api/dailytime/getLog',
+                        {headers: {employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c"}})
+    const getDeductionByMonth = await res2.data; */
+
+    return {
+        props: {
+            getIncomeByMonth: getIncomeByMonth,
+            /* getDeductionByMonth: getDeductionByMonth */
+        }
+    }
+}

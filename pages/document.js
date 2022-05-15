@@ -1,6 +1,5 @@
 import React from "react";
 import styles from '../scss/documentRequest/document.module.scss';
-import Banner from "../components/Banner";
 import { 
     FlexGrid,
     Row,
@@ -17,6 +16,7 @@ import AddBookDoc from "../components/documentRequest/AddBookingDoc";
 import DocSummary from "../components/documentRequest/DocSummary";
 import DocStatus from "../components/documentRequest/DocStatus";
 import stylesBanner from '../scss/banner.module.scss';
+import axios from "axios";
 
 const Document = () => {
 
@@ -58,3 +58,20 @@ const Document = () => {
 }
 
 export default Document;
+
+export const getStaticProps = async () => {
+       
+    const res = await axios.get('http://localhost:3000/api/document/getDocBookingStatus')
+    const getDocBookingStatus = await res.data;
+
+    const res1 = await axios.get('http://localhost:3000/api/document/getDocBookingStatus')
+    const addDocumentRequest = await res1.data;
+
+
+    return {
+        props: {
+            getDocBookingStatus: getDocBookingStatus,
+            addDocumentRequest: addDocumentRequest,
+        },
+    }
+} 
