@@ -18,8 +18,8 @@ const Dashboard = (props) => {
     <FlexGrid fullWidth className={styles.dashboard}>
       <Row className={styles.resetRow}>
         <Column max={12} xlg={10} className={styles.mainCol}>
-          <Admin 
-            getStatusCount={props.getStatusCount} 
+          <Admin
+            getStatusCount={props.getStatusCount}
             getHeadCount={props.getHeadCount}
             getPositionCount={props.getPositionCount}
             getDepartmentCount={props.getDepartmentCount}
@@ -28,7 +28,7 @@ const Dashboard = (props) => {
           <Manager />
         </Column>
         <Column max={{ span: 3, offset: 1 }} xlg={6} md={8} sm={4} className={styles.notification}>
-          <NotificationPanel />
+          <NotificationPanel getNotification={props.getNotification}/>
         </Column>
       </Row>
     </FlexGrid >
@@ -54,14 +54,22 @@ export const getStaticProps = async () => {
   const res5 = await axios.get('http://localhost:3000/api/dashboard/getSalaryCount')
   const getSalaryCount = await res5.data;
 
+  const res6 = await axios.get('http://localhost:3000/api/notification/getNotification', {
+    headers: {
+      status: 'approved'
+    }
+  })
+  const getNotification = await res6.data;
+
   return {
-      props: {
-        getStatusCount: getStatusCount,
-        getHeadCount: getHeadCount,
-        getPositionCount: getPositionCount,
-        getDepartmentCount: getDepartmentCount,
-        getSalaryCount: getSalaryCount
-      }
+    props: {
+      getStatusCount: getStatusCount,
+      getHeadCount: getHeadCount,
+      getPositionCount: getPositionCount,
+      getDepartmentCount: getDepartmentCount,
+      getSalaryCount: getSalaryCount,
+      getNotification: getNotification
+    }
   }
 }
 

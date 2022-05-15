@@ -56,7 +56,7 @@ const Leave = (props) => {
                                 </Row>
                             </TabPanel>
                             <TabPanel>
-                                <StatusBooking />
+                                <StatusBooking getLeaveBookingStatus={props.getLeaveBookingStatus}/>
                             </TabPanel>
                         </TabPanels>
                     </Tabs>
@@ -110,8 +110,10 @@ export const getStaticProps = async () => {
             status: resM.data,
         })
     })
-
     await Promise.all(promise)
+
+    let res3 = await axios.get('http://localhost:3000/api/leave/getLeaveBookingStatus')
+    let getLeaveBookingStatus = await res3.data
 
     return {
         props: {
@@ -119,6 +121,7 @@ export const getStaticProps = async () => {
             summaryYear: summaryYear,
             summaryMonth: summaryMonth,
             leaveType: leaveType,
+            getLeaveBookingStatus: getLeaveBookingStatus
         }
     }
 

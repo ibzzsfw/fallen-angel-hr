@@ -10,11 +10,11 @@ import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
 
 const NotificationDetail = ({ notification, isOpenDetail, selectedNotification }) => {
 
-    const id = notification.id;
-    const type = notification.type;
+    console.log(notification);
     const title = notification.title;
+    const department = notification.department;
     const content = notification.content;
-    const date = notification.date.toLocaleDateString('en-GB');
+    const date = new Date(notification.date).toLocaleDateString('en-GB');
 
     return (
         <FlexGrid className={styles['notification-detail']}>
@@ -23,14 +23,14 @@ const NotificationDetail = ({ notification, isOpenDetail, selectedNotification }
                 <div className={styles.menu}>
                     <div
                         className={styles.item}
-                        // onClick={() => selectedNotification(id-1)}
+                        onClick={() => selectedNotification(-1)}
                     >
                         <div className={styles.vertical} />
                         <CaretLeft size='32' />
                     </div>
                     <div
                         className={styles.item}
-                        // onClick={() => selectedNotification()}
+                        onClick={() => selectedNotification(1)}
                     >
                         <div className={styles.vertical} />
                         <CaretRight size='32' />
@@ -49,7 +49,7 @@ const NotificationDetail = ({ notification, isOpenDetail, selectedNotification }
                     <div className={styles['section-name']}>Details</div>
                     <div className={styles.wraper}>
                         <div className={styles.title}>From department</div>
-                        <div className={styles.content}>{'Marketing' + type}</div>
+                        <div className={styles.content}>{department}</div>
                     </div>
                     <div className={styles.wraper}>
                         <div className={styles.title}>Topic</div>
@@ -67,7 +67,7 @@ const NotificationDetail = ({ notification, isOpenDetail, selectedNotification }
                     <Tile className={styles['notification-content']}>
                         <div className={styles.help}>Accept HTML content</div>
                         <div>
-                            <h1>hello</h1>
+                            <h1>{title}</h1>
                             <p>{content}</p>
                         </div>
                     </Tile>

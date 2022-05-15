@@ -7,8 +7,35 @@ import {
     Stack,
     Button
 } from '@carbon/react'
+import { CheckmarkFilled, InProgress, CloseFilled } from '@carbon/react/icons';
 
 const DocSummary = () => {
+
+    const render = (status) => {
+
+        let jsx = <></>
+
+        switch (status.status) {
+            case 'approved':
+                jsx = <CheckmarkFilled size={16} className={styles.checkmark} />
+                break
+            case 'rejected':
+                jsx = <CloseFilled size={16} className={styles.close} />
+                break
+            case 'waiting':
+                jsx = <InProgress size={16} className={styles.inprogress} />
+                break
+            default:
+                jsx = <div>UNDEFINED</div>
+        }
+
+        return (
+            <>
+                {jsx}
+                <div className={styles.amount}>{status.amount}</div>
+            </>
+        )
+    }
 
     return (
         <ExpandableTile className={styles['doc-summary']}>
@@ -18,16 +45,71 @@ const DocSummary = () => {
                         <div className={styles.title}>Document request summary</div>
                     </div>
                     <div className={styles.current}>
-                        <div className={styles.amount}>2</div>
-                        <div className={styles.description}>Pending requesting now</div>
+                        <div className={styles.amount}>5</div>
+                        <div className={styles.description}>Pending booking now</div>
                     </div>
                     {
-                        [1, 2, 3].map(i => {
+                        [
+                            {
+                                documentName: 'employment certification',
+                                amountType: [
+                                    {
+                                        status: 'waiting',
+                                        amount: 2
+                                    },
+                                    {
+                                        status: 'approved',
+                                        amount: 2
+                                    },
+                                    {
+                                        status: 'rejected',
+                                        amount: 0
+                                    }
+                                ]
+                            },
+                            {
+                                documentName: 'leave booking record',
+                                amountType: [
+                                    {
+                                        status: 'waiting',
+                                        amount: 3
+                                    },
+                                    {
+                                        status: 'approved',
+                                        amount: 0
+                                    },
+                                    {
+                                        status: 'rejected',
+                                        amount: 1
+                                    }
+                                ]
+                            },
+                            {
+                                documentName: 'salary certification',
+                                amountType: [
+                                    {
+                                        status: 'waiting',
+                                        amount: 0
+                                    },
+                                    {
+                                        status: 'approved',
+                                        amount: 0
+                                    },
+                                    {
+                                        status: 'rejected',
+                                        amount: 1
+                                    }
+                                ]
+                            },
+                        ].map(type => {
                             return (
                                 <div className={styles.detail}>
-                                    <div className={styles.name}>Type {i}</div>
-                                    <div className={styles.amountType}>4</div>
-                                    {/* <div className={styles.amountType}>{Math.floor(Math.random() * 100) % 20}</div> */}
+                                    <div className={styles.name}>{type.documentName}</div>
+                                    <div className={styles.amountType}>
+                                        {
+                                            type.amountType.map(s => render(s))
+                                        }
+                                    </div>
                                 </div>
                             )
                         })
@@ -37,15 +119,70 @@ const DocSummary = () => {
             <TileBelowTheFoldContent>
                 <Stack gap='1rem' className={styles.stackVertical}>
                     <div className={styles.header}>
-                        <div className={styles.title}>Document requesting summary for the last 365 days</div>
+                        <div className={styles.title}>Leave booking summary for the last 365 days</div>
                     </div>
                     {
-                        [1, 2, 3].map(i => {
+                        [
+                            {
+                                documentName: 'employment certification',
+                                amountType: [
+                                    {
+                                        status: 'waiting',
+                                        amount: 2
+                                    },
+                                    {
+                                        status: 'approved',
+                                        amount: 2
+                                    },
+                                    {
+                                        status: 'rejected',
+                                        amount: 0
+                                    }
+                                ]
+                            },
+                            {
+                                documentName: 'leave booking record',
+                                amountType: [
+                                    {
+                                        status: 'waiting',
+                                        amount: 3
+                                    },
+                                    {
+                                        status: 'approved',
+                                        amount: 0
+                                    },
+                                    {
+                                        status: 'rejected',
+                                        amount: 1
+                                    }
+                                ]
+                            },
+                            {
+                                documentName: 'salary certification',
+                                amountType: [
+                                    {
+                                        status: 'waiting',
+                                        amount: 0
+                                    },
+                                    {
+                                        status: 'approved',
+                                        amount: 0
+                                    },
+                                    {
+                                        status: 'rejected',
+                                        amount: 1
+                                    }
+                                ]
+                            },
+                        ].map(type => {
                             return (
                                 <div className={styles.detail}>
-                                    <div className={styles.name}>Type {i}</div>
-                                    <div className={styles.amountType}>15</div>
-                                    {/* <div className={styles.amountType}>{Math.floor(Math.random() * 100) % 50}</div> */}
+                                    <div className={styles.name}>{type.documentName}</div>
+                                    <div className={styles.amountType}>
+                                        {
+                                            type.amountType.map(s => render(s))
+                                        }
+                                    </div>
                                 </div>
                             )
                         })

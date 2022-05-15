@@ -1,6 +1,6 @@
 import React from "react";
 import styles from '../scss/documentRequest/document.module.scss';
-import { 
+import {
     FlexGrid,
     Row,
     Column,
@@ -22,7 +22,7 @@ const Document = () => {
 
     return (
         <FlexGrid fullWidth className={styles.document}>
-            <Row className={stylesBanner.banner}>
+            <Row className={stylesBanner.banner + ' ' + stylesBanner.tabs}>
                 <Column lg={16}>
                     <h1 className={stylesBanner.heading}>{'Document request'}</h1>
                     <p className={stylesBanner.p}>{'Self-Requesting documents'}</p>
@@ -38,11 +38,11 @@ const Document = () => {
                         <TabPanels className={styles['tab-content']}>
                             <TabPanel>
                                 <Row className={styles.mainRow}>
-                                    <Column max={5} className={styles.left}>
-                                        <Stack gap='32px' className={styles.stack}>
-                                            <AddBookDoc />
-                                            <DocSummary />
-                                        </Stack>
+                                    <Column max={{offset: 2}}>
+                                        <AddBookDoc />
+                                    </Column>
+                                    <Column max={{span: 8, offset: 2}}>
+                                        <DocSummary />
                                     </Column>
                                 </Row>
                             </TabPanel>
@@ -60,7 +60,7 @@ const Document = () => {
 export default Document;
 
 export const getStaticProps = async () => {
-       
+
     const res = await axios.get('http://localhost:3000/api/document/getDocBookingStatus')
     const getDocBookingStatus = await res.data;
 

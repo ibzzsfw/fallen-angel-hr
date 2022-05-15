@@ -11,7 +11,9 @@ export default async (req, res) => {
     let managernote = req.body.managernote
     let confirmation = req.body.confirmation
     // get day from date diff of startdate and enddate
-    let duration = (confirmation === 'approved') ? 2 : 0
+    let duration = (confirmation === 'approved')
+        ? new Date(row.endDate).getDate() - new Date(row.startDate).getDate() + 1
+        : 0
     let col = ''
 
     if (confirmation === 'approved') {

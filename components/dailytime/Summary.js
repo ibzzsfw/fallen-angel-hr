@@ -24,7 +24,7 @@ const Summary = ({ clock, log }) => {
 
     useEffect(() => {
         console.log(log);
-        let arr = log.filter(l => l.type != 'normal')
+        let arr = log.filter(l => (l.type != 'normal') && (new Date().getUTCMonth()===new Date(l.date).getUTCMonth()+1));
         setMonthSum(arr)
 
     }, [log])

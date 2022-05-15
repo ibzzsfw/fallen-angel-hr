@@ -165,7 +165,7 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={styles.signout}>Sign out</div>
+                            <div className={styles.signout} onClick={onClickLogOut}>Sign out</div>
                         </div>
                     </HeaderPanel>
                 </Header>
