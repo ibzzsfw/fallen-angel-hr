@@ -12,11 +12,15 @@ import {
     HeaderPanel,
     HeaderMenu,
     Theme,
+    SideNav,
+    SideNavItems,
+    HeaderSideNavItems,
 } from '@carbon/react';
 import {
     UserAvatar,
     Light,
-    Asleep
+    Asleep,
+    User
 } from '@carbon/react/icons';
 import styles from '../scss/navbar.module.scss';
 import { useThemePreference } from './ThemePreference.js'
@@ -105,19 +109,19 @@ const Navbar = () => {
                             aria-label="Profile"
                             isActive={currentAction === 'profile'}
                             onClick={() => onClickAction('profile')}>
-                            <UserAvatar size={20} />
+                            <User size={20} />
                         </HeaderGlobalAction>
                     </HeaderGlobalBar>
-                    {/* <SideNav
+                    <SideNav
                         aria-label="Side navigation"
                         expanded={isSideNavExpanded}
                         isPersistent={false}>
                         <SideNavItems>
                             <HeaderSideNavItems>
-                                <HeaderMenuItem element={Link} to='/dailytime'>Daily Time</HeaderMenuItem>
-                                <HeaderMenuItem element={Link} to='/deduction'>Deduction</HeaderMenuItem>
-                                <HeaderMenuItem element={Link} to='/dailytime'>Leave</HeaderMenuItem>
-                                <HeaderMenuItem element={Link} to='/document'>Document</HeaderMenuItem>
+                                <HeaderMenuItem>Daily Time</HeaderMenuItem>
+                                <HeaderMenuItem>Deduction</HeaderMenuItem>
+                                <HeaderMenuItem>Leave</HeaderMenuItem>
+                                <HeaderMenuItem>Document</HeaderMenuItem>
                                 <HeaderMenuItem href="#">Payment</HeaderMenuItem>
                                 <HeaderMenu aria-label="Link 4" menuLinkName="Link 4">
                                     <HeaderMenuItem href="#">Sub-link 1</HeaderMenuItem>
@@ -126,7 +130,7 @@ const Navbar = () => {
                                 </HeaderMenu>
                             </HeaderSideNavItems>
                         </SideNavItems>
-                    </SideNav> */}
+                    </SideNav>
                     <HeaderPanel aria-label="Profile" expanded={currentAction === 'profile'} className={styles.panel}>
                         <div className={styles.profilePanel}>
                             <div className={styles.row}>

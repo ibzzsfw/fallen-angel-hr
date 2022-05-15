@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styles from '../scss/manage/manage.module.scss';
 import {
     FlexGrid,
@@ -10,7 +11,7 @@ import {
 import NewEmployee from '../components/manage/NewEmployee';
 import RemoveEmployee from '../components/manage/RemoveEmployee';
 
-const Manage = () => {
+const Manage = (props) => {
 
     const [selectedSwtich, setSelectedSwitch] = useState(1);
 
@@ -20,13 +21,13 @@ const Manage = () => {
 
         switch (selectedSwtich) {
             case 1:
-                content = <NewEmployee />
+                content = <NewEmployee getRole={props.getRole} getDepartment={props.getDepartment}/>
                 break;
             case 2:
                 content = <RemoveEmployee />
                 break;
             default:
-                content = <NewEmployee />
+                content = <NewEmployee getRole={props.getRole} getDepartment={props.getDepartment}/>
                 break;
         }
 
@@ -36,7 +37,7 @@ const Manage = () => {
     return (
         <FlexGrid fullWidth className={styles.manage}>
             <Row>
-                <Column max={6} xlg={6} lg={6} md={0} sm={0} className={styles.bg}/>
+                <Column max={6} xlg={6} lg={6} md={0} sm={0} className={styles.bg} />
                 <Column max={10} xlg={10} lg={10} md={8} sm={4} className={styles.mainCol}>
                     <Row className={styles.topRow}>
                         <ContentSwitcher className={styles['content-switcher']}>
@@ -54,3 +55,20 @@ const Manage = () => {
 }
 
 export default Manage;
+
+
+export const getStaticProps = async () => {
+
+    const res1 = await axios.get('http://localhost:3000/api/admin/getRole')
+    const getRole = await res1.data;
+
+    const re2 = await axios.get('http://localhost:3000/api/profile/getDepartment');
+    const getDepartment = await re2.data;
+
+    return {
+        props: {
+            getRole,
+            getDepartment,
+        }
+    }
+}
