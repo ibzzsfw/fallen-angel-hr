@@ -13,8 +13,15 @@ import {
     AccordionItem,
     Tag,
 } from '@carbon/react';
+import axios from 'axios';
 
-const Payment = () => {
+const Payment = (props) => {
+
+    //console.log(props);
+
+    useEffect(() => {
+        console.log(props.getIncomeByMonth);
+    }, [getStaticProps])
 
     const [now, setNow] = useState(new Date());
     const [availableMonth, setAvailableMonth] = useState([]);
@@ -54,17 +61,18 @@ const Payment = () => {
                         label={monthNames[now.getUTCMonth()] + ', ' + now.getFullYear().toString()}
                         titleText={<p>Select month</p>}
                     />
+
                     <ExpandableTile className={styles.income}>
                         <TileAboveTheFoldContent>
                             <Stack gap='1rem' className={styles.stack}>
                                 <div className={styles['section-name']}>Income</div>
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Salary</div>
-                                    <div className={styles.value}>฿100000</div>
+                                    <div className={styles.value}>฿{props.getIncomeByMonth[0].salary}</div>
                                 </div>
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Overtime</div>
-                                    <div className={styles.value}>฿3400</div>
+                                    <div className={styles.value}>฿{props.getIncomeByMonth[0].overtime}</div>
                                 </div>
                             </Stack>
                         </TileAboveTheFoldContent>
@@ -172,3 +180,21 @@ const Payment = () => {
 }
 
 export default Payment;
+
+export const getStaticProps = async () => {
+
+    const res1 = await axios.get('http://localhost:3000/api/payment/getIncomeByMonth',
+                        {headers: {employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c"}})
+    const getIncomeByMonth = await res1.data;
+
+/*     const res2 = await axios.get('http://localhost:3000/api/dailytime/getLog',
+                        {headers: {employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c"}})
+    const getDeductionByMonth = await res2.data; */
+
+    return {
+        props: {
+            getIncomeByMonth: getIncomeByMonth,
+            /* getDeductionByMonth: getDeductionByMonth */
+        }
+    }
+}
