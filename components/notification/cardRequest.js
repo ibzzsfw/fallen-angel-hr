@@ -11,7 +11,9 @@ import { rows } from './RequestData';
 import Offcanvas from "../Offcanvas";
 import RequestDetails from './RequestDetails';
 
-const cardRequest = () => {
+const cardRequest = ({ getNotificationRequest }) => {
+
+    console.log(getNotificationRequest)
 
     const [isOpen, setIsOpen] = useState(false);
     const [rowID, setRowID] = useState('');
@@ -51,7 +53,7 @@ const cardRequest = () => {
             {
                 isOpen &&
                 <Offcanvas isOpen={q => setIsOpen(q)}>
-                    <RequestDetails/>
+                    <RequestDetails />
                 </Offcanvas>
             }
         </FlexGrid>

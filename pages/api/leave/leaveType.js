@@ -1,9 +1,9 @@
-import excuteQuery from "../../../config/db";
+import excuteQuery from '../../../config/db';
 
-export default async(req, res) => {
+export default async (req, res) => {
     try {
         const result = await excuteQuery({
-            query: `SELECT * FROM department`,
+            query: "SELECT * FROM LeaveType",
             values: [],
         });
         res.status(200).json(result);

@@ -1,6 +1,6 @@
 import mysql from 'serverless-mysql';
 
-const db = mysql({
+export const db = mysql({
     config: {
         host: process.env.HOST,
         port: process.env.PORT,
@@ -20,5 +20,3 @@ export default async function excuteQuery({ query, values }) {
         return { error };
     }
 }
-
-// export default db;

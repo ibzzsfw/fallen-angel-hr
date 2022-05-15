@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import styles from '../../scss/leave/booking.module.scss';
 import {
     FlexGrid,
@@ -17,7 +18,39 @@ import {
     Tile
 } from '@carbon/react';
 
-const Booking = () => {
+const Booking = ({ leaveType }) => {
+
+    const [employeeid, setEmployeeid] = useState('');
+    const [leaveid, setLeaveid] = useState('');
+    const [reason, setReason] = useState('');
+    const [startdate, setStartdate] = useState(new Date().toLocaleString());
+    const [enddate, setEnddate] = useState(new Date().toLocaleString());
+
+    const dateFormat = date => {
+
+        return (
+            date.getUTCFullYear().toString() + '-' + (date.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + date.getUTCDate().toString().padStart(2, '0')
+        )
+    }
+
+    const POSTaddLeave = () => {
+
+        console.log('body', {
+            employeeid: "0e38af30-7a6a-4201-9584-42264f2684fc",
+            leaveid: leaveid,
+            reason: reason,
+            startdate: dateFormat(new Date(startdate)),
+            enddate: dateFormat(new Date(enddate))
+        })
+
+        axios.post('http://localhost:3000/api/leave/addLeave', {
+            employeeid: "0e38af30-7a6a-4201-9584-42264f2684fc",
+            leaveid: leaveid,
+            reason: reason,
+            startdate: startdate,
+            enddate: enddate
+        })
+    }
 
     return (
         <FlexGrid fullWidth condensed className={styles.booking}>
@@ -29,7 +62,7 @@ const Booking = () => {
                     <Form className={styles.form}>
                         <FlexGrid fullWidth>
                             <Row>
-                                <p className="cds--file--label" style={{marginBottom: '1rem'}}>Leave datails</p>
+                                <p className="cds--file--label" style={{ marginBottom: '1rem' }}>Leave datails</p>
                             </Row>
                             <Row>
                                 <Column max={10} xlg={10} lg={10} md={4} sm={4} style={{ marginBottom: '32px' }}>
@@ -37,6 +70,7 @@ const Booking = () => {
                                         id='leave-type'
                                         defaultValue="placeholder-item"
                                         labelText="Leave type"
+                                        onChange={(e) => setLeaveid(e.target.value)}
                                     >
                                         <SelectItem
                                             disabled
@@ -44,7 +78,17 @@ const Booking = () => {
                                             value="placeholder-item"
                                             text=""
                                         />
-                                        {[1, 2, 3, 4].map(i => <SelectItem value={`option-${i}`} text={`option-${i}`} />)}
+                                        {
+                                            leaveType.map(item => {
+                                                return (
+                                                    <SelectItem
+                                                        key={item.leaveID}
+                                                        value={item.leaveID}
+                                                        text={item.leaveName}
+                                                    />
+                                                )
+                                            })
+                                        }
                                     </Select>
                                 </Column>
                                 <Column max={6} xlg={6} lg={6} md={4} sm={4} style={{ marginBottom: '32px', padding: '0' }}>
@@ -54,18 +98,20 @@ const Booking = () => {
                                         locale='en'
                                         dateFormat='d/m/Y'
                                     >
-                                        {
-                                            ['Start', 'End'].map(label => {
-                                                return (
-                                                    <DatePickerInput
-                                                        id={`date-picker-input-id-${label}`}
-                                                        labelText={`${label} date`}
-                                                        placeholder="dd/mm/yyyy"
-                                                        size="md"
-                                                    />
-                                                )
-                                            })
-                                        }
+                                        <DatePickerInput
+                                            id={`date-picker-input-id-Start`}
+                                            labelText={`Start date`}
+                                            placeholder="dd/mm/yyyy"
+                                            size="md"
+                                            onChange={(e) => setStartdate(e.target.value)}
+                                        />
+                                        <DatePickerInput
+                                            id={`date-picker-input-id-End`}
+                                            labelText={`End date`}
+                                            placeholder="dd/mm/yyyy"
+                                            size="md"
+                                            onChange={(e) => setEnddate(e.target.value)}
+                                        />
                                     </DatePicker>
                                 </Column>
                             </Row>
@@ -77,6 +123,7 @@ const Booking = () => {
                                             maxCount={500}
                                             row={5}
                                             helperText='max 500 characters'
+                                            onChange={(e) => setReason(e.target.value)}
                                         />
                                         <FormItem>
                                             <p className="cds--file--label">
@@ -122,7 +169,7 @@ const Booking = () => {
                                     md={{ span: 2 }}
                                     className={styles['button-col']}
                                 >
-                                    <Button className={styles.button} type='submit' size='lg' kind="primary">Submit</Button>
+                                    <Button className={styles.button} size='lg' kind="primary" onClick={POSTaddLeave}>Submit</Button>
                                 </Column>
                             </Row>
                         </FlexGrid>

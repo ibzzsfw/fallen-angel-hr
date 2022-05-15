@@ -1,11 +1,13 @@
 import excuteQuery from '../../../config/db';
 
 export default async(req, res) => {
-    let departmentid = (req.headers.departmentid)
+
+    let employeeid = req.headers.employeeid
+    
     try {
         const result = await excuteQuery({
-            query: `SELECT positionName FROM position INNER JOIN department ON department.departmentID = position.departmentID WHERE position.departmentID = ?;`,
-            values: [departmentid],
+            query: `SELECT firstName, lastName, employeeID FROM information WHERE employeeID IN (?)`,
+            values: [employeeid],
         });
         res.status(200).json(result);
     } catch (error) {

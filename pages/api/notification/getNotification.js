@@ -2,12 +2,12 @@ import excuteQuery from '../../../config/db';
 
 export default async (req, res) => {
 
-    let employeeid = req.headers.employeeid;
+    let status = req.headers.status;
 
     try {
         const result = await excuteQuery({
-            query: "SELECT sickRemain, personalRemain, vacationRemain, maternityRemain FROM information WHERE employeeID = ?",
-            values: [employeeid], 
+            query: "SELECT * FROM Notification WHERE status = ?",
+            values: [status],
         });
         res.status(200).json(result);
     } catch (error) {

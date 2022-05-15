@@ -5,12 +5,12 @@ import {
     Tile,
 } from '@carbon/react';
 
-const Remain = () => {
+const Remain = ({ remain }) => {
 
-    const remainByType = (item) => {
+    const remainByType = (key, value) => {
 
-        let type = item.type.charAt(0).toUpperCase() + item.type.slice(1)
-        let amount = item.amount
+        let type = key
+        let amount = value
 
         return (
             <div className={styles.remain}>
@@ -28,14 +28,8 @@ const Remain = () => {
             </div>
             <Stack orientation="horizontal" gap='2rem'>
                 {
-                    [
-                        { type: 'sick', amount: '13' },
-                        { type: 'annual', amount: '1' },
-                        { type: 'maternity', amount: '50' },
-                        { type: 'paternity', amount: '0' },
-                        { type: 'study', amount: '0' },
-                    ].map(item => {
-                        return remainByType(item);
+                    Object.keys(remain[0]).map(key => {
+                        return remainByType(key, remain[0][key]);
                     })
                 }
             </Stack>

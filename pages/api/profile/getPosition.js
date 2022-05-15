@@ -1,10 +1,13 @@
-import excuteQuery from "../../../config/db";
+import excuteQuery from '../../../config/db';
 
 export default async(req, res) => {
+
+    let departmentid = req.headers.departmentid
+    
     try {
         const result = await excuteQuery({
-            query: `SELECT * FROM department`,
-            values: [],
+            query: `SELECT * FROM position WHERE departmentID = ?;`,
+            values: [departmentid],
         });
         res.status(200).json(result);
     } catch (error) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from '../../scss/leave/leave-summary.module.scss';
 import {
     ExpandableTile,
@@ -7,9 +7,35 @@ import {
     Stack,
     Button
 } from '@carbon/react';
-import { CheckmarkFilled, InProgress, CloseFilled, HelpFilled } from '@carbon/react/icons';
+import { CheckmarkFilled, InProgress, CloseFilled } from '@carbon/react/icons';
 
-const LeaveSummary = () => {
+const LeaveSummary = (props) => {
+
+    const render = (status) => {
+
+        let jsx = <></>
+
+        switch (status.status) {
+            case 'approved':
+                jsx = <CheckmarkFilled size={16} className={styles.checkmark} />
+                break
+            case 'rejected':
+                jsx = <CloseFilled size={16} className={styles.close} />
+                break
+            case 'waiting':
+                jsx = <InProgress size={16} className={styles.inprogress} />
+                break
+            default:
+                jsx = <div>UNDEFINED</div>
+        }
+
+        return (
+            <>
+                {jsx}
+                <div className={styles.amount}>{status.amount}</div>
+            </>
+        )
+    }
 
     return (
         <ExpandableTile className={styles['leave-summary']}>
@@ -19,23 +45,18 @@ const LeaveSummary = () => {
                         <div className={styles.title}>Leave summary</div>
                     </div>
                     <div className={styles.current}>
-                        <div className={styles.amount}>2</div>
+                        <div className={styles.amount}>1</div>
                         <div className={styles.description}>Pending booking now</div>
                     </div>
                     {
-                        [1, 2, 3, 4].map(i => {
+                        props.summaryMonth.map(type => {
                             return (
                                 <div className={styles.detail}>
-                                    <div className={styles.name}>Type {i}</div>
+                                    <div className={styles.name}>{type.leaveName}</div>
                                     <div className={styles.amountType}>
-                                        <InProgress size={16} className={styles.inprogress} />
-                                        <div className={styles.amount}>4</div>
-                                        <CheckmarkFilled size={16} className={styles.checkmark} />
-                                        <div className={styles.amount}>2</div>
-                                        <CloseFilled size={16} className={styles.close} />
-                                        <div className={styles.amount}>6</div>
-                                        <HelpFilled size={16} className={styles.help} />
-                                        <div className={styles.amount}>10</div>
+                                        {
+                                            type.status.map(s => render(s))
+                                        }
                                     </div>
                                 </div>
                             )
@@ -49,19 +70,14 @@ const LeaveSummary = () => {
                         <div className={styles.title}>Leave booking summary for the last 365 days</div>
                     </div>
                     {
-                        [1, 2, 3, 4].map(i => {
+                        props.summaryYear.map(type => {
                             return (
                                 <div className={styles.detail}>
-                                    <div className={styles.name}>Type {i}</div>
+                                    <div className={styles.name}>{type.leaveName}</div>
                                     <div className={styles.amountType}>
-                                        <InProgress size={16} className={styles.inprogress} />
-                                        <div className={styles.amount}>4</div>
-                                        <CheckmarkFilled size={16} className={styles.checkmark} />
-                                        <div className={styles.amount}>2</div>
-                                        <CloseFilled size={16} className={styles.close} />
-                                        <div className={styles.amount}>6</div>
-                                        <HelpFilled size={16} className={styles.help} />
-                                        <div className={styles.amount}>10</div>
+                                        {
+                                            type.status.map(s => render(s))
+                                        }
                                     </div>
                                 </div>
                             )
