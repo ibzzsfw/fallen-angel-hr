@@ -24,15 +24,36 @@ const Profile = ({getProfile, getDepartment}) => {
     const [modalPassword, setModalPassword] = useState(false);
 
     //Contact Modal
-    const [newEmail, setNewEmail] = useState('')
-    const [newPhoneNumber, setNewPhoneNumber] = useState('')
-    const [newAddress, setNewAddress] = useState('')
+    const [newFirstName, setNewFirstName] = useState('');
+    const [newLastName, setNewLastName] = useState('');
+
+    const [newEmail, setNewEmail] = useState('');
+    const [newPhoneNumber, setNewPhoneNumber] = useState('');
+    const [newAddress, setNewAddress] = useState('');
+
+    const [newBankName, setNewBankName] = useState('');
+    const [newBankAccountNumber, setNewBankAccountNumber] = useState('');
+
+    const editPersonalInfo = () => {
+        axios.post('http://localhost:3000/api/profile/editPersonalInfo', {
+            firstname: newFirstName ,
+            lastname: newLastName 
+        })
+    }
 
     const editContact = () => {
-        axios.post('http://localhost:3000/api/profile/editContact', {
+        if (getProfile)
+        {axios.post('http://localhost:3000/api/profile/editContact', {
             email: newEmail ? newEmail : getProfile.email,
             phonenumber: newPhoneNumber? newPhoneNumber : getProfile.phonenumber,
-            address: newAddress ? newAddress : getProfile.address
+            address: newAddress ? newAddress : getProfile.address,
+        })}
+    }
+
+    const editBankInfo = () => {
+        axios.put('http://localhost:3000/api/profile/editBankInfo',{
+            bankname: newBankName ? newBankName : getProfile.bankname,
+            bankaccount: newBankAccountNumber ? newBankAccountNumber : getProfile.bankaccount
         })
     }
 
@@ -224,7 +245,9 @@ const Profile = ({getProfile, getDepartment}) => {
                 secondaryButtonText="Cancel"
                 onRequestClose={() => {
                     setModalPersonal(false);
-                }}>
+                }}
+                onRequestSubmit = {editPersonalInfo}
+                >
                 <p>Be aware your information correctness</p>
                 <TextInput
                     data-modal-primary-focus
@@ -233,6 +256,7 @@ const Profile = ({getProfile, getDepartment}) => {
                     placeholder={'current'}
                     labelText='First name'
                     styles={{ marginBottom: '1rem' }}
+                    onChange = {e => setNewFirstName(e.target.value)}
                 />
                 <TextInput
                     size='lg'
@@ -240,6 +264,7 @@ const Profile = ({getProfile, getDepartment}) => {
                     placeholder={'current'}
                     labelText='Lastname name'
                     styles={{ marginBottom: '1rem' }}
+                    onChange = {e => setNewLastName(e.target.value)}
                 />
             </Modal>
             <Modal
@@ -251,7 +276,7 @@ const Profile = ({getProfile, getDepartment}) => {
                 onRequestClose={() => {
                     setModalContact(false);
                 }}
-                onRequestSubmit={editContact}
+                onRequestSubmit = {editContact}
                 >
 
                 <TextInput
@@ -289,7 +314,9 @@ const Profile = ({getProfile, getDepartment}) => {
                 secondaryButtonText="Cancel"
                 onRequestClose={() => {
                     setModalBank(false);
-                }}>
+                }}
+                onRequestSubmit = {editBankInfo}
+                >
                 <TextInput
                     data-modal-primary-focus
                     size='lg'
@@ -297,6 +324,7 @@ const Profile = ({getProfile, getDepartment}) => {
                     placeholder={'current'}
                     labelText='Bank name'
                     styles={{ marginBottom: '1rem' }}
+                    onChange = {e => setNewBankName}
                 />
                 <TextInput
                     size='lg'
@@ -304,6 +332,7 @@ const Profile = ({getProfile, getDepartment}) => {
                     placeholder={'current'}
                     labelText='Bank account number'
                     styles={{ marginBottom: '1rem' }}
+                    onChange = {e => setNewBankAccountNumber}
                 />
             </Modal>
             <Modal
@@ -341,9 +370,9 @@ export default Profile;
 
 export const getStaticProps = async () => {
        
-//     const res = await axios.get('http://localhost:3000/api/profile/showProfile',
-//                 {headers: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
-//     const getProfile = await res.data;
+   const res = await axios.get('http://localhost:3000/api/profile/showProfile',
+                 {headers: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
+     const getProfile = await res.data;
     // const res1 = await axios.put('http://localhost:3000/api/profile/editPersonalInfo')
     // const editPersonalInfo = await res1.data;
     
@@ -365,4 +394,4 @@ export const getStaticProps = async () => {
             getDepartment: getDepartment,
         },
     }
-} 
+}
