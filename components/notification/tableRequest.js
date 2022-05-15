@@ -18,10 +18,9 @@ import {
 } from '@carbon/react';
 import styles from '../../scss/notification/table-request.module.scss';
 import Offcanvas from "../Offcanvas";
-import { rows } from '../../components/notification/RequestData';
 import RequestDetails from './RequestDetails';
 
-const TableStatus = ({ getNotificationRequest }) => {
+const TableStatus = ({ rows }) => {
 
     console.log(getNotificationRequest)
 

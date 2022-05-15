@@ -37,7 +37,7 @@ const DailyTime = (props) => {
                             </TabList>
                             <TabPanels className={styles['tab-content']}>
                                 <TabPanel>
-                                    <Summary clock={props.clock} />
+                                    <Summary clock={props.clock} log={props.log}/>
                                 </TabPanel>
                                 <TabPanel>
                                     <Log raw={props.log} getInformationByPosition={props.getInformationByPosition} />
@@ -61,7 +61,7 @@ export const getStaticProps = async () => {
     const res2 = await axios.get('http://localhost:3000/api/dailytime/log', {
         headers: {
             employeeid: '1ac39e28-8e18-4a54-b56a-14a53fac104c',
-            type: 'absent'
+            type: 'absent' // not included type
         }
     })
     const log = await res2.data;
@@ -72,8 +72,6 @@ export const getStaticProps = async () => {
         }
     })
     const getInformationByPosition = await res3.data;
-
-
 
     return {
         props: {
