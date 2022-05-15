@@ -28,7 +28,7 @@ const cardRequest = ({ getNotificationRequest }) => {
                     }}
                 >
                     <div className={styles.header}>
-                        <div className={styles.head}>{row.head}</div>
+                        <div className={styles.type}>{row.title}</div>
                         <Tag type='purple'>{row.status}</Tag>
                     </div>
                     <div className={styles.wraper}>

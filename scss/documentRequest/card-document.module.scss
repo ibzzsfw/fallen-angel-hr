@@ -8,6 +8,8 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 2rem;
+        height: 160px;
+
         .header {
             display: flex;
             width: 100%;
@@ -22,7 +24,7 @@
         }
 
         .wraper {
-            height: 20px;
+            height: 30px;
             width: auto;
             display: flex;
 
@@ -33,7 +35,6 @@
             }
 
             .content {
-                margin-left: 1rem;
                 @include type.type-style('body-long-01');
             }
         }

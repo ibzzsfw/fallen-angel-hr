@@ -8,6 +8,8 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 2rem;
+        height: 160px;
+
         .header {
             display: flex;
             width: 100%;
@@ -15,16 +17,18 @@
             align-items: center;
             margin-bottom: 1rem;
 
-            .head {
+            .type {
                 @include type.type-style('productive-heading-01');
             }
 
         }
 
         .wraper {
-            height: 20px;
+            height: 30px;
             width: auto;
             display: flex;
+            overflow-y: hidden;
+            
 
             .title {
                 width: 6rem;
@@ -34,29 +38,7 @@
 
             .content {
                 @include type.type-style('body-long-01');
-            }
-        }
-
-        .footer {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-
-            .right {
-
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-
-                .amount {
-                    @include type.type-style('productive-heading-05');
-                }
-
-                .day {
-                    color: var(--cds-text-helper);
-                    @include type.type-style('label-01');
-                }
+                padding-left: 1rem;
             }
         }
     }

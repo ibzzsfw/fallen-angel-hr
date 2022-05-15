@@ -90,11 +90,6 @@ const RequestDetails = () => {
                     </Row>
                     <Row>
                         <Column>
-                            <TextArea
-                                labelText='Note'
-                            />
-                        </Column>
-                        <Column>
                             <Row className={styles['button-row']}>
                                 <Column
                                     max={{ span: 3, offset: 10 }}

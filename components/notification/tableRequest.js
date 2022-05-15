@@ -22,7 +22,7 @@ import RequestDetails from './RequestDetails';
 
 const TableStatus = ({ rows }) => {
 
-    console.log(getNotificationRequest)
+    /* console.log(getNotificationRequest) */
 
     const [totalItems, setTotalItems] = useState(0);
     const [firstRowIndex, setFirstRowIndex] = useState(0);
