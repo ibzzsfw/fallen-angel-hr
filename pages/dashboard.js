@@ -24,6 +24,7 @@ const Dashboard = (props) => {
             getPositionCount={props.getPositionCount}
             getDepartmentCount={props.getDepartmentCount}
             getSalaryCount={props.getSalaryCount}
+            getSex={props.getSex}
           />
           <Manager />
         </Column>
@@ -54,13 +55,17 @@ export const getStaticProps = async () => {
   const res5 = await axios.get('http://localhost:3000/api/dashboard/getSalaryCount')
   const getSalaryCount = await res5.data;
 
+  const res6 = await axios.get('http://localhost:3000/api/dashboard/getSex')
+  const getSex = await res6.data;
+
   return {
       props: {
         getStatusCount: getStatusCount,
         getHeadCount: getHeadCount,
         getPositionCount: getPositionCount,
         getDepartmentCount: getDepartmentCount,
-        getSalaryCount: getSalaryCount
+        getSalaryCount: getSalaryCount,
+        getSex: getSex
       }
   }
 }

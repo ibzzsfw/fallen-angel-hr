@@ -22,7 +22,7 @@ const Document = (props) => {
     console.log(props)
     return (
         <FlexGrid fullWidth className={styles.document}>
-            <Row className={stylesBanner.banner}>
+            <Row className={stylesBanner.banner + ' ' + stylesBanner.tabs}>
                 <Column lg={16}>
                     <h1 className={stylesBanner.heading}>{'Document request'}</h1>
                     <p className={stylesBanner.p}>{'Self-Requesting documents'}</p>

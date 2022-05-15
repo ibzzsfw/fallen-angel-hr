@@ -11,19 +11,19 @@ import { DonutChart, StackedBarChart } from "@carbon/charts-react";
 import "@carbon/charts/styles.css";
 import "../../scss/plex-and-carbon-components.module.css";
 
-const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCount, getSalaryCount }) => {
+const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCount, getSalaryCount, getSex }) => {
 
-    const dataCount2 = getStatusCount.map((e, i) => {
+    const statusCount = getStatusCount.map((e) => {
         return {
             "group": e.type,
             "value": e.countStatus
         }
     })
 
-    const dataCount = [1, 2, 3, 4, 5].map(i => {
+    const departmentCount = getDepartmentCount.map((e) => {
         return {
-            "group": `Position ${i}`,
-            "value": Math.random() * 10
+            "group": e.departmentName,
+            "value": e.countDepartment
         }
     })
 
@@ -35,7 +35,7 @@ const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCo
         },
         "donut": {
             "center": {
-                "label": "Employees"
+                "label": "Records"
             },
             "alignment": "center"
         },
@@ -103,150 +103,142 @@ const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCo
         }
     ]
 
-const dataPro = [
-    {
-        "group": `< 30k`,
-        "value": Math.random() * 10
-    },
-    {
-        "group": `30k - 40k`,
-        "value": Math.random() * 10
-    },
-    {
-        "group": `40k - 60k`,
-        "value": Math.random() * 10
-    },
-    {
-        "group": `> 60k`,
-        "value": Math.random() * 10
+    const optionsPro2 = {
+        "title": "Employee count by salary range",
+        "resizable": true,
+        "legend": {
+            "alignment": "center"
+        },
+        "donut": {
+            "center": {
+                "label": "Employees"
+            },
+            "alignment": "center"
+        },
+        "height": "350px"
     }
-]
 
-const optionsPro = {
-    "title": "Employee count by salary range",
-    "resizable": true,
-    "legend": {
-        "alignment": "center"
-    },
-    "donut": {
-        "center": {
-            "label": "Employees"
+    const optionsPro = {
+        "title": "Employee count by department",
+        "resizable": true,
+        "legend": {
+            "alignment": "center"
         },
-        "alignment": "center"
-    },
-    "height": "350px"
-}
+        "donut": {
+            "center": {
+                "label": "Employees"
+            },
+            "alignment": "center"
+        },
+        "height": "350px"
+    }
 
-const employeeByDepartmentData = [1, 2, 3, 4, 5].map(i => {
+    const employeeByPositionData = getPositionCount.map((e) => {
 
-    return (
-        [1, 2, 3, 4, 5, 6].map(j => {
+        return {
+            "group": e.positionName,
+            "value": e.countPosition
+        }
+    }).flat()
 
-            return {
-                "group": `Position ${i + Math.random() * 10}`,
-                "key": `Department ${j}`,
-                "value": Math.random() * 10
+    const employeeByPositionOptions = {
+        "title": "Employee count by position",
+        "legend": {
+            "alignment": "center"
+        },
+        "axes": {
+            "left": {
+                "mapsTo": "group",
+                "scaleType": "labels"
+            },
+            "bottom": {
+                "mapsTo": "value"
             }
-        })
-    )
-}).flat()
-
-const employeeByDepartmentOptions = {
-    "title": "Employee count by dapartment",
-    "axes": {
-        "left": {
-            "scaleType": "labels",
-            "mapsTo": "key"
         },
-        "bottom": {
-            "stacked": true,
-            "mapsTo": "value"
-        }
-    },
-    "height": "400px"
-}
+        "height": "400px"
+    }
 
 
-return (<>
-    <Row className={styles['row-margin-bottom']}>
-        <div className={styles.welcome}>
-            <h1>{'Year  '}<span>{new Date().getUTCFullYear().toString()}</span></h1>
-        </div>
-    </Row>
-    <Row className={styles['row-margin-bottom']}>
-        {
-            [
-                { title: 'Head count', value: '223' },
-                { title: 'Absenteeism', value: '1.15%' },
-                { title: 'Promotion', value: '32.5%' },
-                { title: 'Turnover', value: '3.28%' },
-            ].map(item => {
-                return (
-                    <Column>
-                        <Tile className={styles.card}>
-                            <div className={styles['sum-tile-title']}>{item.title}</div>
-                            <div className={styles.value}>
-                                <div className={styles['sum-tile-number']}>{item.value}</div>
-                            </div>
-                        </Tile>
-                    </Column>
-                )
-            })
-        }
-    </Row>
-    <Row className={styles['row-margin-bottom']}>
-        <Column>
-            <Tile>
-                <DonutChart
-                    data={dataCount2}
-                    options={optionsCount}>
-                </DonutChart>
-            </Tile>
-        </Column>
-        <Column>
-            <Tile>
-                <DonutChart
-                    data={dataPro2}
-                    options={optionsPro}>
-                </DonutChart>
-            </Tile>
-        </Column>
-        <Column>
-            <Tile>
-                <DonutChart
-                    data={dataPro}
-                    options={optionsPro}>
-                </DonutChart>
-            </Tile>
-        </Column>
-    </Row>
-    <Row className={styles['row-margin-bottom']}>
-        <Column max={5}>
-            <Tile className={styles.employeeStructure}>
-                <div className={styles.title}>Employee structure</div>
-                <div className={styles.below}>
-                    <div className={styles.gender}>
-                        <Person_03 className={styles.male} />
-                        <div className={styles.value}>49%</div>
+    return (<>
+        <Row className={styles['row-margin-bottom']}>
+            <div className={styles.welcome}>
+                <h1>{'Year  '}<span>{new Date().getUTCFullYear().toString()}</span></h1>
+            </div>
+        </Row>
+        <Row className={styles['row-margin-bottom']}>
+            {
+                [
+                    { title: 'Head count', value: '223' },
+                    { title: 'Absenteeism', value: '1.15%' },
+                    { title: 'Promotion', value: '32.5%' },
+                    { title: 'Turnover', value: '3.28%' },
+                ].map(item => {
+                    return (
+                        <Column>
+                            <Tile className={styles.card}>
+                                <div className={styles['sum-tile-title']}>{item.title}</div>
+                                <div className={styles.value}>
+                                    <div className={styles['sum-tile-number']}>{item.value}</div>
+                                </div>
+                            </Tile>
+                        </Column>
+                    )
+                })
+            }
+        </Row>
+        <Row className={styles['row-margin-bottom']}>
+            <Column>
+                <Tile>
+                    <DonutChart
+                        data={statusCount}
+                        options={optionsCount}>
+                    </DonutChart>
+                </Tile>
+            </Column>
+            <Column>
+                <Tile>
+                    <DonutChart
+                        data={dataPro2}
+                        options={optionsPro2}>
+                    </DonutChart>
+                </Tile>
+            </Column>
+            <Column>
+                <Tile>
+                    <DonutChart
+                        data={departmentCount}
+                        options={optionsPro}>
+                    </DonutChart>
+                </Tile>
+            </Column>
+        </Row>
+        <Row className={styles['row-margin-bottom']}>
+            <Column max={5}>
+                <Tile className={styles.employeeStructure}>
+                    <div className={styles.title}>Employee structure</div>
+                    <div className={styles.below}>
+                        <div className={styles.gender}>
+                            <Person_03 className={styles.male} />
+                            <div className={styles.value}>{getSex[1].countSex}</div>
+                        </div>
+                        <div className={styles.gender}>
+                            <Person_04 className={styles.female} />
+                            <div className={styles.value}>{getSex[0].countSex}</div>
+                        </div>
                     </div>
-                    <div className={styles.gender}>
-                        <Person_04 className={styles.female} />
-                        <div className={styles.value}>51%</div>
-                    </div>
-                </div>
-            </Tile>
-            <Tile />
-        </Column>
-        <Column max={11}>
-            <Tile>
-                <StackedBarChart
-                    data={employeeByDepartmentData}
-                    options={employeeByDepartmentOptions}>
-                </StackedBarChart>
-            </Tile>
-        </Column>
-    </Row>
-</>)
+                </Tile>
+                <Tile />
+            </Column>
+            <Column max={11}>
+                <Tile>
+                    <StackedBarChart
+                        data={employeeByPositionData}
+                        options={employeeByPositionOptions}>
+                    </StackedBarChart>
+                </Tile>
+            </Column>
+        </Row>
+    </>)
 }
 
 export default Admin;
