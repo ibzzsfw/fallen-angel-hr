@@ -15,6 +15,7 @@ import { Edit } from '@carbon/react/icons';
 import styles from "../scss/profile.module.scss";
 import axios from 'axios';
 
+
 const Profile = ({getProfile, getDepartment}) => {
 
     const [modalPersonal, setModalPersonal] = useState(false);
@@ -340,10 +341,9 @@ export default Profile;
 
 export const getStaticProps = async () => {
        
-    const res = await axios.get('http://localhost:3000/api/profile/showProfile',
-                {headers: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
-    const getProfile = await res.data;
-
+//     const res = await axios.get('http://localhost:3000/api/profile/showProfile',
+//                 {headers: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
+//     const getProfile = await res.data;
     // const res1 = await axios.put('http://localhost:3000/api/profile/editPersonalInfo')
     // const editPersonalInfo = await res1.data;
     

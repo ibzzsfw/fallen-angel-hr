@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import {
     Tabs,
     Tab,
@@ -8,7 +9,6 @@ import {
     FlexGrid,
     Row,
     Column,
-    Tile,
     Stack,
 } from '@carbon/react';
 import styles from '../scss/leave/leave.module.scss';
@@ -17,12 +17,21 @@ import LeaveSummary from "../components/leave/LeaveSummary";
 import AddBooking from "../components/leave/AddBooking";
 import Remain from "../components/leave/Remain";
 import StatusBooking from "../components/leave/StatusBooking";
+import url from '../utils/url';
+import stylesBanner from '../scss/banner.module.scss';
 
-const Leave = () => {
+const Leave = (props) => {
+
+    console.log(props)
 
     return (
         <FlexGrid fullWidth className={styles.leave}>
-            < Banner heading="Leave" p="Self-Scheduling Leave application" tabs={true} />
+            <Row className={stylesBanner.banner + ' ' + stylesBanner.tabs}>
+                <Column lg={16}>
+                    <h1 className={stylesBanner.heading}>{'Leave'}</h1>
+                    <p className={stylesBanner.p}>{'Self-Scheduling Leave application'}</p>
+                </Column>
+            </Row>
             <Row>
                 <Column >
                     <Tabs aria-label="Tab navigation">
@@ -35,12 +44,15 @@ const Leave = () => {
                                 <Row className={styles.mainRow}>
                                     <Column max={5} className={styles.left}>
                                         <Stack gap='32px' className={styles.stack}>
-                                            <AddBooking />
-                                            <Remain />
+                                            <AddBooking leaveType={props.leaveType} />
+                                            <Remain remain={props.remain} />
                                         </Stack>
                                     </Column>
                                     <Column max={6} className={styles.right}>
-                                        <LeaveSummary />
+                                        <LeaveSummary
+                                            summaryMonth={props.summaryMonth}
+                                            summaryYear={props.summaryYear}
+                                        />
                                     </Column>
                                 </Row>
                             </TabPanel>
@@ -57,20 +69,58 @@ const Leave = () => {
 
 export default Leave;
 
-/*
 export const getStaticProps = async () => {
-       
-    const res = await axios.get('http://localhost:3000/api/leave/getLeaveBookingStatus')
-    const getLeaveBookingStatus = await res.data;
 
-    /*
-    const res1 = await axios.put('http://localhost:3000/api/profile/editPersonalInfo')
-    const editProfile = await res1.data;*/
+    const res1 = await axios.get('http://localhost:3000/api/leave/remain', {
+        headers: {
+            employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'
+        }
+    })
+    const remain = await res1.data
 
-    /*
+    const res2 = await axios.get('http://localhost:3000/api/leave/leaveType')
+    const leaveType = await res2.data;
+
+    let summaryMonth = []
+    let summaryYear = []
+
+    const promise = leaveType.map(async (type, index) => {
+        let resY = await axios.get('http://localhost:3000/api/leave/leaveBookingSummary', {
+            headers: {
+                // employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc',
+                duration: 365,
+                leaveid: type.leaveID
+            }
+        })
+
+        summaryYear.push({
+            leaveName: type.leaveName,
+            status: resY.data,
+        })
+
+        let resM = await axios.get('http://localhost:3000/api/leave/leaveBookingSummary', {
+            headers: {
+                // employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc',
+                duration: 30,
+                leaveid: type.leaveID
+            }
+        })
+
+        summaryMonth.push({
+            leaveName: type.leaveName,
+            status: resM.data,
+        })
+    })
+
+    await Promise.all(promise)
+
     return {
         props: {
-            getLeaveBookingStatus: getLeaveBookingStatus,
-        },
+            remain: remain,
+            summaryYear: summaryYear,
+            summaryMonth: summaryMonth,
+            leaveType: leaveType,
+        }
     }
-} */
+
+}

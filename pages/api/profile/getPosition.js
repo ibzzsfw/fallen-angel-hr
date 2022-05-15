@@ -1,11 +1,13 @@
 import excuteQuery from '../../../config/db';
-export default async (req, res) => {
 
-    let status = req.headers.status;
+export default async(req, res) => {
+
+    let departmentid = req.headers.departmentid
+    
     try {
         const result = await excuteQuery({
-            query: "SELECT * FROM Notification WHERE status = ?",
-            values: [status],
+            query: `SELECT * FROM position WHERE departmentID = ?;`,
+            values: [departmentid],
         });
         res.status(200).json(result);
     } catch (error) {

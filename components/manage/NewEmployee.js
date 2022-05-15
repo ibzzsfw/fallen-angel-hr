@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from '../../scss/manage/manage-employee.module.scss';
 import {
     Form,
@@ -11,7 +12,66 @@ import {
     AccordionItem,
 } from '@carbon/react';
 
-const NewEmployee = () => {
+const NewEmployee = ({ getRole, getDepartment }) => {
+
+    // console.log('getRole', getRole);
+    // console.log('getDepartment', getDepartment);
+
+    const [selectedRole, setSelectedRole] = useState('');
+    const [selectedDepartment, setSelectedDepartment] = useState('');
+    const [selectedPosition, setSelectedPosition] = useState('');
+    const [selectedSex, setSelectedSex] = useState('');
+    const [salary, setSalary] = useState(0);
+    const [identification, setIdentification] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [email, setEmail] = useState('');
+    const [bankname, setBankname] = useState('');
+    const [bankaccount, setBankaccount] = useState('');
+
+    const [getPosition, setGetPosition] = useState([]);
+
+    useEffect(() => {
+
+        if (selectedPosition) {
+            getPosition.map(position => {
+                if (position.positionID === selectedPosition) {
+                    setSalary(position.salary);
+                }
+            })
+        }
+    }, [selectedPosition]);
+
+    useEffect(() => {
+
+        console.log(selectedDepartment)
+
+        if (selectedDepartment) {
+            axios.get('http://localhost:3000/api/profile/getPosition', {
+                headers: {
+                    departmentid: selectedDepartment,
+                }
+            }).then(res => {
+                console.log('position', res.data);
+                setGetPosition(res.data);
+            })
+        }
+    }, [selectedDepartment])
+
+    const POSTnewEmployee = () => axios.post('http://localhost:3000/api/admin/addEmployee', {
+
+        roleid: selectedRole,
+        positionid: selectedPosition,
+        identification: identification,
+        firstname: firstname,
+        lastname: lastname,
+        sex: selectedSex,
+        email: email,
+        bankname: bankname,
+        bankaccount: bankaccount,
+        salary: salary,
+        password: 'test'
+    })
 
     const sectionTitle = title => <p>{title}</p>
 
@@ -27,6 +87,7 @@ const NewEmployee = () => {
                             id="select-1"
                             // inline
                             size="md"
+                            onChange={(e) => setSelectedRole(e.target.value)}
                         >
                             <SelectItem
                                 disabled
@@ -34,22 +95,18 @@ const NewEmployee = () => {
                                 text=""
                                 value="placeholder-item"
                             />
-                            <SelectItem
-                                text="Employee"
-                                value="employeeid"
-                            />
-                            <SelectItem
-                                text="Manager"
-                                value="managerid"
-                            />
-                            <SelectItem
-                                text="HR Employee"
-                                value="hrmanagerid"
-                            />
-                            <SelectItem
-                                text="Admin"
-                                value="adminid"
-                            />
+                            {
+                                getRole &&
+                                getRole.map(role => {
+                                    return (
+                                        <SelectItem
+                                            key={role.roleID}
+                                            text={role.roleName}
+                                            value={role.roleID}
+                                        />
+                                    )
+                                })
+                            }
                         </Select>
                         <Select
                             inline
@@ -58,6 +115,7 @@ const NewEmployee = () => {
                             id="select-1"
                             // inline
                             size="md"
+                            onChange={(e) => setSelectedDepartment(e.target.value)}
                         >
                             <SelectItem
                                 disabled
@@ -65,18 +123,18 @@ const NewEmployee = () => {
                                 text=""
                                 value="placeholder-item"
                             />
-                            <SelectItem
-                                text="HR"
-                                value="employeeid"
-                            />
-                            <SelectItem
-                                text="IT"
-                                value="managerid"
-                            />
-                            <SelectItem
-                                text="SL"
-                                value="hrmanagerid"
-                            />
+                            {
+                                getDepartment &&
+                                getDepartment.map(department => {
+                                    return (
+                                        <SelectItem
+                                            key={department.departmentID}
+                                            text={department.departmentName}
+                                            value={department.departmentID}
+                                        />
+                                    )
+                                })
+                            }
                         </Select>
                         <Select
                             inline
@@ -85,6 +143,7 @@ const NewEmployee = () => {
                             id="select-1"
                             // inline
                             size="md"
+                            onChange={(e) => setSelectedPosition(e.target.value)}
                         >
                             <SelectItem
                                 disabled
@@ -92,33 +151,34 @@ const NewEmployee = () => {
                                 text=""
                                 value="placeholder-item"
                             />
-                            <SelectItem
-                                text="position1"
-                                value="position1"
-                            />
-                            <SelectItem
-                                text="position2"
-                                value="position2"
-                            />
-                            <SelectItem
-                                text="position3"
-                                value="position3"
-                            />
+                            {
+                                getPosition &&
+                                getPosition.map(position => {
+                                    return (
+                                        <SelectItem
+                                            key={position.positionID}
+                                            text={position.positionName}
+                                            value={position.positionID}
+                                        />
+                                    )
+                                })
+                            }
                         </Select>
                     </div>
                 </AccordionItem>
                 <AccordionItem open title={sectionTitle('Employee information')} className={styles.AccordionItem}>
                     <Stack gap='32px'>
-                        <TextInput type='text' labelText="Citizen ID" />
+                        <TextInput type='text' labelText="Citizen ID" onChange={e => setIdentification(e.target.value)} />
                         <div className={styles.name}>
-                            <TextInput type='text' labelText="First Name" />
-                            <TextInput type='text' labelText="Last Name" />
+                            <TextInput type='text' labelText="First Name" onChange={e => setFirstname(e.target.value)} />
+                            <TextInput type='text' labelText="Last Name" onChange={e => setLastname(e.target.value)} />
                             <Select
                                 labelText="Physical gender"
                                 defaultValue="placeholder-item"
                                 id="select-1"
                                 // inline
                                 size="md"
+                                onChange={(e) => setSelectedSex(e.target.value)}
                             >
                                 <SelectItem
                                     disabled
@@ -136,19 +196,19 @@ const NewEmployee = () => {
                                 />
                             </Select>
                         </div>
-                        <TextInput type='email' labelText="Email" />
+                        <TextInput type='email' labelText="Email" onChange={(e) => setEmail(e.target.value)} />
                     </Stack>
                 </AccordionItem>
                 <AccordionItem open title={sectionTitle('Bank information')} className={styles.AccordionItem}>
                     <div className={styles.bank}>
-                        <TextInput type='text' labelText='Bank name' />
-                        <TextInput type='text' labelText='Bank account number' />
+                        <TextInput type='text' labelText='Bank name' onChange={(e) => setBankname(e.target.value)} />
+                        <TextInput type='text' labelText='Bank account number' onChange={(e) => setBankaccount(e.target.value)} />
                     </div>
                 </AccordionItem>
             </Accordion>
             <div open className={styles.buttonGroup}>
                 <Button className={styles.button} type='reset' size='lg' kind="danger">Clear</Button>
-                <Button className={styles.button} type='reset' size='lg' >Add</Button>
+                <Button className={styles.button} type='reset' size='lg' onClick={POSTnewEmployee}>Add</Button>
             </div>
         </Form>
     )
