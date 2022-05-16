@@ -41,6 +41,7 @@ const CardDocument = ({ getDocBookingStatus }) => {
                 >
                     <div className={styles.header}>
                         <div className={styles.type}>{row.DocumentType}</div>
+                        <Tag type='purple'>{row.status}</Tag>
                     </div>
                     <div className={styles.wraper}>
                         <div className={styles.title}>Booking date</div>

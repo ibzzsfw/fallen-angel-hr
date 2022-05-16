@@ -36,24 +36,23 @@ const Profile = ({getProfile, getDepartment}) => {
 
     const editPersonalInfo = () => {
         axios.post('http://localhost:3000/api/profile/editPersonalInfo', {
-            firstname: newFirstName ,
+            firstname: newFirstName,
             lastname: newLastName 
         })
     }
 
     const editContact = () => {
-        if (getProfile)
-        {axios.post('http://localhost:3000/api/profile/editContact', {
-            email: newEmail ? newEmail : getProfile.email,
-            phonenumber: newPhoneNumber? newPhoneNumber : getProfile.phonenumber,
-            address: newAddress ? newAddress : getProfile.address,
-        })}
+        axios.post('http://localhost:3000/api/profile/editContact', {
+            email: newEmail,
+            phonenumber: newPhoneNumber,
+            address: newAddress 
+        })
     }
 
     const editBankInfo = () => {
         axios.put('http://localhost:3000/api/profile/editBankInfo',{
-            bankname: newBankName ? newBankName : getProfile.bankname,
-            bankaccount: newBankAccountNumber ? newBankAccountNumber : getProfile.bankaccount
+            bankname: newBankName,
+            bankaccount: newBankAccountNumber
         })
     }
 
@@ -109,7 +108,7 @@ const Profile = ({getProfile, getDepartment}) => {
                                 <Stack gap='24px' className={styles.content}>
                                     {
                                         [
-                                            { key: 'Name', value: 'John Doe' },
+                                            { key: 'Name', value: getProfile },
                                             { key: 'Identification No.', value: '1110100111293' },
                                             { key: 'Date of birth', value: '01/01/1990' },
                                             { key: 'Physical gender', value: 'Male' }
@@ -324,7 +323,7 @@ const Profile = ({getProfile, getDepartment}) => {
                     placeholder={'current'}
                     labelText='Bank name'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e => setNewBankName}
+                    onChange = {e => setNewBankName(e.target.value)}
                 />
                 <TextInput
                     size='lg'
@@ -332,7 +331,7 @@ const Profile = ({getProfile, getDepartment}) => {
                     placeholder={'current'}
                     labelText='Bank account number'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e => setNewBankAccountNumber}
+                    onChange = {e => setNewBankAccountNumber(e.target.value)}
                 />
             </Modal>
             <Modal
@@ -359,39 +358,19 @@ const Profile = ({getProfile, getDepartment}) => {
 
 export default Profile;
 
-// photo
-// personal
-// work
-// contact and address
-// education
-//bank
-// password
-
-
 export const getStaticProps = async () => {
        
    const res = await axios.get('http://localhost:3000/api/profile/showProfile',
                  {headers: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
      const getProfile = await res.data;
-    // const res1 = await axios.put('http://localhost:3000/api/profile/editPersonalInfo')
-    // const editPersonalInfo = await res1.data;
-    
-    // const res2 = await axios.put('http://localhost:3000/api/profile/editContact',
-    //             {body: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
-    // const editContact = await res2.data;
- 
 
-    // const res3 = await axios.put('http://localhost:3000/api/profile/editBankInfo',
-    //             {body: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
-    // const editBankInfo = await res3.data;
-
-    const res4 = await axios.get('http://localhost:3000/api/profile/getDepartment')
-    const getDepartment = await res4.data;
+    const res2 = await axios.get('http://localhost:3000/api/profile/getDepartment')
+    const getDepartment = await res2.data;
 
     return {
         props: {
             getProfile: getProfile,
-            getDepartment: getDepartment,
+            getDepartment: getDepartment
         },
     }
 }

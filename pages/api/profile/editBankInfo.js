@@ -3,7 +3,7 @@ import excuteQuery from '../../../config/db';
 export default async(req, res) => {
     let bankname = req.body.bankname;
     let bankaccount = req.body.bankaccount;
-    let employeeid = req.body.employeeid;
+    let employeeid = '0e38af30-7a6a-4201-9584-42264f2684fc';
     try {
         const result = await excuteQuery({
             query: `UPDATE Information 
