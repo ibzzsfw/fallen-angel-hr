@@ -64,12 +64,46 @@
         .content {
             @include type.type-style('body-long-01');
         }
+
+        .content2 {
+            @include type.type-style('body-long-01');
+            padding-left: 7rem;
+        }
     }
 
     .tile {
         background-color: var(--cds-background);
         max-height: 340px;
         overflow: scroll;
+
+        .leaveCount {
+            @include type.type-style('productive-heading-01');
+            color: var(--cds-text-helper);
+            margin-bottom: 2rem;
+
+            span {
+                color: var(--cds-text-primary);
+            }
+        }
+
+        .dayWraper {
+
+            max-height: 100px;
+            overflow: scroll;
+            padding-right: 1rem;
+
+            .day {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px dashed var(--cds-text-secondary);
+
+                .content {
+                    @include type.type-style('productive-heading-01');
+                }
+            }
+        }
     }
 
     .footer {
@@ -81,17 +115,6 @@
             display: flex;
             justify-content: center;
             margin-bottom: 4rem;
-        }
-
-        .button-row {
-            .button-col {
-                padding: 0;
-
-                .button {
-                    width: 100%;
-                    max-width: none;
-                }
-            }
         }
     }
 }

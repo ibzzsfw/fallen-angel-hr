@@ -1,6 +1,8 @@
 @use '@carbon/type';
 
 .status-notification {
+    margin-left: 2rem;
+    margin-right: 2rem;
 
     .swticher {
         width: 100%;
@@ -8,13 +10,14 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 1rem;
+        margin-top: 2rem;
 
         .swticher-description {
 
             display: flex;
             flex-direction: column;
             row-gap: 0.5rem;
-
+            
             p {
                 @include type.type-style('productive-heading-01');
                 color: var(--cds-text-helper);

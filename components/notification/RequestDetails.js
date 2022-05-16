@@ -9,24 +9,64 @@ import {
     Row,
     Column,
     Tile,
-    Form,
-    TextArea,
     Button,
 } from '@carbon/react';
+import { dateFormat } from '../../utils/utils';
+import axios from 'axios';
+import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
 
-const RequestDetails = () => {
-    
+const RequestDetails = ({ detail, isOpen, selected }) => {
+
+    const POSTresponse = status => {
+
+ /*        console.log('body', {
+            notificationid: detail.notificationid,
+            senderid: detail.senderid,
+            status: detail.status,
+            date: detail.date,
+            content: detail.content,
+            title: detail.title
+        })
+ */
+        axios.post('http://localhost:3000/api/notification/responseNotification', {
+            notificationid: detail.notificationID,
+            senderid: detail.senderID,
+            status: detail.status,
+            date: detail.date,
+            title: detail.title,
+            content: detail.content
+        })
+    }
+
+    console.log(detail);
+
     return (
-        <FlexGrid className={styles['request-detail']}>
+        <FlexGrid className={styles['request-detail']} key={detail.notificationID}>
             <Row className={styles.header}>
                 <div className={styles.title}>Notification Details</div>
-                <Stack orientation='horizontal' className={styles.menu}>
-                    <div className={styles.item} />
-                    <div className={styles.vertical} />
-                    <div className={styles.item} />
-                    <div className={styles.vertical} />
-                    <div className={styles.item} />
-                </Stack>
+                <div className={styles.menu}>
+                    <div
+                        className={styles.item}
+                        onClick={() => selected(-1)}
+                    >
+                        <div className={styles.vertical} />
+                        <CaretLeft size='32' />
+                    </div>
+                    <div
+                        className={styles.item}
+                        onClick={() => selected(1)}
+                    >
+                        <div className={styles.vertical} />
+                        <CaretRight size='32' />
+                    </div>
+                    <div
+                        className={styles.item}
+                        onClick={() => isOpen(false)}
+                    >
+                        <div className={styles.vertical} />
+                        <Close size='32' />
+                    </div>
+                </div>
             </Row>
             <Row className={styles.middle}>
                 <Column>
@@ -37,18 +77,22 @@ const RequestDetails = () => {
                         <Column max={10}>
                             <Stack gap='1rem'>
                                 <div className={styles.wraper}>
-                                    <div className={styles.title}>Sender ID</div>
+                                    <div className={styles.title}>Notification ID</div>
                                     <div className={styles.content}>
-                                        <CodeSnippet type="single" feedback="Copied to clipboard">{'1238384473jdcn'}</CodeSnippet>
+                                        <CodeSnippet type="single" feedback="Copied to clipboard">{detail.notificationID}</CodeSnippet>
                                     </div>
                                 </div>
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Request date</div>
-                                    <div className={styles.content}>{'05/02/2022'}</div>
+                                    <div className={styles.content}>{dateFormat(detail.date)}</div>
+                                </div>
+                                <div className={styles.wraper}>
+                                    <div className={styles.title}>Title</div>
+                                    <div className={styles.content}>{detail.title}</div>
                                 </div>
                                 <div className={styles.wraper}>
                                     <div className={styles.title}>Content</div>
-                                    <div className={styles.content}>{'content'}</div>
+                                    <div className={styles.content2}>{detail.content}</div>
                                 </div>
                             </Stack>
                         </Column>
@@ -57,11 +101,11 @@ const RequestDetails = () => {
                                 <Tile light className={styles.tile}>
                                     <div className={styles.wraper}>
                                         <div className={styles.title}>Department</div>
-                                        <div className={styles.content}>Human resources</div>
+                                        <div className={styles.content}>{'human resource'}</div>
                                     </div>
                                     <div className={styles.wraper}>
                                         <div className={styles.title}>Position</div>
-                                        <div className={styles.content}>Secretary</div>
+                                        <div className={styles.content}>{'HR assistant'}</div>
                                     </div>
                                 </Tile>
                             </Stack>
@@ -75,47 +119,29 @@ const RequestDetails = () => {
                         <Column className={styles.progress}>
                             <ProgressIndicator>
                                 <ProgressStep
-                                    complete
+                                    complete={detail.status === 'approved' || detail.status === 'rejected' || detail.status === 'waiting'}
                                     label="Request form"
                                 />
                                 <ProgressStep
-                                    current
+                                    complete={detail.status === 'approved' || detail.status === 'rejected'}
+                                    current={detail.status === 'waiting'}
                                     label="Admin"
                                 />
                                 <ProgressStep
+                                    current={detail.status === 'approved' || detail.status === 'rejected'}
                                     label="Complete"
                                 />
                             </ProgressIndicator>
                         </Column>
                     </Row>
                     <Row>
-                        <Column>
-                            <TextArea
-                                labelText='Note'
-                            />
-                        </Column>
-                        <Column>
-                            <Row className={styles['button-row']}>
-                                <Column
-                                    max={{ span: 3, offset: 10 }}
-                                    xlg={{ span: 4, offset: 8 }}
-                                    lg={{ span: 4, offset: 8 }}
-                                    md={{ span: 2, offset: 4 }}
-                                    className={styles['button-col']}
-                                >
-                                <Button className={styles.button} type='reset' size='lg' kind="danger">Reject</Button>
-                                </Column>
-                                <Column
-                                    max={{ span: 3 }}
-                                    xlg={{ span: 4 }}
-                                    lg={{ span: 4 }}
-                                    md={{ span: 2 }}
-                                    className={styles['button-col']}
-                                    >
-                                    <Button className={styles.button} type='submit' size='lg'>Approve</Button>
-                                </Column>
-                            </Row>
-                        </Column>
+                        {
+                            detail.status === 'waiting' &&
+                            <Column className={styles['button-row']} >
+                                <Button className={styles.button} onClick={POSTresponse('rejected')} size='lg' kind="danger">Reject</Button>
+                                <Button className={styles.button} onClick={POSTresponse('approved')} size='lg'>Approve</Button>
+                            </Column>
+                        }
                     </Row>
                 </Column>
             </Row>
