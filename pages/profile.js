@@ -132,6 +132,7 @@ const Profile = ({ getProfile, getRole }) => {
                                             { key: 'Identification No.', value: getProfile.identificationNo },
                                             { key: 'Date of birth', value: new Date(getProfile.dob).toLocaleDateString() },
                                             { key: 'Physical gender', value: getProfile.sex === 'M' ? 'Male' : 'Female' }
+
                                         ].map((item, index) => {
 
                                             return (
@@ -375,7 +376,6 @@ const Profile = ({ getProfile, getRole }) => {
         </FlexGrid>
     );
 }
-
 
 export default Profile;
 
