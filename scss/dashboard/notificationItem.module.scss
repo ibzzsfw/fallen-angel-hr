@@ -1,8 +1,11 @@
 @use '@carbon/type';
 
 $type-color : ('t0': var(--cds-support-success),
-    't1': var(--cds-support-caution-major),
-    't2': var(--cds-support-caution-undefined));
+    'tA': var(--cds-support-caution-major),
+    'tH': var(--cds-support-caution-minor),
+    'tI': var(--cds-support-caution-undefined),
+    'tM': var(--cds-support-success),
+    'tT': var(--cds-support-caution-error));
 
 .notificationItem {
     padding: 0 1rem;

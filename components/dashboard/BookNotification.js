@@ -1,17 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styles from '../../scss/notification/book-notification.module.scss';
-import { 
-    FlexGrid, 
-    Row, 
+import {
+    FlexGrid,
+    Row,
     Column,
     Form,
     TextInput,
     TextArea,
     Button,
-    Stack
+    Stack,
+    InlineNotification
 } from '@carbon/react';
 
 const BookNotification = () => {
+
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [error, setError] = useState(false);
+
+    useEffect(() => console.log(content), [content])
+
+    const POSTaddNotification = () => {
+
+        console.log({
+            title: title,
+            content: content
+        })
+
+        if (title === '' || content === '') {
+            setError(true);
+        } else {
+
+            axios.post('http://localhost:3000/api/notification/addNotificationRequest', {
+                title: title,
+                content: content
+            }).then(res => {
+                console.log(res);
+                setTitle('');
+                setContent('');
+            })
+        }
+    }
 
     return (
         <FlexGrid fullWidth condensed className={styles.booknoti}>
@@ -22,29 +52,30 @@ const BookNotification = () => {
                 <Form className={styles.form}>
                     <FlexGrid fullWidth>
                         <Row>
-                            <p className="cds--file--label" style={{marginBottom: '1rem'}}>Notification details</p>
+                            <p className="cds--file--label" style={{ marginBottom: '1rem' }}>Notification details</p>
                         </Row>
                         <Row>
-                            <Column max={10} xlg={10} lg={10} md={4} sm={4} style={{ marginBottom: '32px' }}>
+                            <Column style={{ marginBottom: '32px' }}>
                                 <TextInput
-                                    id='senderId'
-                                    labelText="Sender ID"
-                                    placeholder="039439"
-                                    readOnly
+                                    id='title'
+                                    labelText="Title"
+                                    placeholder="type title here"
+                                    onChange={(e) => setTitle(e.target.value)}
                                 />
                             </Column>
                         </Row>
                         <Row>
-                            <Column max={10} xlg={10} lg={10} md={4} sm={4} style={{ marginBottom: '32px' }}>
-                            <Stack gap='32px'>
-                                <TextArea
-                                    labelText="Content"
-                                    maxCount={500}
-                                    row={5}
-                                    helperText='max 500 characters'
-                                >
-                                </TextArea>
-                            </Stack>
+                            <Column style={{ marginBottom: '32px' }}>
+                                <Stack gap='32px'>
+                                    <TextArea
+                                        labelText="Content"
+                                        maxCount={500}
+                                        style={{ height: '500px' }}
+                                        helperText='Accept HTML'
+                                        onChange={(e) => setContent(e.target.value)}
+
+                                    />
+                                </Stack>
                             </Column>
                         </Row>
                         <Row className={styles['button-row']}>
@@ -55,7 +86,16 @@ const BookNotification = () => {
                                 md={{ span: 2, offset: 4 }}
                                 className={styles['button-col']}
                             >
-                                <Button className={styles.button} type='reset' size='lg' kind="danger">Clear</Button>
+                                <Button
+                                    className={styles.button}
+                                    type='reset'
+                                    size='lg'
+                                    kind="danger"
+                                    onClick={() => {
+                                        setContent('');
+                                        setTitle('');
+                                    }}
+                                >Clear</Button>
                             </Column>
                             <Column
                                 max={{ span: 3 }}
@@ -63,9 +103,25 @@ const BookNotification = () => {
                                 lg={{ span: 4 }}
                                 md={{ span: 2 }}
                                 className={styles['button-col']}
-                                >
-                                <Button className={styles.button} type='submit' size='lg' kind="primary">Submit</Button>
+                            >
+                                <Button
+                                    className={styles.button}
+                                    type='submit'
+                                    size='lg'
+                                    kind="primary"
+                                    onClick={POSTaddNotification}
+                                >Submit</Button>
                             </Column>
+                            {
+                                error && <InlineNotification
+                                    style={{ marginTop: '1rem' }}
+                                    kind="error"
+                                    title="Request error"
+                                    subtitle="Please fill all fields"
+                                    onCloseButtonClick={() => setError(false)}
+                                    onClose={() => setError(false)}
+                                />
+                            }
                         </Row>
                     </FlexGrid>
                 </Form>

@@ -25,7 +25,7 @@ const AddBooking = ({ leaveType }) => {
             </Button>
             {
                 isOpen &&
-                <Offcanvas isOpen={q => setIsOpen(q)} width='l'>
+                <Offcanvas isOpen={q => setIsOpen(q)} width='md'>
                     <Booking leaveType={leaveType} />
                 </Offcanvas>
             }
