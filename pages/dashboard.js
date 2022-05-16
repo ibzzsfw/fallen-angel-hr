@@ -75,7 +75,8 @@ export const getStaticProps = async () => {
       getNotification: getNotification,
       getSex: getSex
     }
-
+  }
+}
 
 // export const getStaticProps = async () => {
 
