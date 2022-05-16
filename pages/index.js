@@ -9,42 +9,59 @@ import {
     Row,
     Column,
     Link,
-    Theme
+    Theme,
+    InlineLoading
 } from '@carbon/react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import checkToken from '../lib/checkToken';
 import { ArrowRight } from '@carbon/react/icons';
 import styles from '../scss/login.module.scss';
 
-const Login = () => {
+export default () => {
 
     // const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isInvalidEmail, setIsInvalidEmail] = useState(false);
-    const [isInvalidPassword, setIsInvalidPassword] = useState(false);
-    const [items, setItems] = useState([
-        {
-            id: 'email',
-            text: 'Email'
-        },
-        {
-            id: 'employeeid',
-            text: 'Employee ID'
-        },
-    ]);
-    const [currentItem, setCurrentItem] = useState(items[0]);
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [wrong, setWrong] = useState(false);
+    const [error, setError] = useState('');
 
-    // useEffect(() => sessionStorage.setItem('login', 'false'), [])
+    useEffect(() => sessionStorage.removeItem('token'), [])
 
-    const onClickLogin = useCallback(() => {
+    const onClickLogin = async () => {
 
-        if (email === "") {
-            setIsInvalidEmail(email === "");
-            // setIsInvalidPassword(password === "");
+        setLoading(true);
+
+        let result = await axios.post('http://localhost:3000/api/login', {
+            email: email,
+            password: password
+        })
+
+        console.log(result)
+
+        if (result.data == 'Email not found') {
+            setError('Email not found')
+            setLoading(false);
+        } else if (result.data == 'Wrong password') {
+            setError('Wrong password')
+            setLoading(false);
         } else {
-            // navigate('/profile', { replace: true })
-            // sessionStorage.setItem('login', 'true')
+            setError('')
+            sessionStorage.setItem('token', result.data.token)
+            sessionStorage.setItem('employeeid', result.data.employeeid)
+            sessionStorage.setItem('name', result.data.firstname + ' ' + result.data.lastname)
+            sessionStorage.setItem('email', result.data.email)
+            sessionStorage.setItem('roleid', result.data.roleid)
+            console.table(result.data)
+            router.push('/dashboard')
+            
+            if (router.asPath === '/dashboard') {
+                setLoading(false);
+            }
         }
-    }, [email])
+    }
 
     const forgot = label => {
 
@@ -73,64 +90,54 @@ const Login = () => {
                         <Form className={styles.form}>
                             <Row condensed>
                                 {
-                                    isInvalidEmail &&
+                                    (error) &&
                                     <Column max={16} xlg={16} lg={16} md={8} sm={4} className={styles.notification}>
                                         <InlineNotification
                                             // lowContrast
                                             kind="error"
                                             role='alert'
-                                            title="You must enter an ID."
+                                            title={error}
                                             subtitle="Try again." />
                                     </Column>
                                 }
-                                <Column max={16} xlg={16} lg={16} md={8} sm={4} className={styles.option}>Sign in with</Column>
-                                <Column max={5} xlg={5} lg={5} md={3} className={styles.container}>
-                                    <Dropdown
-                                        className={styles.select}
-                                        size='lg'
-                                        defaultValue='email'
-                                        id='login-select'
-                                        items={items}
-                                        itemToString={item => item ? item.text : ''}
-                                        initialSelectedItem={items[0].id}
-                                        label={currentItem.text}
-                                        onChange={({ selectedItem }) => setCurrentItem(selectedItem)}
-                                        selectedItem={currentItem}
-                                    />
-                                </Column>
-                                <Column max={11} xlg={11} lg={11} md={5} className={styles.container}>
+                                <Column max={16} xlg={16} lg={16} md={8} sm={4} className={styles.container}>
                                     <TextInput
-                                        labelText=''
                                         className={styles['text-input']}
                                         id='email'
                                         size='lg'
-                                        invalid={isInvalidEmail}
                                         // invalidText='Invalid Email'
-                                        // labelText='Email'
+                                        labelText='Email'
                                         // labelText={forgot('Email')}
                                         placeholder="username@angel.com"
                                         onChange={(e) => setEmail(e.target.value)}
+                                        style={{ marginBottom: '1rem' }}
                                     />
                                 </Column>
-                                {/* <TextInput.PasswordInput
-                            id='password'
-                            invalid={isInvalidPassword}
-                            invalidText='Invalid password'
-                            labelText={forgot('Password')}
-                            onChange={(e) => setPassword(e.target.value)}
-                        /> */}
+                                <TextInput.PasswordInput
+                                    id='password'
+                                    invalidText='Invalid password'
+                                    labelText='Password'
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
                                 <Column max={16} xlg={16} lg={16} md={8} sm={4}>
-                                    <div className={styles.buttonContainer}>
-                                        <Button
-                                            className={styles.button}
-                                            renderIcon={ArrowRight}
-                                            kind="primary"
-                                            tabIndex={0}
-                                            onClick={onClickLogin}
-                                        >Continue</Button>
-                                    </div>
+                                    <Button
+                                        className={styles.button}
+                                        renderIcon={!loading ? ArrowRight : null}
+                                        kind="primary"
+                                        tabIndex={0}
+                                        onClick={onClickLogin}
+                                        style={{ marginTop: '1rem' }}
+                                    >
+                                        {loading ?
+                                            <InlineLoading
+                                                status="active"
+                                                iconDescription="Active loading indicator"
+                                                description="Loading..."
+                                            /> : 'Continue'
+                                        }
+                                    </Button>
                                 </Column>
-                                <Link className={styles['forgot-id']} to='/'>Forgot ID?</Link>
+                                <Link className={styles['forgot-id']} to='/'>Forgot something?</Link>
                             </Row>
                         </Form>
                     </Column>
@@ -139,5 +146,3 @@ const Login = () => {
         </Theme>
     );
 }
-
-export default Login;

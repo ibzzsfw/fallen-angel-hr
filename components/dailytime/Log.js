@@ -27,6 +27,8 @@ import axios from "axios";
 
 const Log = ({ raw, getInformationByPosition }) => {
 
+    console.log(raw)
+
     const [totalItems, setTotalItems] = useState(raw.length);
     const [firstRowIndex, setFirstRowIndex] = useState(0);
     const [currentPageSize, setCurrentPageSize] = useState(10);
@@ -41,7 +43,6 @@ const Log = ({ raw, getInformationByPosition }) => {
             key: 'clockIn',
             header: 'Clock-in',
         },
-
         {
             key: 'clockOut',
             header: 'Clock-out',
@@ -87,7 +88,7 @@ const Log = ({ raw, getInformationByPosition }) => {
                 // r.lateEarlyDeduct = (((getInformationByPosition.salary / 30) / 8) / 60) * 
 
                 let OT = null
-                if (getInformationByPosition[0].clockOut != r.clockOut) {
+                if (getInformationByPosition[0].clockOut < r.clockOut) {
                     OT = 
                     <Button
                         kind='tertiary'
@@ -128,10 +129,13 @@ const Log = ({ raw, getInformationByPosition }) => {
                 //     </Tag>
                 // }
 
-                let deduct = '-'
+                let deduct = 0
 
-                if (r.clockOut != getInformationByPosition[0].clockOut) {
-                    deduct = ((((getInformationByPosition[0].salary / 30) / 8) / 60) * (new Date('2022-02-02T' + r.clockOut.toString()) - new Date('2022-02-02T' + getInformationByPosition[0].clockOut.toString())) / 60000)
+                if (r.clockOut < getInformationByPosition[0].clockOut) {
+                    deduct += ((((getInformationByPosition[0].salary / 30) / 8) / 60) * (new Date('2022-02-02T' + r.clockOut.toString()) - new Date('2022-02-02T' + getInformationByPosition[0].clockOut.toString())) / 60000)
+                }
+                if(r.clockIn > getInformationByPosition[0].clockIn) {
+                    deduct += ((((getInformationByPosition[0].salary / 30) / 8) / 60) * (new Date('2022-02-02T' + r.clockIn.toString()) - new Date('2022-02-02T' + getInformationByPosition[0].clockIn.toString())) / 60000)
                 }
 
                 arr.push({
@@ -140,7 +144,7 @@ const Log = ({ raw, getInformationByPosition }) => {
                     clockIn: r.clockIn,
                     clockOut: r.clockOut,
                     type: r.type,
-                    lateEarlyDeduct: Math.floor(deduct),
+                    lateEarlyDeduct: Math.round(deduct * 100) / 100,
                     OT: OT,
                 })
             })

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
     FlexGrid,
     Row,
@@ -16,7 +16,9 @@ import styles from "../scss/profile.module.scss";
 import axios from 'axios';
 
 
-const Profile = ({getProfile, getDepartment}) => {
+const Profile = ({ getProfile, getRole }) => {
+
+    console.log(getRole)
 
     const [modalPersonal, setModalPersonal] = useState(false);
     const [modalContact, setModalContact] = useState(false);
@@ -34,25 +36,43 @@ const Profile = ({getProfile, getDepartment}) => {
     const [newBankName, setNewBankName] = useState('');
     const [newBankAccountNumber, setNewBankAccountNumber] = useState('');
 
+    const [roleName, setRoleName] = useState('');
+
+    useEffect(() => {
+
+        let roleName = getRole.filter(role => role.roleID === getProfile.roleID)[0]
+        setRoleName(roleName.roleName)
+
+    }, [getProfile])
+
     const editPersonalInfo = () => {
         axios.post('http://localhost:3000/api/profile/editPersonalInfo', {
-            firstname: newFirstName,
-            lastname: newLastName 
+            employeeid: getProfile.employeeID,
+            firstname: newFirstName ? newFirstName : getProfile.firstName,
+            lastname: newLastName ? newLastName : getProfile.lastName,
+        }).then(res => {
+            console.log(res)
         })
     }
 
     const editContact = () => {
         axios.post('http://localhost:3000/api/profile/editContact', {
-            email: newEmail,
-            phonenumber: newPhoneNumber,
-            address: newAddress 
+            employeeid: getProfile.employeeID,
+            email: newEmail ? newEmail : getProfile.email,
+            phonenumber: newPhoneNumber ? newPhoneNumber : getProfile.phoneNumber,
+            address: newAddress ? newAddress : getProfile.address,
+        }).then(res => {
+            console.log(res)
         })
     }
 
     const editBankInfo = () => {
-        axios.put('http://localhost:3000/api/profile/editBankInfo',{
-            bankname: newBankName,
-            bankaccount: newBankAccountNumber
+        axios.post('http://localhost:3000/api/profile/editBankInfo', {
+            employeeid: getProfile.employeeID,
+            bankname: newBankName ? newBankName : getProfile.bankName,
+            bankaccount: newBankAccountNumber ? newBankAccountNumber : getProfile.bankAccountNumber,
+        }).then(res => {
+            console.log(res)
         })
     }
 
@@ -108,10 +128,11 @@ const Profile = ({getProfile, getDepartment}) => {
                                 <Stack gap='24px' className={styles.content}>
                                     {
                                         [
-                                            { key: 'Name', value: getProfile },
-                                            { key: 'Identification No.', value: '1110100111293' },
-                                            { key: 'Date of birth', value: '01/01/1990' },
-                                            { key: 'Physical gender', value: 'Male' }
+                                            { key: 'Name', value: `${getProfile.firstName} ${getProfile.lastName}` },
+                                            { key: 'Identification No.', value: getProfile.identificationNo },
+                                            { key: 'Date of birth', value: new Date(getProfile.dob).toLocaleDateString() },
+                                            { key: 'Physical gender', value: getProfile.sex === 'M' ? 'Male' : 'Female' }
+
                                         ].map((item, index) => {
 
                                             return (
@@ -135,8 +156,8 @@ const Profile = ({getProfile, getDepartment}) => {
                                 <Stack gap='24px' className={styles.content}>
                                     {
                                         [
-                                            { key: 'Role', value: 'Employee' },
-                                            { key: 'Employee ID', value: '0e38af30-7a6a-4201-9584-42264f2684fc' }
+                                            { key: 'Role', value: roleName },
+                                            { key: 'Employee ID', value: getProfile.employeeID }
                                         ].map((item, index) => {
 
                                             return (
@@ -168,9 +189,9 @@ const Profile = ({getProfile, getDepartment}) => {
                                 <Stack gap='24px' className={styles.content}>
                                     {
                                         [
-                                            { key: 'Email', value: 'example@angel.com' },
-                                            { key: 'Phone', value: '(+66)954205601' },
-                                            { key: 'Address', value: '123/123, Bangkok, Thailand' }
+                                            { key: 'Email', value: getProfile.email },
+                                            { key: 'Phone', value: getProfile.phoneNumber },
+                                            { key: 'Address', value: getProfile.address }
                                         ].map((item, index) => {
 
                                             return (
@@ -202,8 +223,8 @@ const Profile = ({getProfile, getDepartment}) => {
                                 <Stack gap='24px' className={styles.content}>
                                     {
                                         [
-                                            { key: 'Bank name', value: 'Kasikornbank' },
-                                            { key: 'Bank account number', value: '123456789012345678' }
+                                            { key: 'Bank name', value: getProfile.bankName },
+                                            { key: 'Bank account number', value: getProfile.bankAccount }
                                         ].map((item, index) => {
 
                                             return (
@@ -245,25 +266,25 @@ const Profile = ({getProfile, getDepartment}) => {
                 onRequestClose={() => {
                     setModalPersonal(false);
                 }}
-                onRequestSubmit = {editPersonalInfo}
-                >
+                onRequestSubmit={editPersonalInfo}
+            >
                 <p>Be aware your information correctness</p>
                 <TextInput
                     data-modal-primary-focus
                     size='lg'
                     id='firstName'
-                    placeholder={'current'}
+                    placeholder={getProfile.firstName}
                     labelText='First name'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e => setNewFirstName(e.target.value)}
+                    onChange={e => setNewFirstName(e.target.value)}
                 />
                 <TextInput
                     size='lg'
                     id='lastname'
-                    placeholder={'current'}
+                    placeholder={getProfile.lastName}
                     labelText='Lastname name'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e => setNewLastName(e.target.value)}
+                    onChange={e => setNewLastName(e.target.value)}
                 />
             </Modal>
             <Modal
@@ -275,34 +296,34 @@ const Profile = ({getProfile, getDepartment}) => {
                 onRequestClose={() => {
                     setModalContact(false);
                 }}
-                onRequestSubmit = {editContact}
-                >
+                onRequestSubmit={editContact}
+            >
 
                 <TextInput
                     data-modal-primary-focus
                     size='lg'
                     id='email'
                     type='email'
-                    placeholder={'current'}
+                    placeholder={getProfile.email}
                     labelText='Email'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e=>setNewEmail(e.target.value)}
+                    onChange={e => setNewEmail(e.target.value)}
                 />
                 <TextInput
                     size='lg'
                     id='phone'
-                    placeholder={'current'}
+                    placeholder={getProfile.phoneNumber}
                     labelText='Phone'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e=>setNewPhoneNumber(e.target.value)}
+                    onChange={e => setNewPhoneNumber(e.target.value)}
                 />
                 <TextInput
                     size='lg'
                     id='address'
-                    placeholder={'current'}
+                    placeholder={getProfile.address}
                     labelText='Address'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e=>setNewAddress(e.target.value)}
+                    onChange={e => setNewAddress(e.target.value)}
                 />
             </Modal>
             <Modal
@@ -314,24 +335,24 @@ const Profile = ({getProfile, getDepartment}) => {
                 onRequestClose={() => {
                     setModalBank(false);
                 }}
-                onRequestSubmit = {editBankInfo}
-                >
+                onRequestSubmit={editBankInfo}
+            >
                 <TextInput
                     data-modal-primary-focus
                     size='lg'
                     id='bankname'
-                    placeholder={'current'}
+                    placeholder={getProfile.bankName}
                     labelText='Bank name'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e => setNewBankName(e.target.value)}
+                    onChange={e => setNewBankName(e.target.value)}
                 />
                 <TextInput
                     size='lg'
                     id='bankNo'
-                    placeholder={'current'}
+                    placeholder={getProfile.bankAccount}
                     labelText='Bank account number'
                     styles={{ marginBottom: '1rem' }}
-                    onChange = {e => setNewBankAccountNumber(e.target.value)}
+                    onChange={e => setNewBankAccountNumber(e.target.value)}
                 />
             </Modal>
             <Modal
@@ -359,18 +380,21 @@ const Profile = ({getProfile, getDepartment}) => {
 export default Profile;
 
 export const getStaticProps = async () => {
-       
-   const res = await axios.get('http://localhost:3000/api/profile/showProfile',
-                 {headers: {employeeid: '0e38af30-7a6a-4201-9584-42264f2684fc'}});
-     const getProfile = await res.data;
 
-    const res2 = await axios.get('http://localhost:3000/api/profile/getDepartment')
-    const getDepartment = await res2.data;
+    const res = await axios.get('http://localhost:3000/api/profile/getProfile', {
+        headers: {
+            employeeid: '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        }
+    })
+    const getProfile = await res.data;
+
+    const res1 = await axios.get('http://localhost:3000/api/admin/getRole')
+    const getRole = await res1.data;
 
     return {
         props: {
-            getProfile: getProfile,
-            getDepartment: getDepartment
+            getProfile: getProfile[0],
+            getRole: getRole
         },
     }
 }

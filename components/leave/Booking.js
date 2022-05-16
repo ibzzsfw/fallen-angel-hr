@@ -33,10 +33,15 @@ const Booking = ({ leaveType }) => {
         )
     }
 
+    useEffect(() => {
+        console.log(startdate)
+        console.log(enddate)
+    }, [startdate, enddate])
+
     const POSTaddLeave = () => {
 
         console.log('body', {
-            employeeid: "0e38af30-7a6a-4201-9584-42264f2684fc",
+            employeeid: "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
             leaveid: leaveid,
             reason: reason,
             startdate: dateFormat(new Date(startdate)),
@@ -44,7 +49,7 @@ const Booking = ({ leaveType }) => {
         })
 
         axios.post('http://localhost:3000/api/leave/addLeave', {
-            employeeid: "0e38af30-7a6a-4201-9584-42264f2684fc",
+            employeeid: "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
             leaveid: leaveid,
             reason: reason,
             startdate: startdate,
@@ -64,59 +69,80 @@ const Booking = ({ leaveType }) => {
                             <Row>
                                 <p className="cds--file--label" style={{ marginBottom: '1rem' }}>Leave datails</p>
                             </Row>
-                            <Row>
-                                <Column max={10} xlg={10} lg={10} md={4} sm={4} style={{ marginBottom: '32px' }}>
-                                    <Select
-                                        id='leave-type'
-                                        defaultValue="placeholder-item"
-                                        labelText="Leave type"
-                                        onChange={(e) => setLeaveid(e.target.value)}
-                                    >
-                                        <SelectItem
-                                            disabled
-                                            hidden
-                                            value="placeholder-item"
-                                            text=""
-                                        />
-                                        {
-                                            leaveType.map(item => {
-                                                return (
-                                                    <SelectItem
-                                                        key={item.leaveID}
-                                                        value={item.leaveID}
-                                                        text={item.leaveName}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </Select>
-                                </Column>
-                                <Column max={6} xlg={6} lg={6} md={4} sm={4} style={{ marginBottom: '32px', padding: '0' }}>
-                                    <DatePicker
-                                        className={styles['date-picker']}
-                                        datePickerType='range'
-                                        locale='en'
-                                        dateFormat='d/m/Y'
-                                    >
-                                        <DatePickerInput
-                                            id={`date-picker-input-id-Start`}
-                                            labelText={`Start date`}
-                                            placeholder="dd/mm/yyyy"
-                                            size="md"
-                                            onChange={(e) => setStartdate(e.target.value)}
-                                        />
-                                        <DatePickerInput
-                                            id={`date-picker-input-id-End`}
-                                            labelText={`End date`}
-                                            placeholder="dd/mm/yyyy"
-                                            size="md"
-                                            onChange={(e) => setEnddate(e.target.value)}
-                                        />
-                                    </DatePicker>
-                                </Column>
+                            <Row style={{ marginBottom: '2rem' }}>
+                                <Select
+                                    id='leave-type'
+                                    defaultValue="placeholder-item"
+                                    labelText="Leave type"
+                                    onChange={(e) => setLeaveid(e.target.value)}
+                                >
+                                    <SelectItem
+                                        disabled
+                                        hidden
+                                        value="placeholder-item"
+                                        text=""
+                                    />
+                                    {
+                                        leaveType.map(item => {
+                                            return (
+                                                <SelectItem
+                                                    key={item.leaveID}
+                                                    value={item.leaveID}
+                                                    text={item.leaveName}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </Select>
                             </Row>
-                            <Row>
-                                <Column max={10} className={styles.stack}>
+                            <Row style={{ marginBottom: '2rem' }}>
+                                <label for='start-date'>Start date:</label>
+                                <input
+                                    type='date'
+                                    id='start-date'
+                                    name='start-date'
+                                    placeholder='Start date'
+                                    onChange={(e) => setStartdate(e.target.value)}
+                                    style={{marginRight: '3rem'}}
+                                />
+                                <label for='end-date'>End date:</label>
+                                <input
+                                    type='date'
+                                    id='end-date'
+                                    name='end-date'
+                                    placeholder='End date'
+                                    onChange={(e) => setEnddate(e.target.value)}
+                                />
+                            </Row>
+                            <Row style={{ marginBottom: '2rem' }}>
+                                <DatePicker
+                                    className={styles['date-picker']}
+                                    datePickerType='range'
+                                    locale='en'
+                                    dateFormat='d/m/Y'
+                                    
+                                >
+                                    <DatePickerInput
+                                        id={`date-picker-input-id-Start`}
+                                        labelText={`Start date`}
+                                        placeholder="dd/mm/yyyy"
+                                        size="md"
+                                        onChange={(e) => {
+                                            console.log(e)
+                                            setStartdate(e.target.value)
+                                        }}
+                                    />
+                                    <DatePickerInput
+                                        id={`date-picker-input-id-End`}
+                                        labelText={`End date`}
+                                        placeholder="dd/mm/yyyy"
+                                        size="md"
+                                        onChange={(e) => setEnddate(e.target.value)}
+                                    />
+                                </DatePicker>
+                            </Row>
+                            <Row style={{ marginBottom: '2rem' }}>
+                                <Column className={styles.stack}>
                                     <Stack gap='32px'>
                                         <TextArea
                                             labelText='Reason'
@@ -177,7 +203,7 @@ const Booking = ({ leaveType }) => {
                 </Column>
             </Row>
             <Row>
-                <Tile>Alert</Tile>
+                {/* <Tile>Alert</Tile> */}
             </Row>
         </FlexGrid >
     )

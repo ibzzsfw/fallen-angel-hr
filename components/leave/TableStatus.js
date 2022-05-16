@@ -18,15 +18,14 @@ import {
 } from '@carbon/react';
 import styles from '../../scss/leave/table-status.module.scss';
 import Offcanvas from "../Offcanvas";
-import { rows } from './LeaveData';
 import LeaveDetails from "./LeaveDetails";
 
-const TableStatus = () => {
+const TableStatus = ({ getLeaveBookingStatus }) => {
 
     const [totalItems, setTotalItems] = useState(0);
     const [firstRowIndex, setFirstRowIndex] = useState(0);
     const [currentPageSize, setCurrentPageSize] = useState(10);
-
+    const [rows, setRows] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [rowID, setRowID] = useState('');
 
@@ -44,19 +43,19 @@ const TableStatus = () => {
 
     const headers = [
         {
-            key: 'date',
+            key: 'bookingDate',
             header: 'Booking Date',
         },
         {
-            key: 'type',
+            key: 'leaveName',
             header: 'Type',
         },
         {
-            key: 'start',
+            key: 'startDate',
             header: 'Start',
         },
         {
-            key: 'end',
+            key: 'endDate',
             header: 'End',
         },
         {
@@ -65,7 +64,15 @@ const TableStatus = () => {
         },
     ];
 
-    // ทำ tag แต่ละ status
+    useEffect(() => {
+
+        let arr = []
+
+        getLeaveBookingStatus.map(item => {
+
+            
+        })
+    })
 
     return (
         <FlexGrid fullWidth className={styles['table']}>
