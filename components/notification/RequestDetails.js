@@ -46,7 +46,7 @@ const RequestDetails = ({ detail, isOpen, selected }) => {
         <FlexGrid className={styles['request-detail']} key={detail.notificationID}>
             <Row className={styles.header}>
                 <div className={styles.title}>Notification Details</div>
-                <div className={styles.menu}>
+                {<div className={styles.menu}>
                     <div
                         className={styles.item}
                         onClick={() => selected(-1)}
@@ -68,7 +68,7 @@ const RequestDetails = ({ detail, isOpen, selected }) => {
                         <div className={styles.vertical} />
                         <Close size='32' />
                     </div>
-                </div>
+                </div>}
             </Row>
             <Row className={styles.middle}>
                 <Column>
