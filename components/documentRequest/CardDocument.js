@@ -8,7 +8,6 @@ import {
     Tag
 } from '@carbon/react';
 import DocDetails from './DocDetails'
-import { rows } from "../documentRequest/DocData";
 import Offcanvas from "../Offcanvas";
 import { dateFormat } from '../../utils/utils';
 
@@ -17,18 +16,19 @@ const CardDocument = ({ getDocBookingStatus }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [index, setIndex] = useState(-1);
 
-    // const tag = (status) => {
-    //     switch (status) {
-    //         case 'waiting':
-    //             return <Tag type='blue'>Waiting</Tag>;
-    //         case 'approved':
-    //             return <Tag type='green'>Approved</Tag>;
-    //         case 'rejected':
-    //             return <Tag type='red'>Rejected</Tag>;
-    //         default:
-    //             <></>
-    //     }
-    // }
+    const tag = (status) => {
+        switch (status) {
+            case 'waiting':
+                return <Tag type='blue'>Waiting</Tag>;
+            case 'approved':
+                return <Tag type='green'>Approved</Tag>;
+            case 'rejected':
+                return <Tag type='red'>Rejected</Tag>;
+            default:
+                <></>
+        }
+    }
+
     const card = (row, index) => {
         return (
             <Column max={4} key={row.re}>
@@ -41,7 +41,7 @@ const CardDocument = ({ getDocBookingStatus }) => {
                 >
                     <div className={styles.header}>
                         <div className={styles.type}>{row.DocumentType}</div>
-                        <Tag type='purple'>{row.status}</Tag>
+                        {tag(row.status)}
                     </div>
                     <div className={styles.wraper}>
                         <div className={styles.title}>Booking date</div>
@@ -62,7 +62,7 @@ const CardDocument = ({ getDocBookingStatus }) => {
             <Row>{getDocBookingStatus && getDocBookingStatus.map((row, index) => card(row, index))}</Row>
             {
                 isOpen &&
-                <Offcanvas isOpen={q => setIsOpen(q)}>
+                <Offcanvas isOpen={q => setIsOpen(q)} width='l'>
                     <DocDetails detail={getDocBookingStatus[index]} isOpen={q => setIsOpen(q)} selected={e => {
                         if (index + e === getDocBookingStatus.length) {
                             setIndex(0)

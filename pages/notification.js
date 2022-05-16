@@ -15,8 +15,6 @@ import stylesBanner from '../scss/banner.module.scss';
 
 const Notification = ({ getNotificationRequest }) => {
 
-    const [selectedContent, setSelectedContent] = useState('card');
-
     return (
         <FlexGrid fullWidth className={styles.notification}>
             <Row className={stylesBanner.banner}>
@@ -32,32 +30,9 @@ const Notification = ({ getNotificationRequest }) => {
                             <div>All your request</div>
                             <p>Expires from this page after 14 days of announcement or request is denied</p>
                         </div>
-                        <div className={styles.group}>
-                            <Button
-                                renderIcon={Table}
-                                className={styles.button + (selectedContent === 'table' ? ' ' + styles.active : '')}
-                                kind="ghost"
-                                onClick={() => setSelectedContent('table')}
-                            >
-                                Table
-                            </Button>
-                            <div className={styles.vertivalBar} />
-                            <Button
-                                renderIcon={Grid}
-                                className={styles.button + (selectedContent === 'card' ? ' ' + styles.active : '')}
-                                kind="ghost"
-                                onClick={() => setSelectedContent('card')}
-                            >
-                                Card
-                            </Button>
-                        </div>
                     </div>
                     <div className={styles.content}>
-                        {
-                            selectedContent === 'table'
-                                ? <TableRequest rows={getNotificationRequest} />
-                                : <CardRequest getNotificationRequest={getNotificationRequest} />
-                        }
+                        <CardRequest getNotificationRequest={getNotificationRequest} />
                     </div>
                 </Stack>
             </Row>

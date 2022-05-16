@@ -15,27 +15,31 @@ import {
 } from '@carbon/react';
 import { dateFormat } from '../../utils/utils';
 import axios from 'axios';
+import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
 
 
 const DocDetails = ({ detail, isOpen, selected }) => {
 
-    const [note, setNote] = useState('');
-    
+    const POSTresponse = (e, confirmation) => {
 
-    const POSTresponse = confirmation => {
+        e.preventDefault();
 
         console.log('body', {
-        requestid: detail.requestid,
-        requestDate: detail.requestdate,
-        purpose: detail.purpose,
-        confirmation: confirmation
+            requestid: detail.requestid,
+            requestDate: detail.requestdate,
+            purpose: detail.purpose,
+            confirmation: confirmation,
         })
 
-        axios.post('http://localhost:3000/api/document/getDocumentResponse', {
-        requestid: detail.requestid,
-        requestDate: detail.requestdate,
-        purpose: detail.purpose,
-        confirmation: confirmation
+        axios.post('http://localhost:3000/api/document/postDocumentResponse', {
+            requestid: detail.requestid,
+            requestDate: detail.requestdate,
+            purpose: detail.purpose,
+            confirmation: confirmation,
+        }).then(res => {
+            console.log('res', res);
+        }).catch(err => {
+            console.log('err', err);
         })
     }
 
@@ -45,13 +49,29 @@ const DocDetails = ({ detail, isOpen, selected }) => {
         <FlexGrid className={styles['doc-detail']} key={detail.requestid}>
             <Row className={styles.header}>
                 <div className={styles.title}>Document request Details</div>
-                <Stack orientation='horizontal' className={styles.menu}>
-                    <div className={styles.item} />
-                    <div className={styles.vertical} />
-                    <div className={styles.item} />
-                    <div className={styles.vertical} />
-                    <div className={styles.item} />
-                </Stack>
+                <div className={styles.menu}>
+                    <div
+                        className={styles.item}
+                        onClick={() => selected(-1)}
+                    >
+                        <div className={styles.vertical} />
+                        <CaretLeft size='32' />
+                    </div>
+                    <div
+                        className={styles.item}
+                        onClick={() => selected(1)}
+                    >
+                        <div className={styles.vertical} />
+                        <CaretRight size='32' />
+                    </div>
+                    <div
+                        className={styles.item}
+                        onClick={() => isOpen(false)}
+                    >
+                        <div className={styles.vertical} />
+                        <Close size='32' />
+                    </div>
+                </div>
             </Row>
             <Row className={styles.middle}>
                 <Column>
@@ -75,6 +95,13 @@ const DocDetails = ({ detail, isOpen, selected }) => {
                                     <div className={styles.title}>Purpose</div>
                                     <div className={styles.content}>{detail.purpose}</div>
                                 </div>
+                                {
+                                    detail.status !== 'waiting' &&
+                                    <div className={styles.wraper}>
+                                        <div className={styles.title}>Confirmation</div>
+                                        <div className={styles.content}>{detail.confirmation}</div>
+                                    </div>
+                                }
                             </Stack>
                         </Column>
                     </Row>
@@ -83,32 +110,27 @@ const DocDetails = ({ detail, isOpen, selected }) => {
             <Row className={styles.footer}>
                 <Column>
                     <Row>
-                        <Column className={styles.progress}> 
+                        <Column className={styles.progress}>
                             <ProgressIndicator>
                                 <ProgressStep
-                                    complete = {detail.status === 'approved' || detail.status === 'rejected' || detail.status === 'waiting'}
+                                    complete={detail.status === 'approved' || detail.status === 'rejected' || detail.status === 'waiting'}
                                     label="Request form"
                                 />
                                 <ProgressStep
-                                    complete = {detail.status === 'approved' || detail.status === 'rejected'}
-                                    current = {detail.status === 'waiting'}
-                                    label="HR manager"
+                                    complete={detail.status === 'approved' || detail.status === 'rejected'}
+                                    current={detail.status === 'waiting'}
+                                    label="Manager"
                                 />
                                 <ProgressStep
-                                    current = {detail.status === 'approved' || detail.status === 'rejected'}
+                                    current={detail.status === 'approved' || detail.status === 'rejected'}
                                     label="Complete"
                                 />
                             </ProgressIndicator>
                         </Column>
                     </Row>
                     <Row>
-                        <Column>
-                            <TextArea
-                                labelText='Note'
-                            />
-                        </Column>
                         {
-                            detail.status === 'waiting' && 
+                            detail.status === 'waiting' &&
                             <Column>
                                 <Row className={styles['button-row']}>
                                     <Column
@@ -118,7 +140,7 @@ const DocDetails = ({ detail, isOpen, selected }) => {
                                         md={{ span: 2, offset: 4 }}
                                         className={styles['button-col']}
                                     >
-                                    <Button className={styles.button} onClick = {POSTresponse('rejected')} type='reset' size='lg' kind="danger">Reject</Button>
+                                        <Button className={styles.button} onClick={e=>POSTresponse(e, 'rejected')} type='reset' size='lg' kind="danger">Reject</Button>
                                     </Column>
                                     <Column
                                         max={{ span: 3 }}
@@ -126,8 +148,8 @@ const DocDetails = ({ detail, isOpen, selected }) => {
                                         lg={{ span: 4 }}
                                         md={{ span: 2 }}
                                         className={styles['button-col']}
-                                        >
-                                        <Button className={styles.button} onClick = {POSTresponse('approved')} type='submit' size='lg'>Approve</Button>
+                                    >
+                                        <Button className={styles.button} onClick={e=>POSTresponse(e, 'approved')} size='lg'>Approve</Button>
                                     </Column>
                                 </Row>
                             </Column>
