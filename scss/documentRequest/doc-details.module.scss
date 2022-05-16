@@ -22,17 +22,21 @@
             align-items: center;
 
             .item {
-                cursor: pointer;
-                width: 24px;
-                height: 24px;
-                background-color: var(--cds-border-subtle-00);
-            }
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 0.3s ease-out;
 
-            .vertical {
-                width: 1px;
-                height: 32px;
-                margin: 0 1rem;
-                background-color: var(--cds-border-subtle-00);
+                &:hover {
+                    cursor: pointer;
+                }
+
+                .vertical {
+                    width: 1px;
+                    height: 32px;
+                    margin: 0 0.5rem;
+                    background-color: var(--cds-border-subtle-00);
+                }
             }
         }
     }

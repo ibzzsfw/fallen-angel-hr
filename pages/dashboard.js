@@ -29,7 +29,7 @@ const Dashboard = (props) => {
           <Manager />
         </Column>
         <Column max={{ span: 3, offset: 1 }} xlg={6} md={8} sm={4} className={styles.notification}>
-          <NotificationPanel getNotification={props.getNotification}/>
+          <NotificationPanel getNotification={props.getNotification} />
         </Column>
       </Row>
     </FlexGrid >
@@ -61,7 +61,7 @@ export const getStaticProps = async () => {
     }
   })
   const getNotification = await res6.data;
-  
+
   const res7 = await axios.get('http://localhost:3000/api/dashboard/getSex')
   const getSex = await res7.data;
 
@@ -75,6 +75,8 @@ export const getStaticProps = async () => {
       getNotification: getNotification,
       getSex: getSex
     }
+  }
+}
 
 
 // export const getStaticProps = async () => {

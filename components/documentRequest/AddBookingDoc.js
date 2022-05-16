@@ -6,7 +6,7 @@ import { AddDocument } from '@carbon/pictograms-react';
 import { Button } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 
-const AddBookDoc = () => {
+const AddBookDoc = ({ getDocument }) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -16,16 +16,16 @@ const AddBookDoc = () => {
             <div className={styles.middle}>
                 <div className={styles.title}>Booking new document request</div>
             </div>
-            <Button        
+            <Button
                 renderIcon={!isOpen ? Add : null}
                 onClick={() => setIsOpen(true)}
             >
-                {!isOpen ? 'Request now' : 'Request...'}    
+                {!isOpen ? 'Request now' : 'Request...'}
             </Button>
             {
                 isOpen &&
-                <Offcanvas isOpen={q => setIsOpen(q)}>
-                    <BookDocument />
+                <Offcanvas isOpen={q => setIsOpen(q)} width='sm'>
+                    <BookDocument getDocument={getDocument} />
                 </Offcanvas>
             }
         </div>

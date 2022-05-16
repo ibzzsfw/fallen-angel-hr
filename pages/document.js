@@ -39,7 +39,7 @@ const Document = (props) => {
                             <TabPanel>
                                 <Row className={styles.mainRow}>
                                     <Column max={{offset: 2}}>
-                                        <AddBookDoc />
+                                        <AddBookDoc getDocument={props.getDocument}/>
                                     </Column>
                                     <Column max={{span: 8, offset: 2}}>
                                         <DocSummary />
@@ -67,11 +67,15 @@ export const getStaticProps = async () => {
     const res1 = await axios.get('http://localhost:3000/api/document/getDocumentSummary')
     const getDocumentSummary = await res1.data;
 
+    const res2 = await axios.get('http://localhost:3000/api/document/getDocument')
+    const getDocument = await res2.data
+
 
     return {
         props: {
             getDocBookingStatus: getDocBookingStatus,
             getDocumentSummary: getDocumentSummary,
+            getDocument: getDocument
         },
     }
 } 

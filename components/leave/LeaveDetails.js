@@ -21,7 +21,9 @@ const LeaveDetails = ({ detail, isOpen, selected }) => {
 
     const [note, setNote] = useState('');
 
-    const POSTresponse = confirmation => {
+    const POSTresponse = (e, confirmation) => {
+
+        e.preventDefault();
 
         console.log('body', {
             bookingid: detail.bookingID,
@@ -179,8 +181,8 @@ const LeaveDetails = ({ detail, isOpen, selected }) => {
                         {
                             detail.status === 'waiting' &&
                             <Column className={styles['button-row']} >
-                                <Button className={styles.button} onClick={POSTresponse('rejected')} size='lg' kind="danger">Reject</Button>
-                                <Button className={styles.button} onClick={POSTresponse('approved')} size='lg'>Approve</Button>
+                                <Button className={styles.button} onClick={e=>POSTresponse(e,'rejected')} size='lg' kind="danger">Reject</Button>
+                                <Button className={styles.button} onClick={e=>POSTresponse(e,'approved')} size='lg'>Approve</Button>
                             </Column>
                         }
                     </Row>

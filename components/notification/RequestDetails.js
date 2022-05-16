@@ -17,21 +17,23 @@ import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
 
 const RequestDetails = ({ detail, isOpen, selected }) => {
 
-    const POSTresponse = status => {
+    const POSTresponse = (e, status) => {
 
- /*        console.log('body', {
-            notificationid: detail.notificationid,
-            senderid: detail.senderid,
-            status: detail.status,
-            date: detail.date,
-            content: detail.content,
-            title: detail.title
-        })
- */
+        e.preventDefault();
+
+        /*        console.log('body', {
+                   notificationid: detail.notificationid,
+                   senderid: detail.senderid,
+                   status: detail.status,
+                   date: detail.date,
+                   content: detail.content,
+                   title: detail.title
+               })
+        */
         axios.post('http://localhost:3000/api/notification/responseNotification', {
             notificationid: detail.notificationID,
             senderid: detail.senderID,
-            status: detail.status,
+            status: status,
             date: detail.date,
             title: detail.title,
             content: detail.content
@@ -138,8 +140,8 @@ const RequestDetails = ({ detail, isOpen, selected }) => {
                         {
                             detail.status === 'waiting' &&
                             <Column className={styles['button-row']} >
-                                <Button className={styles.button} onClick={POSTresponse('rejected')} size='lg' kind="danger">Reject</Button>
-                                <Button className={styles.button} onClick={POSTresponse('approved')} size='lg'>Approve</Button>
+                                <Button className={styles.button} onClick={e => POSTresponse(e, 'rejected')} size='lg' kind="danger">Reject</Button>
+                                <Button className={styles.button} onClick={e => POSTresponse(e, 'approved')} size='lg'>Approve</Button>
                             </Column>
                         }
                     </Row>
