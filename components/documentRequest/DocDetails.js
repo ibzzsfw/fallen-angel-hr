@@ -17,7 +17,6 @@ import { dateFormat } from '../../utils/utils';
 import axios from 'axios';
 import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
 
-
 const DocDetails = ({ detail, isOpen, selected }) => {
 
     const POSTresponse = (e, confirmation) => {
@@ -31,7 +30,7 @@ const DocDetails = ({ detail, isOpen, selected }) => {
             confirmation: confirmation,
         })
 
-        axios.post('http://localhost:3000/api/document/postDocumentResponse', {
+        axios.post(`http://localhost:3000/document/postDocumentResponse`, {
             requestid: detail.requestid,
             requestDate: detail.requestdate,
             purpose: detail.purpose,

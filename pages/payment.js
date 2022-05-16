@@ -19,6 +19,7 @@ import {
 import stylesBanner from '../scss/banner.module.scss';
 import { monthNames, dateFormat } from '../utils/utils'
 import axios from 'axios';
+
 const Payment = (props) => {
 
     console.log(props);
@@ -326,35 +327,28 @@ export default Payment;
 
 export const getStaticProps = async () => {
 
-    const res1 = await axios.get('http://localhost:3000/api/payment/getIncomeByMonth',
+    const res1 = await axios.get(`http://localhost:3000/api/payment/getIncomeByMonth`,
         { headers: { employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c" } })
     const getIncomeByMonth = await res1.data;
 
-export const getStaticProps = async () => {
-
-    const res1 = await axios.get('http://localhost:3000/api/dailytime/getDailyClock')
-    const clock = await res1.data;
-
-    const res2 = await axios.get('http://localhost:3000/api/dailytime/log', {
-        headers: {
-            employeeid: '1ac39e28-8e18-4a54-b56a-14a53fac104c',
-            type: 'absent' // not included type
-        }
-    })
+    const res2 = await axios.get(`http://localhost:3000/api/dailytime/log`,
+        {
+            headers: {
+                employeeid: '1ac39e28-8e18-4a54-b56a-14a53fac104c',
+                type: 'absent'
+            }
+        })
     const log = await res2.data;
 
-    const res3 = await axios.get('http://localhost:3000/api/profile/getInformationByPosition', {
-        headers: {
-            employeeid: '1ac39e28-8e18-4a54-b56a-14a53fac104c',
-        }
-    })
-    const getInformationByPosition = await res3.data;
+    const res3 = await axios.get(`http://localhost:3000/api/profile/getProfile`,
+        { headers: { employeeid: "1ac39e28-8e18-4a54-b56a-14a53fac104c" } })
+    const getProfile = await res3.data;
 
     return {
         props: {
-            clock: clock,
+            getIncomeByMonth: getIncomeByMonth,
             log: log,
-            getInformationByPosition: getInformationByPosition
+            getProfile: getProfile
         }
     }
 }
