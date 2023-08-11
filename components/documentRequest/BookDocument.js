@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import styles from '../../scss/documentRequest/book-document.module.scss';
 import {
-    FlexGrid,
-    Row,
+    Button,
     Column,
+    FlexGrid,
     Form,
-    TextInput,
+    Row,
     Select,
     SelectItem,
-    TextArea,
-    Button,
-    Stack
+    Stack,
+    TextArea
 } from '@carbon/react';
 import axios from "axios";
+import React, { useState } from "react";
+import styles from '../../scss/documentRequest/book-document.module.scss';
 
 const BookDocument = ({ getDocument }) => {
 
@@ -20,23 +19,14 @@ const BookDocument = ({ getDocument }) => {
     const [purpose, setPurpose] = useState('');
 
     const POSTbookDocument = () => {
-
-        console.log('body', {
-            documentid: documentid,
-            purpose: purpose
-        })
-
         axios.post('http://localhost:3000/api/document/addDocumentRequest', {
             documentid: documentid,
             purpose: purpose
-        }).then(res => {
-            console.log(res);
+        }).then(_res => {
             setDocumentid('');
             setPurpose('');
-        }).catch(err => {
-            console.log(err);
+        }).catch(_err => {
         })
-
     }
 
     return (
@@ -64,7 +54,7 @@ const BookDocument = ({ getDocument }) => {
                                         value="placeholder-item"
                                         text=""
                                     />
-                                    {getDocument && getDocument.map(i => <SelectItem value={i.documentID} text={i.documentName} />)}
+                                    {getDocument && getDocument.map(i => <SelectItem key={i.documentID} value={i.documentID} text={i.documentName} />)}
                                 </Select>
                             </Column>
                         </Row>

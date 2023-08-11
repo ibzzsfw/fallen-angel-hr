@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import styles from '../scss/manage/manage.module.scss';
 import {
-    FlexGrid,
-    Row,
     Column,
     ContentSwitcher,
+    FlexGrid,
+    Row,
     Switch,
 } from '@carbon/react';
+import axios from 'axios';
+import { useState } from 'react';
 import NewEmployee from '../components/manage/NewEmployee';
 import RemoveEmployee from '../components/manage/RemoveEmployee';
+import styles from '../scss/manage/manage.module.scss';
 
 const Manage = (props) => {
 
@@ -21,13 +21,13 @@ const Manage = (props) => {
 
         switch (selectedSwtich) {
             case 1:
-                content = <NewEmployee getRole={props.getRole} getDepartment={props.getDepartment}/>
+                content = <NewEmployee getRole={props.getRole} getDepartment={props.getDepartment} />
                 break;
             case 2:
-                content = <RemoveEmployee getDepartment={props.getDepartment}/>
+                content = <RemoveEmployee getDepartment={props.getDepartment} />
                 break;
             default:
-                content = <NewEmployee getRole={props.getRole} getDepartment={props.getDepartment}/>
+                content = <NewEmployee getRole={props.getRole} getDepartment={props.getDepartment} />
                 break;
         }
 

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import excuteQuery from '../../../config/db';
 
 export default async (req, res) => {

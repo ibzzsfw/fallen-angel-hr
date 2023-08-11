@@ -2,7 +2,9 @@ import styles from "../scss/offcanvas.module.scss";
 
 const Offcanvas = ({ isOpen, width, children }) => {
 
-    width = width || 'max';
+    if (!width.match(/^(max|sm|md|lg|xl)$/)) {
+        width = 'max';
+    }
 
     return (
         <div className={styles.offcanvas}>

@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import styles from '../../scss/documentRequest/card-document.module.scss';
 import {
+    ClickableTile,
+    Column,
     FlexGrid,
     Row,
-    Column,
-    ClickableTile,
     Tag
 } from '@carbon/react';
-import DocDetails from './DocDetails'
-import Offcanvas from "../Offcanvas";
+import { useState } from "react";
+import styles from '../../scss/documentRequest/card-document.module.scss';
 import { dateFormat } from '../../utils/utils';
+import Offcanvas from "../Offcanvas";
+import DocDetails from './DocDetails';
 
 const CardDocument = ({ getDocBookingStatus }) => {
 

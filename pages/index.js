@@ -1,31 +1,28 @@
-import React, { useState, useEffect, useCallback } from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
 import {
     Button,
-    Form,
-    TextInput,
-    Dropdown,
-    InlineNotification,
-    FlexGrid,
-    Row,
     Column,
+    FlexGrid,
+    Form,
+    InlineLoading,
+    InlineNotification,
     Link,
-    Theme,
-    InlineLoading
+    Row,
+    TextInput,
+    Theme
 } from '@carbon/react';
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import checkToken from '../lib/checkToken';
 import { ArrowRight } from '@carbon/react/icons';
+import axios from 'axios';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
 import styles from '../scss/login.module.scss';
 
-export default () => {
-
-    // const navigate = useNavigate();
+const index = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [wrong, setWrong] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => sessionStorage.removeItem('token'), [])
@@ -56,7 +53,7 @@ export default () => {
             sessionStorage.setItem('roleid', result.data.roleid)
             console.table(result.data)
             router.push('/dashboard')
-            
+
             if (router.asPath === '/dashboard') {
                 setLoading(false);
             }
@@ -79,7 +76,7 @@ export default () => {
                 <Row className={styles.wrap}>
                     <Column max={5} xlg={7} lg={8} md={5} sm={4}>
                         <Row className={styles['header-wrapper']}>
-                            <img src='https://cloud.ibm.com/login/static/img/IBM_Cloud_White_Rev_RGB.png' alt="logo" />
+                            <Image src='https://cloud.ibm.com/login/static/img/IBM_Cloud_White_Rev_RGB.png' alt="logo" />
                             <div className={styles.title}>Log in
                                 <span>{' to '}<span className="span">Human Resources</span></span>
                             </div>
@@ -146,3 +143,5 @@ export default () => {
         </Theme>
     );
 }
+
+export default index;

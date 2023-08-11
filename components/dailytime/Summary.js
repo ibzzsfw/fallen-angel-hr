@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import {
-    Tabs,
-    Tab,
-    TabList,
-    TabPanels,
-    TabPanel,
-    Tile,
+    Column,
     FlexGrid,
     Row,
-    Column,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
     Tag,
-    Accordion,
-    AccordionItem,
+    Tile
 } from '@carbon/react';
-import styles from '../../scss/dailytime/summary.module.scss';
 import { Time, WarningOther } from '@carbon/react/icons';
-import { timeFormat, monthNames, dayNames, dateFormat } from '../../utils/utils';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import styles from '../../scss/dailytime/summary.module.scss';
+import { dateFormat, dayNames, monthNames, timeFormat } from '../../utils/utils';
 
 const Summary = ({ clock, log }) => {
 
@@ -24,13 +23,16 @@ const Summary = ({ clock, log }) => {
 
     useEffect(() => {
         console.log(log);
-        let arr = log.filter(l => (l.type != 'normal') && (new Date().getUTCMonth()===new Date(l.date).getUTCMonth()+1));
+        let arr = log.filter(
+            l => (l.type != 'normal') &&
+                (new Date().getUTCMonth() === new Date(l.date).getUTCMonth() + 1)
+        );
         setMonthSum(arr)
 
     }, [log])
 
     const router = useRouter();
-    const [realTimeClock, setRealTimeClock] = useState(new Date())
+    const [realTimeClock, setRealTimeClock] = useState(new Date());
 
     useEffect(() => {
         const timerID = setInterval(() => setRealTimeClock(new Date()), 1000);
@@ -92,7 +94,6 @@ const Summary = ({ clock, log }) => {
                             </TabList>
                             <TabPanels>
                                 <TabPanel className={styles['tab-panel']}>
-                                    {/* <div className={styles.no_data}>No records</div> */}
                                     {
                                         monthSum.map(element => {
 
@@ -188,7 +189,7 @@ const Summary = ({ clock, log }) => {
                     </Tile>
                 </Column>
                 <Column max={7} className={styles.space}>
-                    <img src='tab-illo.png' alt='tab-illo' />
+                    <Image src='tab-illo.png' alt='tab-illo' />
                 </Column>
             </Row>
         </FlexGrid>

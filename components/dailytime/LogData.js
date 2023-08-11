@@ -1,34 +1,22 @@
-import {
-    Tag
-} from '@carbon/react';
+import { Tag } from '@carbon/react';
 
-export const headers = [
-    {
-        key: 'date',
-        header: 'Date',
-    },
-    {
-        key: 'clockin',
-        header: 'Clock-in',
-    },
+row.map((item, index) => {
+    item.id = index.toString()
+    if (item.overtime !== '-') {
+        item.overtime = (
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                columnGap: '1rem'
+            }}>
+                <div>{item.overtime}</div>
+                <Tag type="green" title="Clear Filter">Over time</Tag>
+            </div>
+        )
+    }
+})
 
-    {
-        key: 'clockout',
-        header: 'Clock-out',
-    },
-    {
-        key: 'type',
-        header: 'Type',
-    },
-    {
-        key: 'deduction',
-        header: 'Deduction amount',
-    },
-    {
-        key: 'overtime',
-        header: 'Overtime pay',
-    },
-];
+export const rows = row;
 
 let row = [
     {
@@ -385,21 +373,3 @@ let row = [
         overtime: '-',
     }
 ];
-
-row.map((item, index) => {
-    item.id = index.toString()
-    if (item.overtime !== '-') {
-        item.overtime = (
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                columnGap: '1rem'
-            }}>
-                <div>{item.overtime}</div>
-                <Tag type="green" title="Clear Filter">Over time</Tag>
-            </div>
-        )
-    }
-})
-
-export const rows = row;

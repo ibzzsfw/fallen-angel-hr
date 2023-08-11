@@ -1,13 +1,13 @@
-import React from 'react';
-import {
-    Tile,
-    Row,
-    Column,
-    ClickableTile
-} from '@carbon/react';
-import styles from '../../scss/dashboard/manager.module.scss';
 import { DonutChart } from "@carbon/charts-react";
 import "@carbon/charts/styles.css";
+import {
+    ClickableTile,
+    Column,
+    Row,
+    Tile
+} from '@carbon/react';
+import React from 'react';
+import styles from '../../scss/dashboard/manager.module.scss';
 import "../../scss/plex-and-carbon-components.module.css";
 
 const Manager = () => {

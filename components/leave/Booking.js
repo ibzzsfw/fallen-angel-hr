@@ -1,26 +1,23 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import styles from '../../scss/leave/booking.module.scss';
 import {
-    FlexGrid,
-    Row,
+    Button,
     Column,
-    Form,
-    Stack,
-    FormItem,
-    FileUploaderDropContainer,
-    Select,
-    SelectItem,
     DatePicker,
     DatePickerInput,
-    TextArea,
-    Button,
-    Tile
+    FileUploaderDropContainer,
+    FlexGrid,
+    Form,
+    FormItem,
+    Row,
+    Select,
+    SelectItem,
+    Stack,
+    TextArea
 } from '@carbon/react';
+import axios from 'axios';
+import { useEffect, useState } from "react";
+import styles from '../../scss/leave/booking.module.scss';
 
 const Booking = ({ leaveType }) => {
-
-    const [employeeid, setEmployeeid] = useState('');
     const [leaveid, setLeaveid] = useState('');
     const [reason, setReason] = useState('');
     const [startdate, setStartdate] = useState(new Date().toLocaleString());
@@ -96,16 +93,16 @@ const Booking = ({ leaveType }) => {
                                 </Select>
                             </Row>
                             <Row style={{ marginBottom: '2rem' }}>
-                                <label for='start-date'>Start date:</label>
+                                <label htmlFor='start-date'>Start date:</label>
                                 <input
                                     type='date'
                                     id='start-date'
                                     name='start-date'
                                     placeholder='Start date'
                                     onChange={(e) => setStartdate(e.target.value)}
-                                    style={{marginRight: '3rem'}}
+                                    style={{ marginRight: '3rem' }}
                                 />
-                                <label for='end-date'>End date:</label>
+                                <label htmlFor='end-date'>End date:</label>
                                 <input
                                     type='date'
                                     id='end-date'
@@ -120,7 +117,7 @@ const Booking = ({ leaveType }) => {
                                     datePickerType='range'
                                     locale='en'
                                     dateFormat='d/m/Y'
-                                    
+
                                 >
                                     <DatePickerInput
                                         id={`date-picker-input-id-Start`}
@@ -203,7 +200,6 @@ const Booking = ({ leaveType }) => {
                 </Column>
             </Row>
             <Row>
-                {/* <Tile>Alert</Tile> */}
             </Row>
         </FlexGrid >
     )

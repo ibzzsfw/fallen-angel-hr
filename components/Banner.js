@@ -1,9 +1,4 @@
-import React from 'react';
-import {
-    Row,
-    Column,
-    Toggle,
-} from '@carbon/react';
+import { Column, Row } from '@carbon/react';
 import styles from '../scss/banner.module.scss';
 
 const Banner = ({ heading, p, tabs }) => {

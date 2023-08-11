@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styles from '../../scss/manage/manage-employee.module.scss';
 import {
+    Accordion,
+    AccordionItem,
+    Button,
     Form,
     Select,
     SelectItem,
-    Button,
-    Accordion,
-    AccordionItem,
 } from '@carbon/react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import styles from '../../scss/manage/manage-employee.module.scss';
 
 const RemoveEmployee = ({ getDepartment }) => {
 
@@ -31,7 +31,6 @@ const RemoveEmployee = ({ getDepartment }) => {
                 departmentid: department
             }
         }).then(response => {
-            // console.log(response.data)
             setGetPosition(response.data)
         });
 
@@ -60,7 +59,7 @@ const RemoveEmployee = ({ getDepartment }) => {
 
     const POSTremove = () => {
 
-        if(employee) {
+        if (employee) {
             axios.post(`http://localhost:3000/api/manager/removeEmployee`, {
                 employeeid: employee
             }).then(response => {
@@ -151,6 +150,7 @@ const RemoveEmployee = ({ getDepartment }) => {
                                 getEmployee.map(e => {
                                     return (
                                         <SelectItem
+                                            key={e.employeeID}
                                             text={`${e.firstName} ${e.lastName}`}
                                             value={e.employeeID}
                                         />

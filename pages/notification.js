@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import styles from '../scss/dashboard/notification.module.scss';
-import CardRequest from '../components/notification/CardRequest';
-import TableRequest from '../components/notification/TableRequest';
 import {
+    Column,
     FlexGrid,
-    Stack,
-    Button,
     Row,
-    Column
+    Stack
 } from "@carbon/react";
-import { Table, Grid } from '@carbon/react/icons';
+import axios from 'axios';
+import CardRequest from '../components/notification/CardRequest';
 import stylesBanner from '../scss/banner.module.scss';
+import styles from '../scss/dashboard/notification.module.scss';
 
 const Notification = ({ getNotificationRequest }) => {
 

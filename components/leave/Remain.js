@@ -1,9 +1,8 @@
-import React from "react";
-import styles from '../../scss/leave/remain-tile.module.scss';
 import {
     Stack,
     Tile,
 } from '@carbon/react';
+import styles from '../../scss/leave/remain-tile.module.scss';
 
 const Remain = ({ remain }) => {
 

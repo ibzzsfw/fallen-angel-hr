@@ -1,13 +1,13 @@
-import React from "react";
-import styles from '../../scss/documentRequest/doc-summary.module.scss';
+/* eslint-disable react/jsx-key */
 import {
+    Button,
     ExpandableTile,
-    TileAboveTheFoldContent,
-    TileBelowTheFoldContent,
     Stack,
-    Button
-} from '@carbon/react'
-import { CheckmarkFilled, InProgress, CloseFilled } from '@carbon/react/icons';
+    TileAboveTheFoldContent,
+    TileBelowTheFoldContent
+} from '@carbon/react';
+import { CheckmarkFilled, CloseFilled, InProgress } from '@carbon/react/icons';
+import styles from '../../scss/documentRequest/doc-summary.module.scss';
 
 const DocSummary = () => {
 

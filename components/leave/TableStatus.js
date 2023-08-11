@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
 import {
+    Column,
     DataTable,
+    FlexGrid,
+    Pagination,
+    Row,
     Table,
-    TableHead,
-    TableRow,
-    TableHeader,
     TableBody,
     TableCell,
-    TableToolbar,
-    TableToolbarSearch,
-    TableToolbarContent,
     TableContainer,
-    Pagination,
-    FlexGrid,
-    Row,
-    Column,
+    TableHead,
+    TableHeader,
+    TableRow,
+    TableToolbar,
+    TableToolbarContent,
+    TableToolbarSearch,
 } from '@carbon/react';
+import { useEffect, useState } from "react";
 import styles from '../../scss/leave/table-status.module.scss';
 import Offcanvas from "../Offcanvas";
 import LeaveDetails from "./LeaveDetails";
@@ -70,7 +70,7 @@ const TableStatus = ({ getLeaveBookingStatus }) => {
 
         getLeaveBookingStatus.map(item => {
 
-            
+
         })
     })
 

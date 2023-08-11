@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import styles from '../../scss/leave/card-status.module.scss';
 import {
-    FlexGrid,
-    Column,
-    Row,
     ClickableTile,
+    Column,
+    FlexGrid,
+    Row,
     Tag,
 } from '@carbon/react';
+import { useState } from 'react';
+import styles from '../../scss/leave/card-status.module.scss';
+import { dateFormat } from '../../utils/utils';
 import Offcanvas from "../Offcanvas";
 import LeaveDetails from './LeaveDetails';
-import { dateFormat } from '../../utils/utils';
 
 const CardStatus = ({ getLeaveBookingStatus }) => {
 

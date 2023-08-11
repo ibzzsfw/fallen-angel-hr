@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styles from '../../scss/manage/manage-employee.module.scss';
 import {
+    Accordion,
+    AccordionItem,
+    Button,
     Form,
     Select,
     SelectItem,
-    TextInput,
-    Button,
     Stack,
-    Accordion,
-    AccordionItem,
+    TextInput,
 } from '@carbon/react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import styles from '../../scss/manage/manage-employee.module.scss';
 
 const NewEmployee = ({ getRole, getDepartment }) => {
-
-    // console.log('getRole', getRole);
-    // console.log('getDepartment', getDepartment);
-
     const [selectedRole, setSelectedRole] = useState('');
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [selectedPosition, setSelectedPosition] = useState('');
@@ -28,7 +24,6 @@ const NewEmployee = ({ getRole, getDepartment }) => {
     const [email, setEmail] = useState('');
     const [bankname, setBankname] = useState('');
     const [bankaccount, setBankaccount] = useState('');
-
     const [getPosition, setGetPosition] = useState([]);
 
     useEffect(() => {
@@ -59,7 +54,6 @@ const NewEmployee = ({ getRole, getDepartment }) => {
     }, [selectedDepartment])
 
     const POSTnewEmployee = () => axios.post('http://localhost:3000/api/admin/addEmployee', {
-
         roleid: selectedRole,
         positionid: selectedPosition,
         identification: identification,

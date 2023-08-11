@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import {
-    Tile,
-    Row,
-    Column,
-    Stack
-} from '@carbon/react';
-import styles from '../../scss/dashboard/admin.module.scss';
-import { Person_03, Person_04 } from '@carbon/pictograms-react'
 import { DonutChart, StackedBarChart } from "@carbon/charts-react";
 import "@carbon/charts/styles.css";
+import { Person_03, Person_04 } from '@carbon/pictograms-react';
+import {
+    Column,
+    Row,
+    Tile
+} from '@carbon/react';
+import React, { useEffect, useState } from 'react';
+import styles from '../../scss/dashboard/admin.module.scss';
 import "../../scss/plex-and-carbon-components.module.css";
 
-const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCount, getSalaryCount, getSex }) => {
+const Admin = ({ getStatusCount, getPositionCount, getDepartmentCount, getSalaryCount, getSex }) => {
 
     const statusCount = getStatusCount.map((e) => {
         return {
@@ -54,22 +53,12 @@ const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCo
         let morethan40k = 0;
         let morethan60k = 0;
 
-        getSalaryCount.map((e, i) => {
-
-            if (e.salary < 30000)
-                lessthan30k++;
-
-            else if (e.salary >= 30000 && e.salary < 40000)
-                morethan30k++;
-
-            else if (e.salary >= 40000 && e.salary < 60000)
-                morethan40k++;
-
-            else if (e.salary > 60000)
-                morethan60k++;
-
+        getSalaryCount.map((e) => {
+            if (e.salary < 30000) lessthan30k++;
+            else if (e.salary >= 30000 && e.salary < 40000) morethan30k++;
+            else if (e.salary >= 40000 && e.salary < 60000) morethan40k++;
+            else if (e.salary > 60000) morethan60k++;
         })
-
         setlessthan30k(lessthan30k);
         setmorethan30k(morethan30k);
         setmorethan40k(morethan40k);
@@ -78,11 +67,7 @@ const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCo
 
     useEffect(() => {
         countBySalary(getSalaryCount);
-        console.log(lessthan30k);
-        console.log(morethan30k);
-        console.log(morethan40k);
-        console.log(morethan60k);
-    }, [])
+    }, [getSalaryCount])
 
     const dataPro2 = [
         {
@@ -134,7 +119,6 @@ const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCo
     }
 
     const employeeByPositionData = getPositionCount.map((e) => {
-
         return {
             "group": e.positionName,
             "value": e.countPosition
@@ -174,7 +158,7 @@ const Admin = ({ getStatusCount, getHeadCount, getPositionCount, getDepartmentCo
                     { title: 'Turnover', value: '3.28%' },
                 ].map(item => {
                     return (
-                        <Column>
+                        <Column key={item.title}>
                             <Tile className={styles.card}>
                                 <div className={styles['sum-tile-title']}>{item.title}</div>
                                 <div className={styles.value}>

@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
-import styles from '../../scss/documentRequest/doc-details.module.scss';
 import {
-    Stack,
+    Button,
     CodeSnippet,
+    Column,
+    FlexGrid,
     ProgressIndicator,
     ProgressStep,
-    FlexGrid,
     Row,
-    Column,
-    Tile,
-    Form,
-    TextArea,
-    Button,
+    Stack
 } from '@carbon/react';
-import { dateFormat } from '../../utils/utils';
-import axios from 'axios';
 import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
+import axios from 'axios';
+import styles from '../../scss/documentRequest/doc-details.module.scss';
+import { dateFormat } from '../../utils/utils';
 
 const DocDetails = ({ detail, isOpen, selected }) => {
 
@@ -139,7 +135,7 @@ const DocDetails = ({ detail, isOpen, selected }) => {
                                         md={{ span: 2, offset: 4 }}
                                         className={styles['button-col']}
                                     >
-                                        <Button className={styles.button} onClick={e=>POSTresponse(e, 'rejected')} type='reset' size='lg' kind="danger">Reject</Button>
+                                        <Button className={styles.button} onClick={e => POSTresponse(e, 'rejected')} type='reset' size='lg' kind="danger">Reject</Button>
                                     </Column>
                                     <Column
                                         max={{ span: 3 }}
@@ -148,7 +144,7 @@ const DocDetails = ({ detail, isOpen, selected }) => {
                                         md={{ span: 2 }}
                                         className={styles['button-col']}
                                     >
-                                        <Button className={styles.button} onClick={e=>POSTresponse(e, 'approved')} size='lg'>Approve</Button>
+                                        <Button className={styles.button} onClick={e => POSTresponse(e, 'approved')} size='lg'>Approve</Button>
                                     </Column>
                                 </Row>
                             </Column>

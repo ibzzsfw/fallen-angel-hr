@@ -1,19 +1,15 @@
 import {
+  Column,
   FlexGrid,
   Row,
-  Column,
 } from '@carbon/react';
-import React from 'react';
-import styles from '../scss/dashboard/dashboard.module.scss';
-import NotificationPanel from '../components/dashboard/Notification-panel';
+import axios from 'axios';
 import Admin from '../components/dashboard/Admin';
 import Manager from '../components/dashboard/Manager';
-import axios from 'axios';
+import NotificationPanel from '../components/dashboard/Notification-panel';
+import styles from '../scss/dashboard/dashboard.module.scss';
 
 const Dashboard = (props) => {
-
-  console.log(props);
-
   return (
     <FlexGrid fullWidth className={styles.dashboard}>
       <Row className={styles.resetRow}>

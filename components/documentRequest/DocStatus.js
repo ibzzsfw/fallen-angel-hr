@@ -1,9 +1,6 @@
-import React, { useState } from "react";
+import { Stack } from "@carbon/react";
 import styles from '../../scss/documentRequest/doc-status.module.scss';
 import CardDocument from './CardDocument';
-import {
-    Stack,
-} from "@carbon/react";
 
 const DocStatus = ({ getDocBookingStatus }) => {
 

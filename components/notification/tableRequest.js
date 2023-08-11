@@ -1,29 +1,26 @@
-import React, { useEffect, useState } from 'react';
 import {
+    Column,
     DataTable,
+    FlexGrid,
+    Pagination,
+    Row,
     Table,
-    TableHead,
-    TableRow,
-    TableHeader,
     TableBody,
     TableCell,
-    TableToolbar,
-    TableToolbarSearch,
-    TableToolbarContent,
     TableContainer,
-    Pagination,
-    FlexGrid,
-    Row,
-    Column
+    TableHead,
+    TableHeader,
+    TableRow,
+    TableToolbar,
+    TableToolbarContent,
+    TableToolbarSearch
 } from '@carbon/react';
+import { useEffect, useState } from 'react';
 import styles from '../../scss/notification/table-request.module.scss';
 import Offcanvas from "../Offcanvas";
 import RequestDetails from './RequestDetails';
 
 const TableStatus = ({ rows }) => {
-
-    /* console.log(getNotificationRequest) */
-
     const [totalItems, setTotalItems] = useState(0);
     const [firstRowIndex, setFirstRowIndex] = useState(0);
     const [currentPageSize, setCurrentPageSize] = useState(10);
@@ -57,8 +54,6 @@ const TableStatus = ({ rows }) => {
             header: 'Status',
         },
     ];
-
-    // ทำ tag แต่ละ status
 
     return (
         <FlexGrid fullWidth className={styles['table']}>

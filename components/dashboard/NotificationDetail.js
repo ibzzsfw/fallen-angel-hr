@@ -1,19 +1,14 @@
-import React from 'react';
 import {
-    Stack,
     FlexGrid,
     Row,
+    Stack,
     Tile,
 } from '@carbon/react';
-import styles from '../../scss/dashboard/notification-detail.module.scss';
 import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
+import styles from '../../scss/dashboard/notification-detail.module.scss';
 
 const NotificationDetail = ({ notification, isOpenDetail, selectedNotification }) => {
-
-    console.log(notification);
-    const title = notification.title;
-    const department = notification.department;
-    const content = notification.content;
+    const { title, department, content } = notification;
     const date = new Date(notification.date).toLocaleDateString('en-GB');
 
     return (

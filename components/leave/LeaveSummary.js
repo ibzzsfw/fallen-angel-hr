@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import styles from '../../scss/leave/leave-summary.module.scss';
+/* eslint-disable react/jsx-key */
 import {
+    Button,
     ExpandableTile,
-    TileAboveTheFoldContent,
-    TileBelowTheFoldContent,
     Stack,
-    Button
+    TileAboveTheFoldContent,
+    TileBelowTheFoldContent
 } from '@carbon/react';
-import { CheckmarkFilled, InProgress, CloseFilled } from '@carbon/react/icons';
+import { CheckmarkFilled, CloseFilled, InProgress } from '@carbon/react/icons';
+import styles from '../../scss/leave/leave-summary.module.scss';
 
 const LeaveSummary = (props) => {
 

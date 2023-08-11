@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import styles1 from '../scss/manage/manage.module.scss';
 import {
-    FlexGrid,
-    Row,
-    Column,
-    Form,
-    Select,
-    SelectItem,
-    Button,
     Accordion,
     AccordionItem,
-    SelectableTile,
-    RadioTile,
+    Button,
+    Column,
+    FlexGrid,
+    Form,
     NumberInput,
+    Row,
+    Select,
+    SelectItem,
+    SelectableTile
 } from '@carbon/react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import styles from '../scss/manage/manage-employee.module.scss';
+import styles1 from '../scss/manage/manage.module.scss';
 
 const Manage = ({ getDepartment }) => {
 
@@ -192,6 +191,7 @@ const Manage = ({ getDepartment }) => {
                                             getEmployee.map(e => {
                                                 return (
                                                     <SelectItem
+                                                        key={e.employeeID}
                                                         text={`${e.firstName} ${e.lastName}`}
                                                         value={e.employeeID}
                                                     />

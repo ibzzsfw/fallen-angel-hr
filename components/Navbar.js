@@ -1,29 +1,28 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useRouter } from 'next/router'
 import {
     Header,
-    SkipToContent,
+    HeaderGlobalAction,
+    HeaderGlobalBar,
+    HeaderMenu,
     HeaderMenuButton,
+    HeaderMenuItem,
     HeaderName,
     HeaderNavigation,
-    HeaderMenuItem,
-    HeaderGlobalBar,
-    HeaderGlobalAction,
     HeaderPanel,
-    HeaderMenu,
-    Theme,
+    HeaderSideNavItems,
     SideNav,
     SideNavItems,
-    HeaderSideNavItems,
+    SkipToContent,
+    Theme,
 } from '@carbon/react';
 import {
-    UserAvatar,
-    Light,
     Asleep,
+    Light,
     User
 } from '@carbon/react/icons';
+import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
 import styles from '../scss/navbar.module.scss';
-import { useThemePreference } from './ThemePreference.js'
+import { useThemePreference } from './ThemePreference.js';
 
 const Navbar = () => {
 

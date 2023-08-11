@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import styles from '../../scss/leave/leave-detail.module.scss';
 import {
-    Stack,
+    Button,
     CodeSnippet,
+    Column,
+    FlexGrid,
     ProgressIndicator,
     ProgressStep,
-    FlexGrid,
     Row,
-    Column,
-    Tile,
-    Form,
+    Stack,
     TextArea,
-    Button,
+    Tile
 } from '@carbon/react';
-import { dateFormat } from '../../utils/utils';
 import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
 import axios from 'axios';
+import React, { useState } from 'react';
+import styles from '../../scss/leave/leave-detail.module.scss';
+import { dateFormat } from '../../utils/utils';
 
 const LeaveDetails = ({ detail, isOpen, selected }) => {
 
@@ -181,8 +180,8 @@ const LeaveDetails = ({ detail, isOpen, selected }) => {
                         {
                             detail.status === 'waiting' &&
                             <Column className={styles['button-row']} >
-                                <Button className={styles.button} onClick={e=>POSTresponse(e,'rejected')} size='lg' kind="danger">Reject</Button>
-                                <Button className={styles.button} onClick={e=>POSTresponse(e,'approved')} size='lg'>Approve</Button>
+                                <Button className={styles.button} onClick={e => POSTresponse(e, 'rejected')} size='lg' kind="danger">Reject</Button>
+                                <Button className={styles.button} onClick={e => POSTresponse(e, 'approved')} size='lg'>Approve</Button>
                             </Column>
                         }
                     </Row>

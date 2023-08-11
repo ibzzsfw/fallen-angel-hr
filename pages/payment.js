@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../scss/payment/payment.module.scss';
 import {
-    FlexGrid,
-    Column,
-    Dropdown,
-    Stack,
-    ExpandableTile,
-    TileAboveTheFoldContent,
-    TileBelowTheFoldContent,
     Accordion,
     AccordionItem,
-    Tag,
+    Column,
+    ExpandableTile,
+    FlexGrid,
     Row,
-    Tile,
     Select,
-    SelectItem
+    SelectItem,
+    Stack,
+    Tag,
+    Tile,
+    TileAboveTheFoldContent,
+    TileBelowTheFoldContent
 } from '@carbon/react';
-import stylesBanner from '../scss/banner.module.scss';
-import { monthNames, dateFormat } from '../utils/utils'
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import stylesBanner from '../scss/banner.module.scss';
+import styles from '../scss/payment/payment.module.scss';
+import { monthNames } from '../utils/utils';
 
 const Payment = (props) => {
 
@@ -104,6 +103,7 @@ const Payment = (props) => {
                                 availableMonth.map(time => {
                                     return (
                                         <SelectItem
+                                            key={time.month}
                                             text={monthNames[time.month] + ', ' + time.year.toString()}
                                             value={time.month}
                                         />
@@ -136,6 +136,7 @@ const Payment = (props) => {
                                         {
                                             props.getIncomeByMonth.map(item => {
                                                 return (
+                                                    // eslint-disable-next-line react/jsx-key
                                                     <div className={styles.ot}>
                                                         <div className={styles.date}>{new Date(item.date).getUTCDate().toString().padStart(2, '0')}</div>
                                                         <div className={styles.clock}>{item.clockOut}</div>

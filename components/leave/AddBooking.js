@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styles from '../../scss/leave/add-booking.module.scss';
-import { Button } from '@carbon/react';
 import { CalendarEvent } from '@carbon/pictograms-react';
-import Booking from "./Booking";
-import Offcanvas from "../Offcanvas";
+import { Button } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
+import { useState } from "react";
+import styles from '../../scss/leave/add-booking.module.scss';
+import Offcanvas from "../Offcanvas";
+import Booking from "./Booking";
 
 const AddBooking = ({ leaveType }) => {
 

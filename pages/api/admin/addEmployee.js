@@ -1,5 +1,6 @@
-import { db } from '../../../config/db';
+/* eslint-disable import/no-anonymous-default-export */
 import { v4 as uuidv4 } from 'uuid';
+import { db } from '../../../config/db';
 
 export default async (req, res) => {
 
@@ -15,7 +16,7 @@ export default async (req, res) => {
     let bankaccount = req.body.bankaccount
     let password = req.body.password
     let salary = req.body.salary
-    let maternityremain = (sex==='W') ? 90 : 0
+    let maternityremain = (sex === 'W') ? 90 : 0
 
     try {
         let result = await db.transaction()

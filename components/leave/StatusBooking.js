@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import styles from '../../scss/leave/status-booking.module.scss';
 import {
     Stack
 } from '@carbon/react';
+import React from 'react';
+import styles from '../../scss/leave/status-booking.module.scss';
 import CardStatus from './CardStatus';
 
 const StatusBooking = ({ getLeaveBookingStatus }) => {
-
-    console.log(getLeaveBookingStatus);
-
     return (
         <Stack className={styles['status-booking']}>
             <div className={styles.swticher}>
@@ -18,7 +15,7 @@ const StatusBooking = ({ getLeaveBookingStatus }) => {
                 </div>
             </div>
             <div className={styles.content}>
-                <CardStatus getLeaveBookingStatus={getLeaveBookingStatus}/>
+                <CardStatus getLeaveBookingStatus={getLeaveBookingStatus} />
             </div>
         </Stack>
     )

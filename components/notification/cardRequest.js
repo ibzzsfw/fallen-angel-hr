@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import styles from '../../scss/notification/card-request.module.scss';
 import {
-    FlexGrid,
-    Column,
-    Row,
     ClickableTile,
+    Column,
+    FlexGrid,
+    Row,
     Tag,
 } from '@carbon/react';
+import React, { useState } from 'react';
+import styles from '../../scss/notification/card-request.module.scss';
+import { dateFormat } from '../../utils/utils';
 import Offcanvas from "../Offcanvas";
 import RequestDetails from './RequestDetails';
-import { dateFormat } from '../../utils/utils';
 
 const cardRequest = ({ getNotificationRequest }) => {
-
-    console.log(getNotificationRequest)
-
     const [isOpen, setIsOpen] = useState(false);
     const [index, setIndex] = useState(-1);
 

@@ -1,19 +1,20 @@
-import React, { useRef, useState, useEffect } from "react";
 import {
-    FlexGrid,
-    Row,
-    Column,
-    Tile,
     Button,
-    Stack,
-    PasswordInput,
     CodeSnippet,
+    Column,
+    FlexGrid,
     Modal,
+    PasswordInput,
+    Row,
+    Stack,
     TextInput,
+    Tile,
 } from "@carbon/react";
 import { Edit } from '@carbon/react/icons';
-import styles from "../scss/profile.module.scss";
 import axios from 'axios';
+import { useEffect, useState } from "react";
+import styles from "../scss/profile.module.scss";
+import Image from "next/image";
 
 
 const Profile = ({ getProfile, getRole }) => {
@@ -103,7 +104,8 @@ const Profile = ({ getProfile, getRole }) => {
         <FlexGrid className={styles.profile}>
             <Row>
                 <Column max={4} className={styles.picContainer}>
-                    <img
+                    <Image
+                        alt="Profile picture"
                         src="/profile.jpeg"
                         className={styles.Image}
                     />

@@ -1,25 +1,21 @@
-import React from "react";
-import styles from '../scss/documentRequest/document.module.scss';
 import {
+    Column,
     FlexGrid,
     Row,
-    Column,
-    Tile,
-    Stack,
-    Tabs,
     Tab,
     TabList,
+    TabPanel,
     TabPanels,
-    TabPanel
+    Tabs
 } from "@carbon/react";
-import AddBookDoc from "../components/documentRequest/AddBookingDoc";
-import DocSummary from "../components/documentRequest/DocSummary";
-import DocStatus from "../components/documentRequest/DocStatus";
-import stylesBanner from '../scss/banner.module.scss';
 import axios from "axios";
+import AddBookDoc from "../components/documentRequest/AddBookingDoc";
+import DocStatus from "../components/documentRequest/DocStatus";
+import DocSummary from "../components/documentRequest/DocSummary";
+import stylesBanner from '../scss/banner.module.scss';
+import styles from '../scss/documentRequest/document.module.scss';
 
 const Document = (props) => {
-    console.log(props)
     return (
         <FlexGrid fullWidth className={styles.document}>
             <Row className={stylesBanner.banner + ' ' + stylesBanner.tabs}>
@@ -38,16 +34,16 @@ const Document = (props) => {
                         <TabPanels className={styles['tab-content']}>
                             <TabPanel>
                                 <Row className={styles.mainRow}>
-                                    <Column max={{offset: 2}}>
-                                        <AddBookDoc getDocument={props.getDocument}/>
+                                    <Column max={{ offset: 2 }}>
+                                        <AddBookDoc getDocument={props.getDocument} />
                                     </Column>
-                                    <Column max={{span: 8, offset: 2}}>
+                                    <Column max={{ span: 8, offset: 2 }}>
                                         <DocSummary />
                                     </Column>
                                 </Row>
                             </TabPanel>
                             <TabPanel>
-                                <DocStatus getDocBookingStatus = {props.getDocBookingStatus} />
+                                <DocStatus getDocBookingStatus={props.getDocBookingStatus} />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

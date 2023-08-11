@@ -1,80 +1,42 @@
-import React, { useEffect, useState } from "react";
 import {
     Button,
+    Column,
     DataTable,
+    FlexGrid,
+    Link,
+    Pagination,
+    Row,
     Table,
-    TableHead,
-    TableRow,
-    TableHeader,
     TableBody,
     TableCell,
-    Link,
-    TableToolbar,
-    TableToolbarSearch,
-    TableToolbarContent,
-    TableToolbarMenu,
-    TableToolbarAction,
     TableContainer,
-    Pagination,
-    Tag,
-    FlexGrid,
-    Row,
-    Column,
+    TableHead,
+    TableHeader,
+    TableRow,
+    TableToolbar,
+    TableToolbarContent,
+    TableToolbarSearch
 } from '@carbon/react';
-import { dateFormat } from '../../utils/utils';
 import axios from "axios";
-// import { rows, headers } from './LogData';
+import Image from 'next/image';
+import React, { useCallback, useEffect, useState } from "react";
+import { dateFormat } from '../../utils/utils';
+import headers from './common/header';
 
 const Log = ({ raw, getInformationByPosition }) => {
-
-    console.log(raw)
 
     const [totalItems, setTotalItems] = useState(raw.length);
     const [firstRowIndex, setFirstRowIndex] = useState(0);
     const [currentPageSize, setCurrentPageSize] = useState(10);
     const [rows, setRows] = useState(raw);
 
-    const headers = [
-        {
-            key: 'date',
-            header: 'Date',
-        },
-        {
-            key: 'clockIn',
-            header: 'Clock-in',
-        },
-        {
-            key: 'clockOut',
-            header: 'Clock-out',
-        },
-        {
-            key: 'type',
-            header: 'Type',
-        },
-        {
-            key: 'lateEarlyDeduct',
-            header: 'Deduction amount',
-        },
-        {
-            key: 'OT',
-            header: 'Overtime',
-        },
-    ];
-
-    const POSTaddOT = (clockOut) => {
-
-        console.log({
-            employeeid: getInformationByPosition[0].employeeID,
-            clockout: clockOut,
-            positionid: getInformationByPosition[0].positionID,
-        })
-
+    const POSTaddOT = useCallback((clockOut) => {
         axios.post('http://localhost:3000/api/dailytime/addOT', {
             employeeid: getInformationByPosition[0].employeeID,
             clockout: clockOut,
             positionid: getInformationByPosition[0].positionID,
         })
-    }
+    }, [getInformationByPosition])
 
     useEffect(() => {
 
@@ -84,57 +46,26 @@ const Log = ({ raw, getInformationByPosition }) => {
             setTotalItems(rows.length)
 
             raw.map((r, index) => {
-                // (pro.salary/30)/8)/60) * (TIMEDIFF(position.clockOut, TIME(dailytime.clockOut))
-                // r.lateEarlyDeduct = (((getInformationByPosition.salary / 30) / 8) / 60) * 
 
                 let OT = null
                 if (getInformationByPosition[0].clockOut < r.clockOut) {
-                    OT = 
-                    <Button
-                        kind='tertiary'
-                        size='sm'
-                        onClick={() => POSTaddOT((
-                            new Date(r.date).getUTCFullYear().toString()
-                            + '-' + (new Date(r.date).getUTCMonth() + 1).toString().padStart(2, '0')
-                            + '-' + new Date(r.date).getUTCDate().toString().padStart(2, '0') + 'T' + r.clockOut.toString()))}
-                    >Add OT</Button>
+                    OT =
+                        <Button
+                            kind='tertiary'
+                            size='sm'
+                            onClick={() => POSTaddOT((
+                                new Date(r.date).getUTCFullYear().toString()
+                                + '-' + (new Date(r.date).getUTCMonth() + 1).toString().padStart(2, '0')
+                                + '-' + new Date(r.date).getUTCDate().toString().padStart(2, '0') + 'T' + r.clockOut.toString()))}
+                        >Add OT</Button>
                 }
-
-                // let type = <></>
-                // if (r.type === 'normal') {
-                //     type = <Tag
-                //         size="sm"
-                //         title="normal"
-                //         type="green"
-                //     >
-                //         Normal
-                //     </Tag>
-                // }
-                // if (r.type === 'late') {
-                //     type = <Tag
-                //         size="sm"
-                //         title="late"
-                //         type="red"
-                //     >
-                //         Late
-                //     </Tag>
-                // }
-                // if (r.type === 'earlyLeave') {
-                //     type = <Tag
-                //         size="sm"
-                //         title="early Leave"
-                //         type="purple"
-                //     >
-                //         Early leave
-                //     </Tag>
-                // }
 
                 let deduct = 0
 
                 if (r.clockOut < getInformationByPosition[0].clockOut) {
                     deduct += ((((getInformationByPosition[0].salary / 30) / 8) / 60) * (new Date('2022-02-02T' + r.clockOut.toString()) - new Date('2022-02-02T' + getInformationByPosition[0].clockOut.toString())) / 60000)
                 }
-                if(r.clockIn > getInformationByPosition[0].clockIn) {
+                if (r.clockIn > getInformationByPosition[0].clockIn) {
                     deduct += ((((getInformationByPosition[0].salary / 30) / 8) / 60) * (new Date('2022-02-02T' + r.clockIn.toString()) - new Date('2022-02-02T' + getInformationByPosition[0].clockIn.toString())) / 60000)
                 }
 
@@ -151,8 +82,7 @@ const Log = ({ raw, getInformationByPosition }) => {
         }
         setRows(arr);
 
-
-    }, [raw]);
+    }, [POSTaddOT, getInformationByPosition, raw, rows]);
 
     return (
         <FlexGrid>
@@ -199,7 +129,7 @@ const Log = ({ raw, getInformationByPosition }) => {
                                                 ? <TableRow>
                                                     <TableCell>
                                                         <div className="empty-state">
-                                                            <img src='https://quantum-computing.ibm.com/_nuxt/img/magnify.483b9f4.svg' alt='magnify' />
+                                                            <Image src='https://quantum-computing.ibm.com/_nuxt/img/magnify.483b9f4.svg' alt='magnify' />
                                                             <div className="title">No records found</div>
                                                             <div className="description">Try adjusting your search or filter options to find what you are looking for.</div>
                                                         </div>

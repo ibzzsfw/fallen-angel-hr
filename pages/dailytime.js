@@ -1,20 +1,18 @@
-import React from 'react';
-import axios from 'axios';
 import {
-    Tabs,
-    Tab,
-    TabList,
-    TabPanels,
-    TabPanel,
+    Column,
     FlexGrid,
     Row,
-    Column,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
 } from '@carbon/react';
-import styles from '../scss/dailytime/dailytime.module.scss';
-import Summary from '../components/dailytime/Summary';
+import axios from 'axios';
 import Log from '../components/dailytime/Log';
+import Summary from '../components/dailytime/Summary';
 import stylesBanner from '../scss/banner.module.scss';
-
+import styles from '../scss/dailytime/dailytime.module.scss';
 
 const DailyTime = (props) => {
 

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import styles from '../../scss/notification/book-notification.module.scss';
 import {
-    FlexGrid,
-    Row,
-    Column,
-    Form,
-    TextInput,
-    TextArea,
     Button,
+    Column,
+    FlexGrid,
+    Form,
+    InlineNotification,
+    Row,
     Stack,
-    InlineNotification
+    TextArea,
+    TextInput
 } from '@carbon/react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import styles from '../../scss/notification/book-notification.module.scss';
 
 const BookNotification = () => {
 
@@ -19,15 +19,7 @@ const BookNotification = () => {
     const [content, setContent] = useState('');
     const [error, setError] = useState(false);
 
-    useEffect(() => console.log(content), [content])
-
     const POSTaddNotification = () => {
-
-        console.log({
-            title: title,
-            content: content
-        })
-
         if (title === '' || content === '') {
             setError(true);
         } else {
@@ -35,8 +27,7 @@ const BookNotification = () => {
             axios.post('http://localhost:3000/api/notification/addNotificationRequest', {
                 title: title,
                 content: content
-            }).then(res => {
-                console.log(res);
+            }).then(() => {
                 setTitle('');
                 setContent('');
             })

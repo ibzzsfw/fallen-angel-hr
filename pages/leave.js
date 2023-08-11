@@ -1,23 +1,21 @@
-import React, { useState } from "react";
-import axios from 'axios';
 import {
-    Tabs,
-    Tab,
-    TabList,
-    TabPanels,
-    TabPanel,
+    Column,
     FlexGrid,
     Row,
-    Column,
     Stack,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
 } from '@carbon/react';
-import styles from '../scss/leave/leave.module.scss';
-import LeaveSummary from "../components/leave/LeaveSummary";
+import axios from 'axios';
 import AddBooking from "../components/leave/AddBooking";
+import LeaveSummary from "../components/leave/LeaveSummary";
 import Remain from "../components/leave/Remain";
 import StatusBooking from "../components/leave/StatusBooking";
-import url from '../utils/url';
 import stylesBanner from '../scss/banner.module.scss';
+import styles from '../scss/leave/leave.module.scss';
 
 const Leave = (props) => {
 
@@ -56,7 +54,7 @@ const Leave = (props) => {
                                 </Row>
                             </TabPanel>
                             <TabPanel>
-                                <StatusBooking getLeaveBookingStatus={props.getLeaveBookingStatus}/>
+                                <StatusBooking getLeaveBookingStatus={props.getLeaveBookingStatus} />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

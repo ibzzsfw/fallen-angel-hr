@@ -1,35 +1,24 @@
-import React from 'react';
-import styles from '../../scss/notification/request-details.module.scss';
 import {
-    Stack,
+    Button,
     CodeSnippet,
+    Column,
+    FlexGrid,
     ProgressIndicator,
     ProgressStep,
-    FlexGrid,
     Row,
-    Column,
+    Stack,
     Tile,
-    Button,
 } from '@carbon/react';
-import { dateFormat } from '../../utils/utils';
-import axios from 'axios';
 import { CaretLeft, CaretRight, Close } from '@carbon/react/icons';
+import axios from 'axios';
+import styles from '../../scss/notification/request-details.module.scss';
+import { dateFormat } from '../../utils/utils';
 
 const RequestDetails = ({ detail, isOpen, selected }) => {
 
     const POSTresponse = (e, status) => {
 
         e.preventDefault();
-
-        /*        console.log('body', {
-                   notificationid: detail.notificationid,
-                   senderid: detail.senderid,
-                   status: detail.status,
-                   date: detail.date,
-                   content: detail.content,
-                   title: detail.title
-               })
-        */
         axios.post('http://localhost:3000/api/notification/responseNotification', {
             notificationid: detail.notificationID,
             senderid: detail.senderID,
@@ -39,8 +28,6 @@ const RequestDetails = ({ detail, isOpen, selected }) => {
             content: detail.content
         })
     }
-
-    console.log(detail);
 
     return (
         <FlexGrid className={styles['request-detail']} key={detail.notificationID}>

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import styles from '../scss/manage/manage-employee.module.scss';
 import {
-    Form,
-    Select,
-    SelectItem,
-    Button,
     Accordion,
     AccordionItem,
-    SelectableTile,
+    Button,
+    Form,
     NumberInput,
+    Select,
+    SelectItem,
+    SelectableTile,
 } from '@carbon/react';
+import React, { useEffect, useState } from 'react';
+import styles from '../scss/manage/manage-employee.module.scss';
 
 const Promotion = () => {
 
@@ -134,6 +134,7 @@ const Promotion = () => {
 
                                 return (
                                     <SelectItem
+                                        key={i}
                                         text={`Employee ${i}`}
                                         value={i}
                                     />
