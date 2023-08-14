@@ -18,7 +18,6 @@ import {
     TableToolbarSearch
 } from '@carbon/react';
 import axios from "axios";
-import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from "react";
 import { dateFormat } from '../../utils/utils';
 import headers from './common/header';
@@ -129,7 +128,8 @@ const Log = ({ raw, getInformationByPosition }) => {
                                                 ? <TableRow>
                                                     <TableCell>
                                                         <div className="empty-state">
-                                                            <Image src='https://quantum-computing.ibm.com/_nuxt/img/magnify.483b9f4.svg' alt='magnify' />
+                                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                            <img src='https://quantum-computing.ibm.com/_nuxt/img/magnify.483b9f4.svg' alt='magnify' />
                                                             <div className="title">No records found</div>
                                                             <div className="description">Try adjusting your search or filter options to find what you are looking for.</div>
                                                         </div>

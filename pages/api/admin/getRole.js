@@ -1,17 +1,15 @@
-/* eslint-disable import/no-anonymous-default-export */
-import excuteQuery from '../../../config/db';
+import { httpGet } from '../baseHttp';
 
-export default async (req, res) => {
+const getRole = async (req, res) => {
 
-    if (req.method === 'GET') {
-        try {
-            const result = await excuteQuery({
-                query: `SELECT * FROM UserRole`,
-                values: [],
-            });
-            res.status(200).json(result);
-        } catch (error) {
-            res.status(500).json(error);
-        }
-    }
+    const queryString = `
+        SELECT * 
+        FROM UserRole
+    `;
+
+    const { status, result } = await httpGet(req.method, queryString);
+
+    res.status(status).json(result);
 }
+
+export default getRole;

@@ -24,6 +24,8 @@
     "react-dom": "18.1.0",
     "sass": "^1.51.0",
     "serverless-mysql": "^1.5.4",
+    "sqlite": "^5.0.1",
+    "sqlite3": "^5.1.6",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

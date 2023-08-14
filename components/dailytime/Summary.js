@@ -11,7 +11,6 @@ import {
     Tile
 } from '@carbon/react';
 import { Time, WarningOther } from '@carbon/react/icons';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styles from '../../scss/dailytime/summary.module.scss';
@@ -189,7 +188,8 @@ const Summary = ({ clock, log }) => {
                     </Tile>
                 </Column>
                 <Column max={7} className={styles.space}>
-                    <Image src='tab-illo.png' alt='tab-illo' />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src='tab-illo.png' alt='tab-illo' />
                 </Column>
             </Row>
         </FlexGrid>

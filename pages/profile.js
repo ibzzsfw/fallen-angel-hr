@@ -14,7 +14,6 @@ import { Edit } from '@carbon/react/icons';
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import styles from "../scss/profile.module.scss";
-import Image from "next/image";
 
 
 const Profile = ({ getProfile, getRole }) => {
@@ -104,7 +103,8 @@ const Profile = ({ getProfile, getRole }) => {
         <FlexGrid className={styles.profile}>
             <Row>
                 <Column max={4} className={styles.picContainer}>
-                    <Image
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                         alt="Profile picture"
                         src="/profile.jpeg"
                         className={styles.Image}

@@ -1,16 +1,25 @@
-import excuteQuery from '../../../config/db';
+import { openDB } from '../../../config/sqlite';
 
-export default async(req, res) => {
+const getPosition = async (req, res) => {
+
+    const db = await openDB();
 
     let departmentid = req.headers.departmentid
-    
-    try {
-        const result = await excuteQuery({
-            query: `SELECT * FROM position WHERE departmentID = ?;`,
-            values: [departmentid],
-        });
-        res.status(200).json(result);
-    } catch (error) {
-        res.status(500).json(error);
+
+    const queryString = `
+        SELECT * 
+        FROM position 
+        WHERE departmentID = '${departmentid}'
+    `;
+
+    if (req.method === 'GET') {
+        try {
+            const result = await db.all(queryString);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json(error);
+        }
     }
 }
+
+export default getPosition;

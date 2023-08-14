@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/rules-of-hooks */
 import {
     Button,
@@ -13,7 +14,6 @@ import {
 } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
 import axios from 'axios';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import styles from '../scss/login.module.scss';
@@ -76,7 +76,7 @@ const index = () => {
                 <Row className={styles.wrap}>
                     <Column max={5} xlg={7} lg={8} md={5} sm={4}>
                         <Row className={styles['header-wrapper']}>
-                            <Image src='https://cloud.ibm.com/login/static/img/IBM_Cloud_White_Rev_RGB.png' alt="logo" />
+                            <img src='/IBM_Cloud_White_Rev_RGB.png' alt="logo" />
                             <div className={styles.title}>Log in
                                 <span>{' to '}<span className="span">Human Resources</span></span>
                             </div>

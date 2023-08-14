@@ -47,7 +47,6 @@ const NewEmployee = ({ getRole, getDepartment }) => {
                     departmentid: selectedDepartment,
                 }
             }).then(res => {
-                console.log('position', res.data);
                 setGetPosition(res.data);
             })
         }
@@ -90,7 +89,7 @@ const NewEmployee = ({ getRole, getDepartment }) => {
                                 value="placeholder-item"
                             />
                             {
-                                getRole &&
+                                getRole !== null &&
                                 getRole.map(role => {
                                     return (
                                         <SelectItem

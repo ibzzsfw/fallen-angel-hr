@@ -63,13 +63,13 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      getStatusCount: getStatusCount,
-      getHeadCount: getHeadCount,
-      getPositionCount: getPositionCount,
-      getDepartmentCount: getDepartmentCount,
-      getSalaryCount: getSalaryCount,
-      getNotification: getNotification,
-      getSex: getSex
+      getStatusCount,
+      getHeadCount,
+      getPositionCount,
+      getDepartmentCount,
+      getSalaryCount,
+      getNotification,
+      getSex
     }
   }
 }
